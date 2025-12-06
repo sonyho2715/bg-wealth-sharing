@@ -48,7 +48,9 @@ export async function login(formData: FormData) {
     session.isLoggedIn = true;
     await session.save();
 
-    return { success: true };
+    // Return success with redirect path based on role
+    const redirectTo = user.role === 'ADMIN' ? '/admin' : '/dashboard';
+    return { success: true, redirectTo };
   } catch (error) {
     console.error('Login error:', error);
     return { success: false, error: 'An error occurred. Please try again.' };
