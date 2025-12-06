@@ -9,6 +9,8 @@ import {
   ExternalLink,
   Download,
   MessageCircle,
+  PlayCircle,
+  ListVideo,
 } from 'lucide-react';
 import { getYouTubeEmbedUrl } from '@/data/onboarding-steps';
 
@@ -155,6 +157,48 @@ export default function ResourcesPage() {
               </div>
             );
           })}
+        </div>
+      </motion.div>
+
+      {/* Training Playlist */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.25 }}
+        className="bg-navy border border-gold/20 rounded-2xl p-6 mb-8"
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <ListVideo className="w-6 h-6 text-gold" />
+          <div>
+            <h2 className="text-xl font-semibold text-white">Training Playlist</h2>
+            <p className="text-white/60 text-sm">Complete video training series</p>
+          </div>
+        </div>
+
+        <div className="aspect-video rounded-xl overflow-hidden border border-gold/10">
+          <iframe
+            src="https://www.youtube.com/embed/videoseries?list=PL4wO4qYaKWFPpCcE7vWU9FUnWdbXkd29K"
+            title="BG Wealth Training Playlist"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        </div>
+
+        <div className="mt-4 flex items-center justify-between">
+          <p className="text-white/60 text-sm">
+            Watch all training videos in order for the best learning experience
+          </p>
+          <a
+            href="https://www.youtube.com/playlist?list=PL4wO4qYaKWFPpCcE7vWU9FUnWdbXkd29K"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-gold hover:text-gold-light transition-colors text-sm font-medium"
+          >
+            <PlayCircle className="w-4 h-4" />
+            Open in YouTube
+            <ExternalLink className="w-3 h-3" />
+          </a>
         </div>
       </motion.div>
 
