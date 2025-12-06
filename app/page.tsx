@@ -1,8 +1,6 @@
 import Navigation from '@/components/landing/Navigation';
 import HeroSection from '@/components/landing/HeroSection';
 import ProjectOverview from '@/components/landing/ProjectOverview';
-import ROICalculator from '@/components/tools/ROICalculator';
-import RiskAssessmentQuiz from '@/components/tools/RiskAssessmentQuiz';
 import AboutLeeMeadows from '@/components/landing/AboutLeeMeadows';
 import TestimonialsGrid from '@/components/landing/TestimonialsGrid';
 import CTASection from '@/components/landing/CTASection';
@@ -14,8 +12,6 @@ export default function HomePage() {
       <Navigation />
       <HeroSection />
       <ProjectOverview />
-      <ROICalculator />
-      <RiskAssessmentQuiz />
       <AboutLeeMeadows />
       <TestimonialsGrid />
       <CTASection />

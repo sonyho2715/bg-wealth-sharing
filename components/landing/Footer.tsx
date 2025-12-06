@@ -36,13 +36,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#calculator" className="text-white/60 hover:text-gold transition-colors">
-                  ROI Calculator
-                </a>
-              </li>
-              <li>
-                <a href="#risk-quiz" className="text-white/60 hover:text-gold transition-colors">
-                  Risk Assessment
+                <a href="#about" className="text-white/60 hover:text-gold transition-colors">
+                  About Lee Meadows
                 </a>
               </li>
               <li>

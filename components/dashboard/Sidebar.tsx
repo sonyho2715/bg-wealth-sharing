@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import {
   TrendingUp,
   Home,
@@ -13,7 +13,9 @@ import {
   Menu,
   X,
   ChevronRight,
+  User,
 } from 'lucide-react';
+import { logout } from '@/app/actions/auth';
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Home' },
@@ -22,15 +24,17 @@ const navItems = [
   { href: '/dashboard/resources', icon: BookOpen, label: 'Resources' },
 ];
 
-export default function Sidebar() {
-  const pathname = usePathname();
-  const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleLogout = () => {
-    localStorage.removeItem('bg-wealth-session');
-    router.push('/login');
+interface SidebarProps {
+  user: {
+    firstName: string;
+    lastName: string;
+    email: string;
   };
+}
+
+export default function Sidebar({ user }: SidebarProps) {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -66,6 +70,21 @@ export default function Sidebar() {
           </Link>
         </div>
 
+        {/* User Info */}
+        <div className="p-4 border-b border-gold/20">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
+              <User className="w-5 h-5 text-gold" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-white font-medium truncate">
+                {user.firstName} {user.lastName}
+              </p>
+              <p className="text-white/50 text-sm truncate">{user.email}</p>
+            </div>
+          </div>
+        </div>
+
         {/* Navigation */}
         <nav className="p-4 space-y-2">
           {navItems.map((item) => {
@@ -91,13 +110,15 @@ export default function Sidebar() {
 
         {/* Logout */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gold/20">
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-white/70 hover:text-red-400 hover:bg-red-500/10 transition-colors"
-          >
-            <LogOut className="w-5 h-5" />
-            <span className="font-medium">Logout</span>
-          </button>
+          <form action={logout}>
+            <button
+              type="submit"
+              className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-white/70 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+              <span className="font-medium">Logout</span>
+            </button>
+          </form>
         </div>
       </aside>
     </>

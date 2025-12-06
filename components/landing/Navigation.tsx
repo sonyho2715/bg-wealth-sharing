@@ -9,8 +9,7 @@ export default function Navigation() {
 
   const navLinks = [
     { href: '#overview', label: 'Overview' },
-    { href: '#calculator', label: 'Calculator' },
-    { href: '#risk-quiz', label: 'Risk Quiz' },
+    { href: '#about', label: 'About Lee' },
     { href: '#testimonials', label: 'Success Stories' },
   ];
 

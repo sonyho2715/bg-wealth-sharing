@@ -4,32 +4,27 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { TrendingUp, Eye, EyeOff, ArrowLeft, Lock, Mail } from 'lucide-react';
+import { login } from '@/app/actions/auth';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
-    // Simulate login - in production, this would be a real API call
-    try {
-      // Demo: Accept any email/password for testing
-      await new Promise(resolve => setTimeout(resolve, 1000));
+    const formData = new FormData(e.currentTarget);
+    const result = await login(formData);
 
-      // Store session in localStorage for demo purposes
-      localStorage.setItem('bg-wealth-session', JSON.stringify({ email, isLoggedIn: true }));
-
+    if (result.success) {
       router.push('/dashboard');
-    } catch {
-      setError('Invalid credentials. Please try again.');
-    } finally {
+      router.refresh();
+    } else {
+      setError(result.error || 'Login failed');
       setIsLoading(false);
     }
   };
@@ -85,9 +80,8 @@ export default function LoginPage() {
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                 <input
                   id="email"
+                  name="email"
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors"
                   placeholder="you@example.com"
@@ -103,9 +97,8 @@ export default function LoginPage() {
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                 <input
                   id="password"
+                  name="password"
                   type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   required
                   className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-12 py-3 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors"
                   placeholder="Enter your password"
@@ -135,13 +128,6 @@ export default function LoginPage() {
               )}
             </button>
           </form>
-
-          {/* Demo notice */}
-          <div className="mt-6 p-4 bg-gold/10 rounded-lg border border-gold/20">
-            <p className="text-sm text-gold text-center">
-              <strong>Demo Mode:</strong> Enter any email and password to access the dashboard.
-            </p>
-          </div>
 
           {/* Help text */}
           <p className="text-center text-white/40 text-sm mt-6">
