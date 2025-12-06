@@ -11,7 +11,10 @@ import {
   MessageCircle,
   PlayCircle,
   ListVideo,
+  ImageIcon,
+  Users,
 } from 'lucide-react';
+import Image from 'next/image';
 import { getYouTubeEmbedUrl } from '@/data/onboarding-steps';
 
 const tutorialVideos = [
@@ -27,7 +30,7 @@ const tutorialVideos = [
   },
   {
     title: 'Bonchat Communication',
-    url: 'https://youtu.be/yuYJlucjvgM',
+    url: 'https://www.youtube.com/watch?v=yuYJIucjvgM',
     description: 'Setting up and using Bonchat for team communication.',
   },
   {
@@ -199,6 +202,51 @@ export default function ResourcesPage() {
             Open in YouTube
             <ExternalLink className="w-3 h-3" />
           </a>
+        </div>
+      </motion.div>
+
+      {/* Team & Guides Gallery */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.28 }}
+        className="bg-navy border border-gold/20 rounded-2xl p-6 mb-8"
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <Users className="w-6 h-6 text-gold" />
+          <div>
+            <h2 className="text-xl font-semibold text-white">Team & Guides</h2>
+            <p className="text-white/60 text-sm">Meet the team and helpful visual guides</p>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="bg-navy-dark rounded-xl overflow-hidden border border-gold/10">
+            <Image
+              src="/images/bg/agent-team.png"
+              alt="BG Agent Team"
+              width={600}
+              height={400}
+              className="w-full h-auto"
+            />
+            <div className="p-4">
+              <h3 className="font-semibold text-white">Our Agent Team</h3>
+              <p className="text-sm text-white/60">The leadership supporting your success</p>
+            </div>
+          </div>
+          <div className="bg-navy-dark rounded-xl overflow-hidden border border-gold/10">
+            <Image
+              src="/images/bg/transaction-fails.png"
+              alt="Transaction Troubleshooting"
+              width={600}
+              height={400}
+              className="w-full h-auto"
+            />
+            <div className="p-4">
+              <h3 className="font-semibold text-white">Transaction Troubleshooting</h3>
+              <p className="text-sm text-white/60">What to do if a transaction fails</p>
+            </div>
+          </div>
         </div>
       </motion.div>
 

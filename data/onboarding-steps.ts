@@ -42,7 +42,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     title: "Create Bonchat",
     description: "Download and set up Bonchat for team communication.",
     instruction: "Download Bonchat. Server: S333666.",
-    videoUrl: "https://youtu.be/yuYJlucjvgM",
+    videoUrl: "https://www.youtube.com/watch?v=yuYJIucjvgM",
     videoType: 'youtube',
   },
   {
