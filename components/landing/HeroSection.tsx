@@ -27,7 +27,7 @@ export default function HeroSection() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 mb-6">
               <Shield className="w-4 h-4 text-gold" />
-              <span className="text-sm text-gold">Trusted by 1000+ Investors</span>
+              <span className="text-sm text-gold">Trusted by 500,000+ Investors</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
@@ -62,14 +62,14 @@ export default function HeroSection() {
               <div className="text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
                   <TrendingUp className="w-5 h-5 text-gold" />
-                  <span className="text-2xl font-bold text-white">$5M+</span>
+                  <span className="text-2xl font-bold text-white">$100M+</span>
                 </div>
                 <p className="text-sm text-white/60">Total Volume</p>
               </div>
               <div className="text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
                   <Users className="w-5 h-5 text-gold" />
-                  <span className="text-2xl font-bold text-white">1000+</span>
+                  <span className="text-2xl font-bold text-white">500,000+</span>
                 </div>
                 <p className="text-sm text-white/60">Active Members</p>
               </div>
