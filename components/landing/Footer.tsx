@@ -36,14 +36,24 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#about" className="text-white/60 hover:text-gold transition-colors">
-                  About Lee Meadows
+                <a href="#calculator" className="text-white/60 hover:text-gold transition-colors">
+                  ROI Calculator
+                </a>
+              </li>
+              <li>
+                <a href="#risk-quiz" className="text-white/60 hover:text-gold transition-colors">
+                  Risk Assessment
                 </a>
               </li>
               <li>
                 <a href="#testimonials" className="text-white/60 hover:text-gold transition-colors">
                   Success Stories
                 </a>
+              </li>
+              <li>
+                <Link href="/register" className="text-gold hover:text-gold-light transition-colors font-medium">
+                  Free Live Training
+                </Link>
               </li>
               <li>
                 <Link href="/login" className="text-white/60 hover:text-gold transition-colors">

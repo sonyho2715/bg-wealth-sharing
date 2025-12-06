@@ -9,9 +9,14 @@ export default function Navigation() {
 
   const navLinks = [
     { href: '#overview', label: 'Overview' },
-    { href: '#about', label: 'About Lee' },
+    { href: '#calculator', label: 'Calculator' },
+    { href: '#risk-quiz', label: 'Risk Quiz' },
     { href: '#testimonials', label: 'Success Stories' },
-    { href: '/login', label: 'Member Login' },
+  ];
+
+  const ctaLinks = [
+    { href: '/register', label: 'Free Training', primary: true },
+    { href: '/login', label: 'Login', primary: false },
   ];
 
   return (
@@ -27,20 +32,31 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  link.href === '/login'
-                    ? 'bg-gold text-navy-dark px-4 py-2 rounded-lg hover:bg-gold-light'
-                    : 'text-white/80 hover:text-gold'
-                }`}
+                className="text-sm font-medium text-white/80 hover:text-gold transition-colors"
               >
                 {link.label}
               </Link>
             ))}
+            <div className="flex items-center gap-2 ml-2">
+              {ctaLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors ${
+                    link.primary
+                      ? 'bg-gold text-navy-dark hover:bg-gold-light'
+                      : 'border border-gold/30 text-gold hover:bg-gold/10'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -62,15 +78,27 @@ export default function Navigation() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`text-sm font-medium transition-colors ${
-                    link.href === '/login'
-                      ? 'bg-gold text-navy-dark px-4 py-2 rounded-lg hover:bg-gold-light text-center'
-                      : 'text-white/80 hover:text-gold'
-                  }`}
+                  className="text-sm font-medium text-white/80 hover:text-gold transition-colors"
                 >
                   {link.label}
                 </Link>
               ))}
+              <div className="flex flex-col gap-2 pt-2 border-t border-gold/20">
+                {ctaLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`text-sm font-medium px-4 py-2 rounded-lg text-center transition-colors ${
+                      link.primary
+                        ? 'bg-gold text-navy-dark hover:bg-gold-light'
+                        : 'border border-gold/30 text-gold hover:bg-gold/10'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         )}
