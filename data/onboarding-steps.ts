@@ -33,7 +33,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     id: 3,
     title: "Setup Crypto Wallet & Recharge",
     description: "Prepare your cryptocurrency wallet for funding your account.",
-    instruction: "Prepare your USDT (TRC20 or ERC20) wallet.",
+    instruction: "Prepare your USDT (TRC20 or ERC20) wallet. Minimum $300 investment required.",
     videoUrl: "https://youtu.be/wH89VHy9Fec",
     videoType: 'youtube',
   },
@@ -47,14 +47,6 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
   },
   {
     id: 5,
-    title: "Deposit Funds",
-    description: "Fund your account with the minimum investment amount.",
-    instruction: "Minimum $300 investment required.",
-    videoUrl: "https://youtu.be/dA42P1SNqao",
-    videoType: 'youtube',
-  },
-  {
-    id: 6,
     title: "Activation",
     description: "Get your account activated by the team.",
     instruction: "Contact Lee Meadows/Admin via Bonchat. Send Screenshot of DSJ Account ID.",
@@ -62,7 +54,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     videoType: 'youtube-short',
   },
   {
-    id: 7,
+    id: 6,
     title: "Trade & Signals",
     description: "Start trading with the team's daily signals.",
     instruction: "Follow the 1 PM and 7 PM EST signals.",
@@ -70,6 +62,14 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     videoType: 'youtube-short',
     externalLink: "https://youtube.com/shorts/nbittfIr6Yk",
     externalLinkText: "Watch Bonus Signals Video",
+  },
+  {
+    id: 7,
+    title: "How to Withdraw",
+    description: "Learn how to withdraw your profits from DSJ.",
+    instruction: "Your wallet, a selfie with your ID form required for first withdrawal.",
+    videoUrl: "https://youtu.be/dA42P1SNqao",
+    videoType: 'youtube',
   },
 ];
 

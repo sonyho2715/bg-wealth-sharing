@@ -4,7 +4,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, TrendingUp } from 'lucide-react';
 
-export default function Navigation() {
+interface NavigationProps {
+  referralCode?: string;
+}
+
+export default function Navigation({ referralCode }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
@@ -13,8 +17,10 @@ export default function Navigation() {
     { href: '#testimonials', label: 'Success Stories' },
   ];
 
+  const registerHref = referralCode ? `/register?ref=${referralCode}` : '/register';
+
   const ctaLinks = [
-    { href: '/register', label: 'Free Training', primary: true },
+    { href: registerHref, label: 'Free Training', primary: true },
     { href: '/login', label: 'Login', primary: false },
   ];
 

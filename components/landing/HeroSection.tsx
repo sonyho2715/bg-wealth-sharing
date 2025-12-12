@@ -4,7 +4,12 @@ import { motion } from 'framer-motion';
 import { Play, ArrowRight, Shield, TrendingUp, Users } from 'lucide-react';
 import Link from 'next/link';
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  referralCode?: string;
+}
+
+export default function HeroSection({ referralCode }: HeroSectionProps) {
+  const registerHref = referralCode ? `/register?ref=${referralCode}` : '/login';
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Background with gradient overlay */}
@@ -42,7 +47,7 @@ export default function HeroSection() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link
-                href="/login"
+                href={registerHref}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold text-navy-dark font-semibold rounded-lg hover:bg-gold-light transition-all animate-pulse-gold"
               >
                 Get Started Today

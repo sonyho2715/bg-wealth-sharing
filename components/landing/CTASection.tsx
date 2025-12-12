@@ -4,7 +4,12 @@ import { motion } from 'framer-motion';
 import { Video, ArrowRight, Calendar, Users, Clock } from 'lucide-react';
 import Link from 'next/link';
 
-export default function CTASection() {
+interface CTASectionProps {
+  referralCode?: string;
+}
+
+export default function CTASection({ referralCode }: CTASectionProps) {
+  const registerHref = referralCode ? `/register?ref=${referralCode}` : '/register';
   return (
     <section className="py-20 bg-gradient-to-b from-navy-dark to-[#0a0a14] relative overflow-hidden">
       {/* Background decorations */}
@@ -57,7 +62,7 @@ export default function CTASection() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/register"
+              href={registerHref}
               className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-gold to-gold-light text-navy-dark font-bold text-lg rounded-xl hover:shadow-lg hover:shadow-gold/30 transition-all duration-300"
             >
               <Video className="w-5 h-5" />

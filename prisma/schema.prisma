@@ -102,3 +102,17 @@ enum AnnouncementType {
   ZOOM
   URGENT
 }
+
+model ReferralVisit {
+  id           String   @id @default(cuid())
+  referralCode String
+  visitorIp    String?
+  userAgent    String?
+  source       String?  // utm_source tracking
+  visitedAt    DateTime @default(now())
+  converted    Boolean  @default(false)
+
+  @@index([referralCode])
+  @@index([visitedAt])
+  @@map("referral_visits")
+}

@@ -6,35 +6,41 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Seeding database...');
 
-  // Create admin user
-  const adminPassword = await bcrypt.hash('admin123', 12);
-  const admin = await prisma.user.upsert({
-    where: { email: 'admin@bgwealth.com' },
-    update: {},
+  // Create Sony admin account
+  const sonyPassword = await bcrypt.hash('BGWealth2024!', 12);
+  const sony = await prisma.user.upsert({
+    where: { email: 'mrsonyho@gmail.com' },
+    update: {
+      password: sonyPassword,
+      role: 'ADMIN',
+    },
     create: {
-      email: 'admin@bgwealth.com',
-      password: adminPassword,
+      email: 'mrsonyho@gmail.com',
+      password: sonyPassword,
+      firstName: 'Sony',
+      lastName: 'Ho',
+      role: 'ADMIN',
+    },
+  });
+  console.log('Created/updated admin user:', sony.email);
+
+  // Create Lee admin account
+  const leePassword = await bcrypt.hash('BGWealth2024!', 12);
+  const lee = await prisma.user.upsert({
+    where: { email: 'lee@bgwealth.com' },
+    update: {
+      password: leePassword,
+      role: 'ADMIN',
+    },
+    create: {
+      email: 'lee@bgwealth.com',
+      password: leePassword,
       firstName: 'Lee',
       lastName: 'Meadows',
       role: 'ADMIN',
     },
   });
-  console.log('Created admin user:', admin.email);
-
-  // Create demo member
-  const memberPassword = await bcrypt.hash('member123', 12);
-  const member = await prisma.user.upsert({
-    where: { email: 'member@bgwealth.com' },
-    update: {},
-    create: {
-      email: 'member@bgwealth.com',
-      password: memberPassword,
-      firstName: 'Demo',
-      lastName: 'Member',
-      role: 'MEMBER',
-    },
-  });
-  console.log('Created member user:', member.email);
+  console.log('Created/updated admin user:', lee.email);
 
   console.log('Seeding complete!');
 }
