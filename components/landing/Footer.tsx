@@ -79,8 +79,8 @@ export default function Footer() {
                 <div className="flex items-start gap-2 text-white/60">
                   <MessageCircle className="w-4 h-4 mt-0.5" />
                   <div className="text-sm">
-                    <p>Bonchat: {CONFIG.bonchat.existingMembers.server}</p>
-                    <p className="text-white/40 text-xs">New members: {CONFIG.bonchat.newMembers.server}</p>
+                    <p>Connect with your leader</p>
+                    <p className="text-white/40 text-xs">via Facebook group chat</p>
                   </div>
                 </div>
               </li>
