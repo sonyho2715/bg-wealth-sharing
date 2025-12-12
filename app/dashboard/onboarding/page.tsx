@@ -7,12 +7,31 @@ import {
   Circle,
   ChevronDown,
   ChevronUp,
-  Play,
   ExternalLink,
   Copy,
   Check,
+  Clock,
+  UserPlus,
+  LogIn,
+  Wallet,
+  MessageCircle,
+  ClipboardList,
+  TrendingUp,
+  Target,
+  Download,
 } from 'lucide-react';
-import { ONBOARDING_STEPS, getYouTubeEmbedUrl } from '@/data/onboarding-steps';
+import { ONBOARDING_STEPS, getYouTubeEmbedUrl, OnboardingStep } from '@/data/onboarding-steps';
+
+const iconMap: Record<string, React.ElementType> = {
+  'user-plus': UserPlus,
+  'log-in': LogIn,
+  'wallet': Wallet,
+  'message-circle': MessageCircle,
+  'clipboard': ClipboardList,
+  'trending-up': TrendingUp,
+  'target': Target,
+  'download': Download,
+};
 
 export default function OnboardingPage() {
   const [expandedStep, setExpandedStep] = useState<number | null>(1);
@@ -66,7 +85,7 @@ export default function OnboardingPage() {
           New Member Onboarding
         </h1>
         <p className="text-white/60">
-          Follow these steps to set up your trading account
+          Follow these steps to set up your trading account. Each step has detailed instructions.
         </p>
       </motion.div>
 
@@ -89,6 +108,10 @@ export default function OnboardingPage() {
             className="h-full bg-gradient-to-r from-gold to-gold-light rounded-full"
           />
         </div>
+        <div className="flex items-center justify-between mt-2 text-xs text-white/40">
+          <span>{completedSteps.length} of {ONBOARDING_STEPS.length} steps completed</span>
+          <span>~{ONBOARDING_STEPS.reduce((acc, step) => acc + parseInt(step.time), 0)} min total</span>
+        </div>
       </motion.div>
 
       {/* Steps Timeline */}
@@ -96,7 +119,8 @@ export default function OnboardingPage() {
         {ONBOARDING_STEPS.map((step, index) => {
           const isExpanded = expandedStep === step.id;
           const isCompleted = completedSteps.includes(step.id);
-          const embedUrl = getYouTubeEmbedUrl(step.videoUrl);
+          const embedUrl = step.videoUrl ? getYouTubeEmbedUrl(step.videoUrl) : null;
+          const StepIcon = iconMap[step.icon] || Circle;
 
           return (
             <motion.div
@@ -118,20 +142,29 @@ export default function OnboardingPage() {
                 className="w-full flex items-center gap-4 p-4 text-left hover:bg-white/5 transition-colors"
               >
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
                     isCompleted
                       ? 'bg-green-500/20 text-green-400'
                       : 'bg-gold/10 text-gold'
                   }`}
                 >
                   {isCompleted ? (
-                    <CheckCircle2 className="w-5 h-5" />
+                    <CheckCircle2 className="w-6 h-6" />
                   ) : (
-                    <span className="font-semibold">{step.id}</span>
+                    <StepIcon className="w-6 h-6" />
                   )}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white">{step.title}</h3>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs bg-gold/20 text-gold px-2 py-0.5 rounded-full font-medium">
+                      Step {step.id}
+                    </span>
+                    <span className="text-xs text-white/40 flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {step.time}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-white mt-1">{step.title}</h3>
                   <p className="text-sm text-white/60">{step.description}</p>
                 </div>
                 <div className="text-gold">
@@ -155,18 +188,20 @@ export default function OnboardingPage() {
                   >
                     <div className="px-4 pb-4 pt-0">
                       <div className="border-t border-gold/10 pt-4">
-                        {/* Action or Instruction */}
-                        {(step.action || step.instruction) && (
-                          <div className="bg-navy-dark rounded-lg p-4 mb-4">
-                            <p className="text-white/80">
-                              {step.action || step.instruction}
-                            </p>
 
-                            {/* Copy referral link button for step 1 */}
-                            {step.id === 1 && (
+                        {/* Referral Link for Step 1 */}
+                        {step.id === 1 && (
+                          <div className="bg-gradient-to-r from-gold/20 to-gold/10 border border-gold/30 rounded-lg p-4 mb-4">
+                            <p className="text-white/80 text-sm mb-3">
+                              Use this invitation link to register:
+                            </p>
+                            <div className="flex items-center gap-2">
+                              <code className="flex-1 bg-navy-dark px-3 py-2 rounded text-gold text-sm font-mono">
+                                https://dsjex.com/register?ref=leemeadows
+                              </code>
                               <button
                                 onClick={copyReferralLink}
-                                className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-gold/10 border border-gold/30 rounded-lg text-gold hover:bg-gold/20 transition-colors"
+                                className="px-3 py-2 bg-gold text-navy-dark rounded font-medium hover:bg-gold-light transition-colors flex items-center gap-2"
                               >
                                 {copiedLink ? (
                                   <>
@@ -176,24 +211,50 @@ export default function OnboardingPage() {
                                 ) : (
                                   <>
                                     <Copy className="w-4 h-4" />
-                                    Copy Referral Link
+                                    Copy
                                   </>
                                 )}
                               </button>
-                            )}
+                            </div>
                           </div>
                         )}
 
-                        {/* Video */}
-                        <div className="aspect-video rounded-lg overflow-hidden bg-navy-dark mb-4">
-                          <iframe
-                            src={embedUrl}
-                            title={step.title}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            className="w-full h-full"
-                          />
+                        {/* Sub-Steps */}
+                        <div className="space-y-4 mb-4">
+                          {step.subSteps.map((subStep, subIndex) => (
+                            <div key={subIndex} className="bg-navy-dark/50 rounded-lg p-4">
+                              <h4 className="font-semibold text-white flex items-center gap-2 mb-3">
+                                <span className="w-6 h-6 bg-gold/20 text-gold rounded-full flex items-center justify-center text-xs font-bold">
+                                  {subIndex + 1}
+                                </span>
+                                {subStep.title}
+                              </h4>
+                              <ul className="space-y-2">
+                                {subStep.items.map((item, itemIndex) => (
+                                  <li key={itemIndex} className="flex items-start gap-3 text-white/70 text-sm">
+                                    <span className="w-5 h-5 bg-gold/10 text-gold rounded flex items-center justify-center flex-shrink-0 text-xs mt-0.5">
+                                      {itemIndex + 1}
+                                    </span>
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
                         </div>
+
+                        {/* Video */}
+                        {embedUrl && (
+                          <div className="aspect-video rounded-lg overflow-hidden bg-navy-dark mb-4">
+                            <iframe
+                              src={embedUrl}
+                              title={step.title}
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                              className="w-full h-full"
+                            />
+                          </div>
+                        )}
 
                         {/* External Link */}
                         {step.externalLink && (
@@ -249,11 +310,11 @@ export default function OnboardingPage() {
         >
           <CheckCircle2 className="w-12 h-12 text-green-400 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-white mb-2">
-            Congratulations!
+            Congratulations! 🎉
           </h2>
           <p className="text-white/70 max-w-md mx-auto">
             You have completed all onboarding steps. You are now ready to start trading
-            with the Lee Meadows team!
+            with the Lee Meadows team! Remember: 1:20 PM and 7:20 PM EST for signals.
           </p>
         </motion.div>
       )}
