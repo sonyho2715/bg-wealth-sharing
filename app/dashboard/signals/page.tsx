@@ -1,7 +1,59 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Radio, Clock, Bell, AlertCircle, TrendingUp, Zap } from 'lucide-react';
+import { Radio, Clock, Bell, AlertCircle, TrendingUp, Zap, Users, Video, MessageSquare, Megaphone } from 'lucide-react';
+import Image from 'next/image';
+
+const meetingSchedule = [
+  {
+    title: 'BG Newcomers',
+    icon: Users,
+    color: 'purple',
+    description: 'Training & basic guidance for new members',
+    schedule: 'Monday - Friday | 5:00 PM EST',
+    note: 'You will be invited to this group',
+  },
+  {
+    title: 'BG Agent Conference',
+    icon: TrendingUp,
+    color: 'blue',
+    description: 'Business & strategy updates',
+    schedule: 'Tuesday, Thursday, Saturday | 5:00 PM EST',
+    note: 'For members Level 1 and above',
+  },
+  {
+    title: 'BG Family Meeting',
+    icon: MessageSquare,
+    color: 'green',
+    description: 'Chat only (text messages, not Zoom)',
+    schedule: 'Monday & Friday | 8:00 PM EST',
+    note: 'BG Family groups: 111 / 222 / 333 / 444 / 555',
+  },
+  {
+    title: 'Live Zoom with the Professor',
+    icon: Video,
+    color: 'red',
+    description: 'Live teaching & market overview',
+    schedule: 'Every Sunday | 8:00 PM EST',
+    note: 'Zoom link shared before meeting',
+  },
+  {
+    title: 'BG 015',
+    icon: Radio,
+    color: 'gold',
+    description: 'Receive daily trading codes',
+    schedule: 'Daily',
+    note: 'Follow instructions carefully',
+  },
+  {
+    title: 'BG Notification',
+    icon: Megaphone,
+    color: 'cyan',
+    description: 'Official announcements',
+    schedule: 'As needed',
+    note: 'Latest updates from BG assistant',
+  },
+];
 
 const signalTimes = [
   {
@@ -39,6 +91,15 @@ const tips = [
   },
 ];
 
+const colorClasses: Record<string, { bg: string; border: string; text: string }> = {
+  purple: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400' },
+  blue: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400' },
+  green: { bg: 'bg-green-500/10', border: 'border-green-500/30', text: 'text-green-400' },
+  red: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400' },
+  gold: { bg: 'bg-gold/10', border: 'border-gold/30', text: 'text-gold' },
+  cyan: { bg: 'bg-cyan-500/10', border: 'border-cyan-500/30', text: 'text-cyan-400' },
+};
+
 export default function SignalsPage() {
   return (
     <div className="max-w-4xl mx-auto">
@@ -50,10 +111,61 @@ export default function SignalsPage() {
         className="mb-8"
       >
         <h1 className="text-3xl font-bold text-white mb-2">
-          Trading Signals
+          Meetings & Signals
         </h1>
         <p className="text-white/60">
-          Follow the daily signals to maximize your trading success
+          Stay connected with all BG meetings and daily trading signals
+        </p>
+      </motion.div>
+
+      {/* Meeting & Activity Schedule */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="bg-navy border border-gold/20 rounded-2xl p-6 mb-8"
+      >
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <Clock className="w-6 h-6 text-gold" />
+            <h2 className="text-xl font-semibold text-white">Meeting & Activity Schedule</h2>
+          </div>
+          <span className="text-xs text-white/40 bg-white/5 px-2 py-1 rounded">All times EST</span>
+        </div>
+
+        <div className="grid gap-4">
+          {meetingSchedule.map((meeting, index) => {
+            const colors = colorClasses[meeting.color];
+            const IconComponent = meeting.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                className={`${colors.bg} ${colors.border} border rounded-xl p-4`}
+              >
+                <div className="flex items-start gap-4">
+                  <div className={`p-2 rounded-lg ${colors.bg}`}>
+                    <IconComponent className={`w-5 h-5 ${colors.text}`} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-white mb-1">{meeting.title}</h3>
+                    <p className="text-white/60 text-sm mb-2">{meeting.description}</p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`${colors.text} text-sm font-medium`}>{meeting.schedule}</span>
+                      <span className="text-white/40">•</span>
+                      <span className="text-white/50 text-sm">{meeting.note}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <p className="text-center text-gold text-sm mt-6 font-medium">
+          Save & pin this schedule so you never miss a BG meeting
         </p>
       </motion.div>
 
@@ -61,12 +173,12 @@ export default function SignalsPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
         className="bg-navy border border-gold/20 rounded-2xl p-6 mb-8"
       >
         <div className="flex items-center gap-3 mb-6">
           <Radio className="w-6 h-6 text-gold" />
-          <h2 className="text-xl font-semibold text-white">Daily Signal Schedule</h2>
+          <h2 className="text-xl font-semibold text-white">Daily Trading Signals</h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
@@ -113,7 +225,7 @@ export default function SignalsPage() {
             <h3 className="font-medium text-white mb-3">Bonus Signals Tutorial</h3>
             <div className="aspect-video rounded-lg overflow-hidden bg-navy-dark">
               <iframe
-                src="https://www.youtube.com/embed/nbittflr6Yk"
+                src="https://www.youtube.com/embed/nbittfIr6Yk"
                 title="Bonus Signals Tutorial"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -160,11 +272,16 @@ export default function SignalsPage() {
           <AlertCircle className="w-6 h-6 text-gold flex-shrink-0" />
           <div>
             <h3 className="font-semibold text-white mb-2">Important Reminder</h3>
-            <p className="text-white/70">
+            <p className="text-white/70 mb-3">
               Trading signals are sent via Bonchat at the scheduled times. Make sure your Bonchat
-              notifications are enabled and you are connected to server <strong className="text-gold">S333666</strong>.
-              Contact your team leader if you miss a signal.
+              notifications are enabled. Contact your team leader if you miss a signal.
             </p>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <span className="text-white/60 text-sm">Your Bonchat Server:</span>
+              <span className="text-gold font-semibold text-sm">Existing Members: S333666</span>
+              <span className="text-white/40 hidden sm:inline">|</span>
+              <span className="text-blue-400 font-semibold text-sm">New Members (Dec 9+): BG2022</span>
+            </div>
           </div>
         </div>
       </motion.div>

@@ -25,9 +25,12 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <TrendingUp className="w-8 h-8 text-gold" />
-            <span className="font-bold text-xl text-white">
-              BG Wealth <span className="text-gold">Sharing</span>
-            </span>
+            <div className="flex flex-col leading-tight">
+              <span className="font-bold text-lg text-white">
+                Lee Meadows <span className="text-gold">Team</span>
+              </span>
+              <span className="text-xs text-white/50">BG Wealth Sharing</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

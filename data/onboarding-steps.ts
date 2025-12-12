@@ -68,7 +68,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     instruction: "Follow the 1 PM and 7 PM EST signals.",
     videoUrl: "https://youtube.com/shorts/yF9BGqn-JO4",
     videoType: 'youtube-short',
-    externalLink: "https://youtube.com/shorts/nbittflr6Yk",
+    externalLink: "https://youtube.com/shorts/nbittfIr6Yk",
     externalLinkText: "Watch Bonus Signals Video",
   },
 ];

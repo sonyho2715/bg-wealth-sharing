@@ -2,17 +2,12 @@
 
 import { motion } from 'framer-motion';
 import {
-  BookOpen,
   Video,
-  FileText,
   HelpCircle,
   ExternalLink,
-  Download,
   MessageCircle,
-  PlayCircle,
-  ListVideo,
-  ImageIcon,
   Users,
+  AlertCircle,
 } from 'lucide-react';
 import Image from 'next/image';
 import { getYouTubeEmbedUrl } from '@/data/onboarding-steps';
@@ -45,7 +40,7 @@ const quickLinks = [
     icon: MessageCircle,
     title: 'Bonchat',
     description: 'Team communication app',
-    info: 'Server: S333666',
+    info: 'Existing: S333666 | New (Dec 9+): BG2022',
     link: '#',
   },
   {
@@ -68,7 +63,7 @@ const faqs = [
   },
   {
     question: 'How do I contact support?',
-    answer: 'Contact Lee Meadows or your team admin via Bonchat on server S333666.',
+    answer: 'Contact Lee Meadows or your team admin via Bonchat. Existing members use S333666, new members (Dec 9, 2025+) use BG2022 with admins Elena03 or Stephen03.',
   },
   {
     question: 'What wallet types are accepted?',
@@ -163,47 +158,6 @@ export default function ResourcesPage() {
         </div>
       </motion.div>
 
-      {/* Training Playlist */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.25 }}
-        className="bg-navy border border-gold/20 rounded-2xl p-6 mb-8"
-      >
-        <div className="flex items-center gap-3 mb-6">
-          <ListVideo className="w-6 h-6 text-gold" />
-          <div>
-            <h2 className="text-xl font-semibold text-white">Training Playlist</h2>
-            <p className="text-white/60 text-sm">Complete video training series</p>
-          </div>
-        </div>
-
-        <div className="aspect-video rounded-xl overflow-hidden border border-gold/10">
-          <iframe
-            src="https://www.youtube.com/embed/videoseries?list=PL4wO4qYaKWFPpCcE7vWU9FUnWdbXkd29K"
-            title="BG Wealth Training Playlist"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
-          />
-        </div>
-
-        <div className="mt-4 flex items-center justify-between">
-          <p className="text-white/60 text-sm">
-            Watch all training videos in order for the best learning experience
-          </p>
-          <a
-            href="https://www.youtube.com/playlist?list=PL4wO4qYaKWFPpCcE7vWU9FUnWdbXkd29K"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-gold hover:text-gold-light transition-colors text-sm font-medium"
-          >
-            <PlayCircle className="w-4 h-4" />
-            Open in YouTube
-            <ExternalLink className="w-3 h-3" />
-          </a>
-        </div>
-      </motion.div>
 
       {/* Team & Guides Gallery */}
       <motion.div
@@ -275,6 +229,31 @@ export default function ResourcesPage() {
         </div>
       </motion.div>
 
+      {/* Bonchat Server Update Notice */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.35 }}
+        className="mt-8 bg-blue-500/10 border border-blue-500/30 rounded-2xl p-6"
+      >
+        <div className="flex items-start gap-4">
+          <AlertCircle className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
+          <div>
+            <h3 className="font-semibold text-white mb-2">Bonchat Server Update (Dec 9, 2025)</h3>
+            <p className="text-white/70 mb-3">
+              Starting December 9, 2025, all <strong className="text-white">NEW MEMBERS</strong> will log into Bonchat using:
+            </p>
+            <div className="bg-navy rounded-lg p-4 border border-blue-500/20">
+              <p className="text-blue-400 font-semibold mb-2">Server ID: BG2022</p>
+              <p className="text-white/60 text-sm">Admins: Elena03, Stephen03</p>
+            </div>
+            <p className="text-green-400 text-sm mt-3 font-medium">
+              ✓ Existing members DO NOT need to change
+            </p>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Contact Support */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -287,8 +266,15 @@ export default function ResourcesPage() {
         <p className="text-white/70 max-w-md mx-auto mb-4">
           Connect with your team leader or admin through Bonchat for personalized assistance.
         </p>
-        <div className="inline-block px-4 py-2 bg-navy rounded-lg border border-gold/30">
-          <span className="text-gold font-semibold">Bonchat Server: S333666</span>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="px-4 py-2 bg-navy rounded-lg border border-gold/30">
+            <span className="text-white/60 text-sm">Existing Members:</span>
+            <span className="text-gold font-semibold ml-2">S333666</span>
+          </div>
+          <div className="px-4 py-2 bg-navy rounded-lg border border-blue-500/30">
+            <span className="text-white/60 text-sm">New Members:</span>
+            <span className="text-blue-400 font-semibold ml-2">BG2022</span>
+          </div>
         </div>
       </motion.div>
     </div>

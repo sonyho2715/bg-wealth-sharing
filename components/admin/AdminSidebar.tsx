@@ -14,6 +14,7 @@ import {
   X,
   ChevronRight,
   Shield,
+  Megaphone,
 } from 'lucide-react';
 import { logout } from '@/app/actions/auth';
 
@@ -21,6 +22,7 @@ const navItems = [
   { href: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
   { href: '/admin/members', icon: Users, label: 'Members' },
   { href: '/admin/add-member', icon: UserPlus, label: 'Add Member' },
+  { href: '/admin/announcements', icon: Megaphone, label: 'Announcements' },
   { href: '/admin/settings', icon: Settings, label: 'Settings' },
 ];
 
@@ -64,13 +66,13 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
         <div className="p-6 border-b border-gold/20">
           <Link href="/admin" className="flex items-center gap-2">
             <TrendingUp className="w-8 h-8 text-gold" />
-            <div>
-              <span className="font-bold text-lg text-white">
-                BG <span className="text-gold">Admin</span>
+            <div className="flex flex-col leading-tight">
+              <span className="font-bold text-sm text-white">
+                Lee Meadows <span className="text-gold">Team</span>
               </span>
               <div className="flex items-center gap-1 text-xs text-gold/70">
                 <Shield className="w-3 h-3" />
-                <span>Control Panel</span>
+                <span>Admin Panel</span>
               </div>
             </div>
           </Link>
