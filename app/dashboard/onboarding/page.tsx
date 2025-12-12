@@ -8,8 +8,6 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
-  Copy,
-  Check,
   Clock,
   UserPlus,
   LogIn,
@@ -36,7 +34,6 @@ const iconMap: Record<string, React.ElementType> = {
 export default function OnboardingPage() {
   const [expandedStep, setExpandedStep] = useState<number | null>(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
-  const [copiedLink, setCopiedLink] = useState(false);
 
   useEffect(() => {
     // Load completed steps from localStorage
@@ -62,12 +59,6 @@ export default function OnboardingPage() {
     if (!completedSteps.includes(stepId) && stepId < ONBOARDING_STEPS.length) {
       setExpandedStep(stepId + 1);
     }
-  };
-
-  const copyReferralLink = () => {
-    navigator.clipboard.writeText('https://dsjex.com/register?ref=leemeadows');
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
   };
 
   const progress = Math.round((completedSteps.length / ONBOARDING_STEPS.length) * 100);
@@ -188,36 +179,6 @@ export default function OnboardingPage() {
                   >
                     <div className="px-4 pb-4 pt-0">
                       <div className="border-t border-gold/10 pt-4">
-
-                        {/* Referral Link for Step 1 */}
-                        {step.id === 1 && (
-                          <div className="bg-gradient-to-r from-gold/20 to-gold/10 border border-gold/30 rounded-lg p-4 mb-4">
-                            <p className="text-white/80 text-sm mb-3">
-                              Use this invitation link to register:
-                            </p>
-                            <div className="flex items-center gap-2">
-                              <code className="flex-1 bg-navy-dark px-3 py-2 rounded text-gold text-sm font-mono">
-                                https://dsjex.com/register?ref=leemeadows
-                              </code>
-                              <button
-                                onClick={copyReferralLink}
-                                className="px-3 py-2 bg-gold text-navy-dark rounded font-medium hover:bg-gold-light transition-colors flex items-center gap-2"
-                              >
-                                {copiedLink ? (
-                                  <>
-                                    <Check className="w-4 h-4" />
-                                    Copied!
-                                  </>
-                                ) : (
-                                  <>
-                                    <Copy className="w-4 h-4" />
-                                    Copy
-                                  </>
-                                )}
-                              </button>
-                            </div>
-                          </div>
-                        )}
 
                         {/* Sub-Steps */}
                         <div className="space-y-4 mb-4">
