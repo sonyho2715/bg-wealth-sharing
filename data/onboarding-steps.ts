@@ -27,11 +27,11 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
       {
         title: 'Step 1: Register New Account',
         items: [
-          'Use the invitation code and link shown above',
+          'Use the invitation code and link from your referrer',
           'Open the invitation link in Safari or Chrome',
           'You can register with Email or Mobile Number',
-          'Fill in your email address and get verification code',
-          "Enter the code (if it's math like '9-5=?' just enter result)",
+          'Fill in your email address or phone number',
+          "Enter the code to verify, then check your email (if registered with email) or phone (if registered with phone) to get the verification code",
           'Create and confirm your password',
           'Click Register',
         ],
