@@ -6,7 +6,7 @@ import crypto from 'crypto';
 import { db } from '@/lib/db';
 import { getSession } from '@/lib/auth';
 import { logActivity, ActivityAction } from '@/lib/activity';
-import { loginSchema, passwordResetRequestSchema, passwordResetSchema } from '@/lib/validations';
+import { loginSchema, registerSchema, passwordResetRequestSchema, passwordResetSchema } from '@/lib/validations';
 import { z } from 'zod';
 
 export async function login(formData: FormData) {
@@ -128,6 +128,113 @@ export async function createUser(data: {
   } catch (error) {
     console.error('Create user error:', error);
     return { success: false, error: 'Failed to create user' };
+  }
+}
+
+// Register new member
+export async function register(formData: FormData) {
+  const firstName = formData.get('firstName') as string;
+  const lastName = formData.get('lastName') as string;
+  const email = formData.get('email') as string;
+  const phone = formData.get('phone') as string;
+  const password = formData.get('password') as string;
+  const confirmPassword = formData.get('confirmPassword') as string;
+  const referralCode = formData.get('referralCode') as string;
+  const referredBy = formData.get('referredBy') as string;
+
+  try {
+    // Validate input
+    const validated = registerSchema.parse({
+      firstName,
+      lastName,
+      email,
+      phone,
+      password,
+      confirmPassword,
+      referralCode: referralCode || undefined,
+      referredBy,
+    });
+
+    // Check if email already exists
+    const existingUser = await db.user.findUnique({
+      where: { email: validated.email.toLowerCase() },
+    });
+
+    if (existingUser) {
+      return { success: false, error: 'An account with this email already exists' };
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(validated.password, 12);
+
+    // Generate unique referral code for new user
+    const userReferralCode = `${validated.firstName.toLowerCase().substring(0, 3)}${Date.now().toString(36)}`;
+
+    // Create user
+    const user = await db.user.create({
+      data: {
+        email: validated.email.toLowerCase(),
+        password: hashedPassword,
+        firstName: validated.firstName,
+        lastName: validated.lastName,
+        phone: validated.phone,
+        referralCode: userReferralCode,
+        referredBy: validated.referredBy,
+        role: 'MEMBER',
+      },
+    });
+
+    // Create onboarding progress
+    await db.onboardingProgress.create({
+      data: {
+        userId: user.id,
+      },
+    });
+
+    // Log activity
+    await logActivity({
+      userId: user.id,
+      action: ActivityAction.USER_CREATED,
+      details: { referredBy: validated.referredBy, referralCode: validated.referralCode || null },
+    });
+
+    // Mark referral visit as converted if referral code was used
+    if (validated.referralCode) {
+      await db.referralVisit.updateMany({
+        where: {
+          referralCode: validated.referralCode,
+          converted: false,
+        },
+        data: {
+          converted: true,
+        },
+      });
+    }
+
+    // Auto-login the user
+    const session = await getSession();
+    session.userId = user.id;
+    session.email = user.email;
+    session.firstName = user.firstName;
+    session.lastName = user.lastName;
+    session.referralCode = user.referralCode;
+    session.role = user.role;
+    session.isLoggedIn = true;
+    await session.save();
+
+    await logActivity({
+      userId: user.id,
+      action: ActivityAction.LOGIN,
+      details: { method: 'auto-login after registration' },
+    });
+
+    return { success: true, redirectTo: '/dashboard' };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { success: false, error: (error as z.ZodError).issues[0].message };
+    }
+    console.error('Registration error:', error);
+    return { success: false, error: 'Registration failed. Please try again.' };
   }
 }
 

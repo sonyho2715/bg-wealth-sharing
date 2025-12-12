@@ -134,9 +134,12 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Help text */}
-          <p className="text-center text-white/40 text-sm mt-6">
-            Need help? Contact your team leader via Bonchat.
+          {/* Register link */}
+          <p className="text-center text-white/60 text-sm mt-6">
+            New member?{' '}
+            <Link href="/register" className="text-gold hover:underline font-medium">
+              Create an account
+            </Link>
           </p>
         </div>
       </div>

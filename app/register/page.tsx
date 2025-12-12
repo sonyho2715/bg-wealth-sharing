@@ -1,260 +1,273 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import {
   TrendingUp,
-  Calendar,
-  Users,
-  CheckCircle,
-  ArrowRight,
-  Clock,
-  Video,
-  Shield,
-  ChevronRight,
+  Eye,
+  EyeOff,
+  ArrowLeft,
+  Lock,
+  Mail,
+  User,
+  Phone,
+  UserPlus,
 } from 'lucide-react';
-import { CONFIG } from '@/lib/config';
-
-const steps = [
-  {
-    number: 1,
-    title: 'Attend Free Training',
-    description: 'Join our live Zoom training session to learn about the BG Wealth Sharing opportunity',
-    icon: Video,
-    status: 'current',
-  },
-  {
-    number: 2,
-    title: 'Get Your Account',
-    description: 'After training, our team will create your member account and send login credentials',
-    icon: Users,
-    status: 'upcoming',
-  },
-  {
-    number: 3,
-    title: 'Complete Onboarding',
-    description: 'Follow our guided onboarding to set up your wallet, Bonchat, and trading platform',
-    icon: CheckCircle,
-    status: 'upcoming',
-  },
-];
-
-const benefits = [
-  'Learn the Win-Win-Win investment model',
-  'Understand how trading signals work',
-  'Meet the Lee Meadows Team',
-  'Get your questions answered live',
-  'No obligation to join',
-];
+import { register } from '@/app/actions/auth';
 
 export default function RegisterPage() {
-  const [isRedirecting, setIsRedirecting] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [referralCode, setReferralCode] = useState('');
 
-  const handleScheduleTraining = () => {
-    setIsRedirecting(true);
-    // Small delay to show loading state
-    setTimeout(() => {
-      window.location.href = 'https://calendly.com/blessingsandfreedom/60min';
-    }, 500);
+  // Pre-fill referral code from URL if present
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    if (ref) {
+      setReferralCode(ref);
+    }
+  }, [searchParams]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    const formData = new FormData(e.currentTarget);
+    const result = await register(formData);
+
+    if (result.success) {
+      router.push(result.redirectTo || '/dashboard');
+      router.refresh();
+    } else {
+      setError(result.error || 'Registration failed');
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-gold/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-2">
-              <TrendingUp className="w-8 h-8 text-gold" />
-              <div className="flex flex-col leading-tight">
-                <span className="font-bold text-sm text-white">
-                  Lee Meadows <span className="text-gold">Team</span>
-                </span>
-                <span className="text-xs text-white/50">{CONFIG.brand.name}</span>
-              </div>
-            </Link>
-            <Link
-              href="/login"
-              className="text-sm text-white/70 hover:text-gold transition-colors"
-            >
-              Already a member? Login
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-navy-dark via-navy to-navy-dark flex items-center justify-center px-4 py-8">
+      {/* Background decorations */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-gold rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gold rounded-full blur-3xl" />
+      </div>
 
-      <main className="pt-24 pb-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          {/* Hero */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gold/10 border border-gold/30 rounded-full text-gold text-sm mb-6">
-              <Calendar className="w-4 h-4" />
-              <span>Free Live Training Session</span>
+      <div className="relative w-full max-w-md">
+        {/* Back link */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-white/60 hover:text-gold transition-colors mb-6"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Home
+        </Link>
+
+        {/* Register Card */}
+        <div className="bg-navy border border-gold/20 rounded-2xl p-8 shadow-2xl">
+          {/* Logo */}
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 mb-3">
+              <TrendingUp className="w-10 h-10 text-gold" />
+              <span className="font-bold text-2xl text-white">
+                BG Wealth <span className="text-gold">Sharing</span>
+              </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Start Your Journey to{' '}
-              <span className="gold-gradient">Financial Growth</span>
-            </h1>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              Join our free 60-minute live training to learn how the BG Wealth Sharing
-              model can help you build sustainable income streams.
+            <h1 className="text-xl font-semibold text-white">New Member Registration</h1>
+            <p className="text-white/60 text-sm mt-1">
+              Join the Lee Meadows team and start your journey
             </p>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Left: How It Works */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <div className="bg-navy border border-gold/20 rounded-2xl p-6">
-                <h2 className="text-xl font-semibold text-white mb-6">How It Works</h2>
-
-                <div className="space-y-6">
-                  {steps.map((step, index) => (
-                    <div key={step.number} className="flex gap-4">
-                      <div className="flex flex-col items-center">
-                        <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                            step.status === 'current'
-                              ? 'bg-gold text-navy-dark'
-                              : 'bg-white/10 text-white/50'
-                          }`}
-                        >
-                          {step.status === 'current' ? (
-                            <span className="font-bold">{step.number}</span>
-                          ) : (
-                            <step.icon className="w-5 h-5" />
-                          )}
-                        </div>
-                        {index < steps.length - 1 && (
-                          <div className="w-0.5 h-full bg-gold/20 mt-2" />
-                        )}
-                      </div>
-                      <div className="flex-1 pb-6">
-                        <h3
-                          className={`font-semibold mb-1 ${
-                            step.status === 'current' ? 'text-gold' : 'text-white/70'
-                          }`}
-                        >
-                          {step.title}
-                        </h3>
-                        <p className="text-sm text-white/50">{step.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* What You'll Learn */}
-                <div className="mt-6 pt-6 border-t border-gold/10">
-                  <h3 className="font-semibold text-white mb-4">What You&apos;ll Learn</h3>
-                  <ul className="space-y-2">
-                    {benefits.map((benefit, index) => (
-                      <li key={index} className="flex items-center gap-2 text-sm text-white/70">
-                        <CheckCircle className="w-4 h-4 text-gold flex-shrink-0" />
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right: Schedule Card */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <div className="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-2xl p-6 sticky top-24">
-                <div className="text-center mb-6">
-                  <div className="w-16 h-16 mx-auto bg-gold/20 rounded-full flex items-center justify-center mb-4">
-                    <Video className="w-8 h-8 text-gold" />
-                  </div>
-                  <h2 className="text-xl font-semibold text-white mb-2">
-                    Free Live Zoom Training
-                  </h2>
-                  <p className="text-white/60 text-sm">
-                    Choose a time that works for you
-                  </p>
-                </div>
-
-                <div className="space-y-4 mb-6">
-                  <div className="flex items-center gap-3 text-white/70">
-                    <Clock className="w-5 h-5 text-gold" />
-                    <span>60 minutes</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-white/70">
-                    <Users className="w-5 h-5 text-gold" />
-                    <span>Live with Lee Meadows Team</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-white/70">
-                    <Shield className="w-5 h-5 text-gold" />
-                    <span>No payment required</span>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleScheduleTraining}
-                  disabled={isRedirecting}
-                  className="w-full py-4 bg-gold hover:bg-gold-light text-navy-dark font-semibold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-70"
-                >
-                  {isRedirecting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-navy-dark/30 border-t-navy-dark rounded-full animate-spin" />
-                      Opening Calendly...
-                    </>
-                  ) : (
-                    <>
-                      Schedule Free Training
-                      <ArrowRight className="w-5 h-5" />
-                    </>
-                  )}
-                </button>
-
-                <p className="text-center text-xs text-white/40 mt-4">
-                  You&apos;ll be redirected to Calendly to select your preferred time
-                </p>
-
-                {/* Trust indicators */}
-                <div className="mt-6 pt-6 border-t border-gold/20">
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div>
-                      <p className="text-2xl font-bold text-gold">500+</p>
-                      <p className="text-xs text-white/50">Members Trained</p>
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gold">3x</p>
-                      <p className="text-xs text-white/50">Weekly Sessions</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </div>
 
-          {/* Already a member */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-12 text-center"
-          >
-            <p className="text-white/50">
-              Already completed training?{' '}
-              <Link href="/login" className="text-gold hover:text-gold-light transition-colors">
-                Login to your account <ChevronRight className="w-4 h-4 inline" />
-              </Link>
-            </p>
-          </motion.div>
+          {/* Error message */}
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-6">
+              <p className="text-red-400 text-sm text-center">{error}</p>
+            </div>
+          )}
+
+          {/* Registration Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Full Name Row */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="firstName" className="block text-sm font-medium text-white/80 mb-1.5">
+                  First Name
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                  <input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    required
+                    className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                    placeholder="First"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="lastName" className="block text-sm font-medium text-white/80 mb-1.5">
+                  Last Name
+                </label>
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  required
+                  className="w-full bg-navy-dark border border-gold/20 rounded-lg px-3 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                  placeholder="Last"
+                />
+              </div>
+            </div>
+
+            {/* Phone Number */}
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-white/80 mb-1.5">
+                Phone Number
+              </label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                  placeholder="(555) 123-4567"
+                />
+              </div>
+            </div>
+
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-1.5">
+                Email Address
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                  placeholder="you@example.com"
+                />
+              </div>
+            </div>
+
+            {/* Referral Code (hidden if pre-filled) */}
+            <input
+              type="hidden"
+              name="referralCode"
+              value={referralCode}
+            />
+
+            {/* Who's Your Leader */}
+            <div>
+              <label htmlFor="referredBy" className="block text-sm font-medium text-white/80 mb-1.5">
+                Who&apos;s Your Leader?
+              </label>
+              <div className="relative">
+                <UserPlus className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input
+                  id="referredBy"
+                  name="referredBy"
+                  type="text"
+                  required
+                  className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                  placeholder="Enter your leader's name"
+                />
+              </div>
+              <p className="text-white/40 text-xs mt-1">
+                Enter the name of the person who invited you
+              </p>
+            </div>
+
+            {/* Password */}
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-white/80 mb-1.5">
+                Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-10 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                  placeholder="Minimum 6 characters"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Confirm Password */}
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-white/80 mb-1.5">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  required
+                  className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-10 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                  placeholder="Re-enter your password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60"
+                >
+                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-gold text-navy-dark font-semibold py-3 rounded-lg hover:bg-gold-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-6"
+            >
+              {isLoading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-navy-dark/30 border-t-navy-dark rounded-full animate-spin" />
+                  Creating Account...
+                </>
+              ) : (
+                <>
+                  <UserPlus className="w-5 h-5" />
+                  Create Account
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Login link */}
+          <p className="text-center text-white/60 text-sm mt-6">
+            Already have an account?{' '}
+            <Link href="/login" className="text-gold hover:underline font-medium">
+              Sign In
+            </Link>
+          </p>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
