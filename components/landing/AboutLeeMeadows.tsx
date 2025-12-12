@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Award, Building2, Home, Users, CheckCircle } from 'lucide-react';
+import Image from 'next/image';
 
 const credentials = [
   {
@@ -54,21 +55,32 @@ export default function AboutLeeMeadows() {
             transition={{ duration: 0.5 }}
           >
             <div className="relative">
-              {/* Profile image placeholder */}
+              {/* Profile image */}
               <div className="relative w-full max-w-md mx-auto">
-                <div className="aspect-square rounded-2xl bg-gradient-to-br from-navy-light to-navy-dark border-2 border-gold/30 overflow-hidden flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="w-32 h-32 mx-auto rounded-full bg-gold/20 border-4 border-gold flex items-center justify-center mb-4">
-                      <span className="text-5xl font-bold text-gold">LM</span>
-                    </div>
+                <div className="relative rounded-2xl border-2 border-gold/30 overflow-hidden shadow-2xl shadow-gold/10">
+                  <Image
+                    src="/images/bg/lee-meadows.png"
+                    alt="Lee Meadows - Team Leader"
+                    width={500}
+                    height={600}
+                    className="w-full h-auto object-cover"
+                    priority
+                  />
+                  {/* Gradient overlay at bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-navy via-navy/80 to-transparent p-6">
                     <h3 className="text-2xl font-bold text-white">Lee Meadows</h3>
-                    <p className="text-gold mt-1">Team Leader</p>
+                    <p className="text-gold">Team Leader & Investment Guide</p>
                   </div>
                 </div>
 
                 {/* Decorative elements */}
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-gold/10 rounded-full blur-xl" />
                 <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gold/10 rounded-full blur-xl" />
+
+                {/* Badge */}
+                <div className="absolute -top-2 -left-2 bg-gold text-navy-dark px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                  Your Guide
+                </div>
               </div>
             </div>
           </motion.div>
