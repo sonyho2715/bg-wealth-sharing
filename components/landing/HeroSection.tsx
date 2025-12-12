@@ -9,7 +9,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ referralCode }: HeroSectionProps) {
-  const registerHref = referralCode ? `/register?ref=${referralCode}` : '/login';
+  const registerHref = referralCode ? `/register?ref=${referralCode}` : '/register';
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Background with gradient overlay */}

@@ -8,6 +8,7 @@ import {
   MessageCircle,
   Users,
   AlertCircle,
+  Calendar,
 } from 'lucide-react';
 import Image from 'next/image';
 import { getYouTubeEmbedUrl } from '@/data/onboarding-steps';
@@ -49,6 +50,13 @@ const quickLinks = [
     description: 'Trading platform',
     info: 'dsjex.com',
     link: 'https://dsjex.com',
+  },
+  {
+    icon: Calendar,
+    title: 'Schedule a Call',
+    description: 'Book a consultation',
+    info: '60-minute session',
+    link: '/calendly',
   },
 ];
 

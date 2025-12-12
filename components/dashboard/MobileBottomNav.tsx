@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, ClipboardList, Radio, BookOpen, User, Share2 } from 'lucide-react';
+import { Home, ClipboardList, Radio, BookOpen, User, Share2, MoreHorizontal } from 'lucide-react';
 
 const navItems = [
   { href: '/dashboard', icon: Home, label: 'Home' },
   { href: '/dashboard/onboarding', icon: ClipboardList, label: 'Setup' },
-  { href: '/dashboard/referrals', icon: Share2, label: 'Share' },
   { href: '/dashboard/signals', icon: Radio, label: 'Signals' },
-  { href: '/dashboard/settings', icon: User, label: 'Account' },
+  { href: '/dashboard/referrals', icon: Share2, label: 'Share' },
+  { href: '/dashboard/resources', icon: BookOpen, label: 'More' },
 ];
 
 export default function MobileBottomNav() {
