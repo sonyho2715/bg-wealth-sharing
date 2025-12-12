@@ -139,7 +139,7 @@ export async function register(formData: FormData) {
   const phone = formData.get('phone') as string;
   const password = formData.get('password') as string;
   const confirmPassword = formData.get('confirmPassword') as string;
-  const referralCode = formData.get('referralCode') as string;
+  const dsjInvitationCode = formData.get('dsjInvitationCode') as string;
   const referredBy = formData.get('referredBy') as string;
 
   try {
@@ -151,7 +151,7 @@ export async function register(formData: FormData) {
       phone,
       password,
       confirmPassword,
-      referralCode: referralCode || undefined,
+      dsjInvitationCode,
       referredBy,
     });
 
@@ -167,10 +167,7 @@ export async function register(formData: FormData) {
     // Hash password
     const hashedPassword = await bcrypt.hash(validated.password, 12);
 
-    // Generate unique referral code for new user
-    const userReferralCode = `${validated.firstName.toLowerCase().substring(0, 3)}${Date.now().toString(36)}`;
-
-    // Create user
+    // Create user with their DSJ invitation code
     const user = await db.user.create({
       data: {
         email: validated.email.toLowerCase(),
@@ -178,7 +175,7 @@ export async function register(formData: FormData) {
         firstName: validated.firstName,
         lastName: validated.lastName,
         phone: validated.phone,
-        referralCode: userReferralCode,
+        referralCode: validated.dsjInvitationCode, // Store their DSJ invitation code
         referredBy: validated.referredBy,
         role: 'MEMBER',
       },
@@ -195,21 +192,8 @@ export async function register(formData: FormData) {
     await logActivity({
       userId: user.id,
       action: ActivityAction.USER_CREATED,
-      details: { referredBy: validated.referredBy, referralCode: validated.referralCode || null },
+      details: { referredBy: validated.referredBy, dsjInvitationCode: validated.dsjInvitationCode },
     });
-
-    // Mark referral visit as converted if referral code was used
-    if (validated.referralCode) {
-      await db.referralVisit.updateMany({
-        where: {
-          referralCode: validated.referralCode,
-          converted: false,
-        },
-        data: {
-          converted: true,
-        },
-      });
-    }
 
     // Auto-login the user
     const session = await getSession();

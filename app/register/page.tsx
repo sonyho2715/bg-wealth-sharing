@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   TrendingUp,
@@ -13,25 +13,16 @@ import {
   User,
   Phone,
   UserPlus,
+  Link2,
 } from 'lucide-react';
 import { register } from '@/app/actions/auth';
 
-function RegisterForm() {
+export default function RegisterPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [referralCode, setReferralCode] = useState('');
-
-  // Pre-fill referral code from URL if present
-  useEffect(() => {
-    const ref = searchParams.get('ref');
-    if (ref) {
-      setReferralCode(ref);
-    }
-  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -162,12 +153,26 @@ function RegisterForm() {
               </div>
             </div>
 
-            {/* Referral Code (hidden if pre-filled) */}
-            <input
-              type="hidden"
-              name="referralCode"
-              value={referralCode}
-            />
+            {/* DSJ Invitation Code */}
+            <div>
+              <label htmlFor="dsjInvitationCode" className="block text-sm font-medium text-white/80 mb-1.5">
+                Your DSJ Invitation Code
+              </label>
+              <div className="relative">
+                <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input
+                  id="dsjInvitationCode"
+                  name="dsjInvitationCode"
+                  type="text"
+                  required
+                  className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm font-mono"
+                  placeholder="e.g., apdpva27vg00"
+                />
+              </div>
+              <p className="text-white/40 text-xs mt-1">
+                Get this from DSJ: Share With Friends → My invitation code
+              </p>
+            </div>
 
             {/* Who's Your Leader */}
             <div>
@@ -269,17 +274,5 @@ function RegisterForm() {
         </div>
       </div>
     </div>
-  );
-}
-
-export default function RegisterPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-navy-dark via-navy to-navy-dark flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-gold/30 border-t-gold rounded-full animate-spin" />
-      </div>
-    }>
-      <RegisterForm />
-    </Suspense>
   );
 }

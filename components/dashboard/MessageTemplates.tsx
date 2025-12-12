@@ -34,12 +34,12 @@ export default function MessageTemplates({ referralCode, firstName }: MessageTem
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://bgwealth.com';
-  const referralLink = `${baseUrl}/r/${referralCode}`;
+  // DSJ invitation link format
+  const dsjInvitationLink = `https://dsj927.com/?code=${referralCode}`;
 
   const replaceVariables = (content: string) => {
     return content
-      .replace(/\[LINK\]/g, referralLink)
+      .replace(/\[LINK\]/g, dsjInvitationLink)
       .replace(/\[YOUR NAME\]/g, firstName)
       .replace(/\[Name\]/g, '[Friend\'s Name]');
   };
