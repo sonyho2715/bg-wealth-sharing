@@ -7,13 +7,21 @@ import { db } from '@/lib/db';
 import { getSession } from '@/lib/auth';
 import { logActivity, ActivityAction } from '@/lib/activity';
 import { loginSchema, registerSchema, passwordResetRequestSchema, passwordResetSchema } from '@/lib/validations';
+import { verifyRecaptcha } from '@/lib/recaptcha';
 import { z } from 'zod';
 
 export async function login(formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
+  const recaptchaToken = formData.get('recaptchaToken') as string;
 
   try {
+    // Verify reCAPTCHA
+    const recaptchaResult = await verifyRecaptcha(recaptchaToken);
+    if (!recaptchaResult.success) {
+      return { success: false, error: recaptchaResult.error || 'Security verification failed. Please try again.' };
+    }
+
     // Validate input
     const validated = loginSchema.parse({ email, password });
 
@@ -141,8 +149,15 @@ export async function register(formData: FormData) {
   const confirmPassword = formData.get('confirmPassword') as string;
   const dsjInvitationCode = formData.get('dsjInvitationCode') as string;
   const referredBy = formData.get('referredBy') as string;
+  const recaptchaToken = formData.get('recaptchaToken') as string;
 
   try {
+    // Verify reCAPTCHA
+    const recaptchaResult = await verifyRecaptcha(recaptchaToken);
+    if (!recaptchaResult.success) {
+      return { success: false, error: recaptchaResult.error || 'Security verification failed. Please try again.' };
+    }
+
     // Validate input
     const validated = registerSchema.parse({
       firstName,

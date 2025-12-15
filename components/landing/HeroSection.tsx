@@ -41,7 +41,7 @@ export default function HeroSection({ referralCode }: HeroSectionProps) {
             </h1>
 
             <p className="text-lg sm:text-xl text-white/70 mb-8 max-w-xl">
-              Join the Lee Meadows Team in the BG Wealth Sharing Project.
+              Join Abundant Blessing AI Trade in the BG Wealth Sharing Project.
               Experience the power of the Win-Win-Win model with DSJEX partnership.
             </p>
 

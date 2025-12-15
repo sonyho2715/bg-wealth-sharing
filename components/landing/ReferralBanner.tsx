@@ -20,7 +20,7 @@ export default function ReferralBanner({ referrerName, referralCode }: ReferralB
               <Sparkles className="w-4 h-4 text-gold" />
               <span className="text-white text-sm sm:text-base">
                 <span className="text-gold font-semibold">{referrerName}</span>
-                {' '}invited you to join the Lee Meadows Team
+                {' '}invited you to join Abundant Blessing AI Trade
               </span>
             </div>
           </div>

@@ -21,7 +21,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-white/60 max-w-md mb-4">
-              Join the Lee Meadows Team and start your journey to financial growth.
+              Join Abundant Blessing AI Trade and start your journey to financial growth.
               Our proven Win-Win-Win model has helped members build sustainable income streams.
             </p>
             <div className="flex items-center gap-2 text-sm text-gold">
@@ -40,8 +40,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#about" className="text-white/60 hover:text-gold transition-colors">
-                  About Lee Meadows
+                <a href="#team" className="text-white/60 hover:text-gold transition-colors">
+                  Our Team
                 </a>
               </li>
               <li>

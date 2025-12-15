@@ -275,7 +275,7 @@ export default function OnboardingPage() {
           </h2>
           <p className="text-white/70 max-w-md mx-auto">
             You have completed all onboarding steps. You are now ready to start trading
-            with the Lee Meadows team! Remember: 1:20 PM and 7:20 PM EST for signals.
+            with Abundant Blessing AI Trade! Remember: 1:20 PM and 7:20 PM EST for signals.
           </p>
         </motion.div>
       )}

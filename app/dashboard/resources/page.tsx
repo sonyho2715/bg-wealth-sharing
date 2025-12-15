@@ -71,7 +71,7 @@ const faqs = [
   },
   {
     question: 'How do I contact support?',
-    answer: 'Contact Lee Meadows or your team admin via Bonchat. Existing members use S333666, new members (Dec 9, 2025+) use BG2022 with admins Elena03 or Stephen03.',
+    answer: 'Contact your team admin via Bonchat. Existing members use S333666, new members (Dec 9, 2025+) use BG2022 with admins Elena03 or Stephen03.',
   },
   {
     question: 'What wallet types are accepted?',

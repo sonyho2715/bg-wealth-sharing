@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -15,6 +15,7 @@ import {
   UserPlus,
   Link2,
 } from 'lucide-react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { register } from '@/app/actions/auth';
 
 export default function RegisterPage() {
@@ -23,13 +24,25 @@ export default function RegisterPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
+    // Get reCAPTCHA token
+    let recaptchaToken = '';
+    if (executeRecaptcha) {
+      try {
+        recaptchaToken = await executeRecaptcha('register');
+      } catch (err) {
+        console.error('reCAPTCHA error:', err);
+      }
+    }
+
     const formData = new FormData(e.currentTarget);
+    formData.append('recaptchaToken', recaptchaToken);
     const result = await register(formData);
 
     if (result.success) {
@@ -39,7 +52,7 @@ export default function RegisterPage() {
       setError(result.error || 'Registration failed');
       setIsLoading(false);
     }
-  };
+  }, [executeRecaptcha, router]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-navy-dark via-navy to-navy-dark flex items-center justify-center px-4 py-8">
@@ -71,7 +84,7 @@ export default function RegisterPage() {
             </div>
             <h1 className="text-xl font-semibold text-white">New Member Registration</h1>
             <p className="text-white/60 text-sm mt-1">
-              Join the Lee Meadows team and start your journey
+              Join Abundant Blessing AI Trade and start your journey
             </p>
           </div>
 

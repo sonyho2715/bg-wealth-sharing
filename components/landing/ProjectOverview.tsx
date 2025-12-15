@@ -146,7 +146,7 @@ export default function ProjectOverview() {
               <div className="p-4">
                 <h4 className="font-semibold text-white">How to Get Started</h4>
                 <p className="text-sm text-white/60 mt-1">
-                  Step-by-step guide to joining the Lee Meadows team.
+                  Step-by-step guide to joining Abundant Blessing AI Trade.
                 </p>
               </div>
             </div>

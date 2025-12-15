@@ -150,7 +150,7 @@ export default function TestimonialsGrid() {
             Wall of <span className="gold-gradient">Success Stories</span>
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto mb-4">
-            Hear from real members who have transformed their financial future with the Lee Meadows team.
+            Hear from real members who have transformed their financial future with Abundant Blessing AI Trade.
           </p>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30">
             <span className="text-gold font-semibold">{TESTIMONIAL_VIDEOS.length}+</span>

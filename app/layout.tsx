@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import RecaptchaProvider from "@/components/RecaptchaProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -8,12 +9,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "BG Wealth Sharing - Lee Meadows Team",
-  description: "Invest Once, Benefit for Life. Join the Lee Meadows Team in the BG Wealth Sharing Project.",
-  keywords: ["BG Wealth", "DSJEX", "Lee Meadows", "Investment", "Trading", "Wealth Sharing"],
+  title: "Abundant Blessing AI Trade - BG Wealth Sharing",
+  description: "Invest Once, Benefit for Life. Join Abundant Blessing AI Trade in the BG Wealth Sharing Project.",
+  keywords: ["BG Wealth", "DSJEX", "Abundant Blessing", "AI Trade", "Investment", "Trading", "Wealth Sharing"],
   openGraph: {
-    title: "BG Wealth Sharing - Lee Meadows Team",
-    description: "Invest Once, Benefit for Life. Join the Lee Meadows Team in the BG Wealth Sharing Project.",
+    title: "Abundant Blessing AI Trade - BG Wealth Sharing",
+    description: "Invest Once, Benefit for Life. Join Abundant Blessing AI Trade in the BG Wealth Sharing Project.",
     type: "website",
   },
 };
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased bg-background text-foreground`}>
-        {children}
+        <RecaptchaProvider>
+          {children}
+        </RecaptchaProvider>
       </body>
     </html>
   );

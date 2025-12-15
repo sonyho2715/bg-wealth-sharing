@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { UserCog, Mail, Lock, User, ArrowLeft, Eye, EyeOff, Loader2, Hash, Save } from 'lucide-react';
+import { UserCog, Mail, Lock, User, ArrowLeft, Eye, EyeOff, Loader2, Hash, Save, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { getMember, updateMember } from '@/app/actions/admin';
 
@@ -12,6 +12,7 @@ interface Member {
   lastName: string;
   email: string;
   referralCode: string | null;
+  referredBy: string | null;
   isActive: boolean;
   createdAt: Date;
   lastLoginAt: Date | null;
@@ -221,6 +222,15 @@ export default function EditMemberPage() {
                 <p className="text-white/40">Last Login</p>
                 <p className="text-white">
                   {member.lastLoginAt ? new Date(member.lastLoginAt).toLocaleDateString() : 'Never'}
+                </p>
+              </div>
+              <div>
+                <p className="text-white/40 flex items-center gap-1">
+                  <UserPlus className="w-3 h-3" />
+                  Referred By
+                </p>
+                <p className={member.referredBy ? 'text-gold' : 'text-white/30'}>
+                  {member.referredBy || 'Not specified'}
                 </p>
               </div>
             </div>

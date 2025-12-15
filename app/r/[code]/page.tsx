@@ -3,7 +3,6 @@ import { Metadata } from 'next';
 import Navigation from '@/components/landing/Navigation';
 import HeroSection from '@/components/landing/HeroSection';
 import ProjectOverview from '@/components/landing/ProjectOverview';
-import AboutLeeMeadows from '@/components/landing/AboutLeeMeadows';
 import TeamSection from '@/components/landing/TeamSection';
 import CertificatesSection from '@/components/landing/CertificatesSection';
 import TestimonialsGrid from '@/components/landing/TestimonialsGrid';
@@ -24,13 +23,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!result.success || !result.data) {
     return {
-      title: 'BG Wealth Sharing - Lee Meadows Team',
+      title: 'Abundant Blessing AI Trade - BG Wealth Sharing',
     };
   }
 
   return {
     title: `Join ${result.data.firstName}'s Team - BG Wealth Sharing`,
-    description: `${result.data.firstName} ${result.data.lastName} invites you to join the Lee Meadows Team. Learn how to earn with just 10 minutes a day using copy/paste trading signals.`,
+    description: `${result.data.firstName} ${result.data.lastName} invites you to join Abundant Blessing AI Trade. Learn how to earn with just 10 minutes a day using copy/paste trading signals.`,
     robots: 'noindex, nofollow', // Prevent duplicate content issues
   };
 }
@@ -57,7 +56,6 @@ export default async function ReferralPage({ params, searchParams }: Props) {
       <Navigation referralCode={code} />
       <HeroSection referralCode={code} />
       <ProjectOverview />
-      <AboutLeeMeadows />
       <TeamSection />
       <CertificatesSection />
       <TestimonialsGrid />

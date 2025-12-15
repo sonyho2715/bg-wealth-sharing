@@ -216,3 +216,45 @@ export async function getOnboardingProgress() {
 
   return progress;
 }
+
+// Update referral code (DSJ invitation code)
+export async function updateReferralCode(formData: FormData) {
+  const session = await requireMember();
+
+  try {
+    const referralCode = (formData.get('referralCode') as string)?.trim();
+
+    // Validate
+    if (!referralCode || referralCode.length === 0) {
+      return { success: false, error: 'DSJ invitation code is required' };
+    }
+
+    if (referralCode.length > 50) {
+      return { success: false, error: 'Invitation code is too long' };
+    }
+
+    // Update user's referral code
+    await db.user.update({
+      where: { id: session.userId },
+      data: { referralCode },
+    });
+
+    // Update session
+    session.referralCode = referralCode;
+    await session.save();
+
+    // Log activity
+    await logActivity({
+      userId: session.userId,
+      action: ActivityAction.PROFILE_UPDATED,
+      details: { updatedFields: ['referralCode'] },
+    });
+
+    revalidatePath('/dashboard/settings');
+    revalidatePath('/dashboard/referrals');
+    return { success: true, message: 'DSJ invitation code updated successfully' };
+  } catch (error) {
+    console.error('Referral code update error:', error);
+    return { success: false, error: 'Failed to update invitation code' };
+  }
+}

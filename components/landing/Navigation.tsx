@@ -13,7 +13,6 @@ export default function Navigation({ referralCode }: NavigationProps) {
 
   const navLinks = [
     { href: '#overview', label: 'Overview' },
-    { href: '#about', label: 'About Lee' },
     { href: '#testimonials', label: 'Success Stories' },
   ];
 
@@ -33,7 +32,7 @@ export default function Navigation({ referralCode }: NavigationProps) {
             <TrendingUp className="w-8 h-8 text-gold" />
             <div className="flex flex-col leading-tight">
               <span className="font-bold text-lg text-white">
-                Lee Meadows <span className="text-gold">Team</span>
+                Abundant Blessing <span className="text-gold">AI Trade</span>
               </span>
               <span className="text-xs text-white/50">BG Wealth Sharing</span>
             </div>

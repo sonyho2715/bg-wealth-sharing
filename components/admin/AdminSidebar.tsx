@@ -68,7 +68,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
             <TrendingUp className="w-8 h-8 text-gold" />
             <div className="flex flex-col leading-tight">
               <span className="font-bold text-sm text-white">
-                Lee Meadows <span className="text-gold">Team</span>
+                Abundant Blessing <span className="text-gold">AI Trade</span>
               </span>
               <div className="flex items-center gap-1 text-xs text-gold/70">
                 <Shield className="w-3 h-3" />

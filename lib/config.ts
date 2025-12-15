@@ -5,7 +5,7 @@ export const CONFIG = {
   // Brand
   brand: {
     name: 'BG Wealth Sharing',
-    teamName: 'Lee Meadows Team',
+    teamName: 'Abundant Blessing AI Trade',
     tagline: 'Build Lasting Wealth Through Strategic Investment',
   },
 
@@ -26,7 +26,7 @@ export const CONFIG = {
   // Contact Information
   contact: {
     email: 'support@bgwealth.com',
-    calendlyUrl: 'https://calendly.com/leemeadowsteam/free-training',
+    calendlyUrl: 'https://calendly.com/abundantblessingaitrade/free-training',
   },
 
   // Trading Signals
@@ -107,7 +107,7 @@ export const CONFIG = {
   // Legal & Compliance
   legal: {
     riskDisclosure: 'Investment involves risk. Past performance does not guarantee future results. Please carefully consider your investment objectives and risk tolerance before investing. Only invest funds you can afford to lose.',
-    copyright: `© ${new Date().getFullYear()} BG Wealth Sharing - Lee Meadows Team. All rights reserved.`,
+    copyright: `© ${new Date().getFullYear()} Abundant Blessing AI Trade. All rights reserved.`,
   },
 } as const;
 

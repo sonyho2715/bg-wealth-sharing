@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { TrendingUp, Eye, EyeOff, ArrowLeft, Lock, Mail } from 'lucide-react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { login } from '@/app/actions/auth';
 
 export default function LoginPage() {
@@ -11,13 +12,25 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
+    // Get reCAPTCHA token
+    let recaptchaToken = '';
+    if (executeRecaptcha) {
+      try {
+        recaptchaToken = await executeRecaptcha('login');
+      } catch (err) {
+        console.error('reCAPTCHA error:', err);
+      }
+    }
+
     const formData = new FormData(e.currentTarget);
+    formData.append('recaptchaToken', recaptchaToken);
     const result = await login(formData);
 
     if (result.success) {
@@ -27,7 +40,7 @@ export default function LoginPage() {
       setError(result.error || 'Login failed');
       setIsLoading(false);
     }
-  };
+  }, [executeRecaptcha, router]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-navy-dark via-navy to-navy-dark flex items-center justify-center px-4">

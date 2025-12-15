@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { User, Mail, Lock, Eye, EyeOff, Loader2, Save, Hash, Calendar, CheckCircle2 } from 'lucide-react';
-import { getProfile, updateProfile, changePassword } from '@/app/actions/member';
+import { User, Mail, Lock, Eye, EyeOff, Loader2, Save, Hash, Calendar, CheckCircle2, Link2, ExternalLink } from 'lucide-react';
+import { getProfile, updateProfile, changePassword, updateReferralCode } from '@/app/actions/member';
 
 interface Profile {
   id: string;
@@ -27,6 +27,10 @@ export default function SettingsPage() {
   // Password form state
   const [passwordSaving, setPasswordSaving] = useState(false);
   const [passwordMessage, setPasswordMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  // Referral code form state
+  const [referralSaving, setReferralSaving] = useState(false);
+  const [referralMessage, setReferralMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     async function loadProfile() {
@@ -71,6 +75,24 @@ export default function SettingsPage() {
     }
 
     setPasswordSaving(false);
+  }
+
+  async function handleReferralSubmit(formData: FormData) {
+    setReferralSaving(true);
+    setReferralMessage(null);
+
+    const result = await updateReferralCode(formData);
+
+    if (result.success) {
+      setReferralMessage({ type: 'success', text: result.message || 'DSJ invitation code updated successfully' });
+      // Reload profile
+      const data = await getProfile();
+      setProfile(data as Profile);
+    } else {
+      setReferralMessage({ type: 'error', text: result.error || 'Failed to update invitation code' });
+    }
+
+    setReferralSaving(false);
   }
 
   if (isLoading) {
@@ -191,21 +213,92 @@ export default function SettingsPage() {
         </form>
       </div>
 
+      {/* DSJ Invitation Code */}
+      <div className="bg-navy border border-gold/20 rounded-2xl p-8 mb-6">
+        <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+          <Link2 className="w-5 h-5 text-gold" />
+          DSJ Invitation Code
+        </h2>
+
+        <form action={handleReferralSubmit} className="space-y-6">
+          {referralMessage && (
+            <div className={`p-4 rounded-lg border ${
+              referralMessage.type === 'success'
+                ? 'bg-green-500/10 border-green-500/30 text-green-400'
+                : 'bg-red-500/10 border-red-500/30 text-red-400'
+            }`}>
+              <div className="flex items-center gap-2">
+                {referralMessage.type === 'success' && <CheckCircle2 className="w-5 h-5" />}
+                <p className="text-sm">{referralMessage.text}</p>
+              </div>
+            </div>
+          )}
+
+          <div>
+            <label htmlFor="referralCode" className="block text-white/80 text-sm font-medium mb-2">
+              Your DSJ Invitation Code
+            </label>
+            <div className="relative">
+              <Hash className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+              <input
+                type="text"
+                id="referralCode"
+                name="referralCode"
+                required
+                defaultValue={profile.referralCode || ''}
+                className="w-full pl-12 pr-4 py-3 bg-navy-dark border border-gold/20 rounded-lg text-white font-mono placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors"
+                placeholder="e.g., apdpva27vg00"
+              />
+            </div>
+            <p className="text-white/50 text-xs mt-2">
+              Get this from DSJ app: Share With Friends → My invitation code
+            </p>
+          </div>
+
+          {profile.referralCode && (
+            <div className="p-4 bg-gold/10 border border-gold/20 rounded-lg">
+              <p className="text-white/70 text-sm mb-2">Your invitation link:</p>
+              <div className="flex items-center gap-2">
+                <code className="flex-1 text-gold text-sm font-mono break-all">
+                  https://dsj927.com/?code={profile.referralCode}
+                </code>
+                <a
+                  href={`https://dsj927.com/?code=${profile.referralCode}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-gold hover:text-gold-light transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={referralSaving}
+            className="flex items-center justify-center gap-2 px-6 py-3 bg-gold text-navy-dark font-semibold rounded-lg hover:bg-gold-light disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {referralSaving ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              <>
+                <Save className="w-5 h-5" />
+                Save Invitation Code
+              </>
+            )}
+          </button>
+        </form>
+      </div>
+
       {/* Account Info (Read Only) */}
       <div className="bg-navy border border-gold/20 rounded-2xl p-8 mb-6">
         <h2 className="text-xl font-semibold text-white mb-6">Account Information</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {profile.referralCode && (
-            <div className="p-4 bg-navy-dark rounded-lg border border-gold/10">
-              <div className="flex items-center gap-2 text-white/60 text-sm mb-1">
-                <Hash className="w-4 h-4" />
-                Referral Code
-              </div>
-              <p className="text-gold font-mono font-semibold">{profile.referralCode}</p>
-            </div>
-          )}
-
           <div className="p-4 bg-navy-dark rounded-lg border border-gold/10">
             <div className="flex items-center gap-2 text-white/60 text-sm mb-1">
               <Calendar className="w-4 h-4" />

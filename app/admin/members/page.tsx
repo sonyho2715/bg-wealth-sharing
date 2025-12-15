@@ -1,4 +1,4 @@
-import { Users, UserCheck, UserX, Mail, Calendar, Hash, Pencil, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { Users, UserCheck, UserX, Mail, Calendar, Hash, Pencil, ChevronLeft, ChevronRight, Search, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { getMembers, toggleUserStatus, deleteUser } from '@/app/actions/admin';
 
@@ -162,7 +162,8 @@ export default async function MembersPage({ searchParams }: PageProps) {
                   <tr className="border-b border-gold/10">
                     <th className="text-left px-6 py-4 text-white/60 text-sm font-medium">Member</th>
                     <th className="text-left px-6 py-4 text-white/60 text-sm font-medium">Email</th>
-                    <th className="text-left px-6 py-4 text-white/60 text-sm font-medium">Referral Code</th>
+                    <th className="text-left px-6 py-4 text-white/60 text-sm font-medium">Referred By</th>
+                    <th className="text-left px-6 py-4 text-white/60 text-sm font-medium">DSJ Code</th>
                     <th className="text-left px-6 py-4 text-white/60 text-sm font-medium">Joined</th>
                     <th className="text-left px-6 py-4 text-white/60 text-sm font-medium">Status</th>
                     <th className="text-right px-6 py-4 text-white/60 text-sm font-medium">Actions</th>
@@ -188,6 +189,16 @@ export default async function MembersPage({ searchParams }: PageProps) {
                           <Mail className="w-4 h-4" />
                           <span>{member.email}</span>
                         </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        {member.referredBy ? (
+                          <div className="flex items-center gap-2 text-white/70 text-sm">
+                            <UserPlus className="w-4 h-4 text-gold" />
+                            <span>{member.referredBy}</span>
+                          </div>
+                        ) : (
+                          <span className="text-white/30 text-sm">—</span>
+                        )}
                       </td>
                       <td className="px-6 py-4">
                         {member.referralCode ? (
