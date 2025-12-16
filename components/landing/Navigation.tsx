@@ -13,6 +13,8 @@ export default function Navigation({ referralCode }: NavigationProps) {
 
   const navLinks = [
     { href: '#overview', label: 'Overview' },
+    { href: '#dsjex-explained', label: 'How DSJEX Works' },
+    { href: '#team', label: 'Team' },
     { href: '#testimonials', label: 'Success Stories' },
   ];
 

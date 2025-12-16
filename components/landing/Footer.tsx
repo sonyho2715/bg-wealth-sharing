@@ -40,6 +40,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="#dsjex-explained" className="text-white/60 hover:text-gold transition-colors">
+                  How DSJEX Works
+                </a>
+              </li>
+              <li>
                 <a href="#team" className="text-white/60 hover:text-gold transition-colors">
                   Our Team
                 </a>
