@@ -3,6 +3,8 @@ import { Megaphone, Plus, Calendar, Clock, AlertTriangle, Video, Bell, Pencil, T
 import Link from 'next/link';
 import { toggleAnnouncementStatus, deleteAnnouncement } from '@/app/actions/announcements';
 
+export const dynamic = 'force-dynamic';
+
 async function getAnnouncements() {
   const announcements = await db.announcement.findMany({
     orderBy: [

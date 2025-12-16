@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useTransition } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   CheckCircle2,
@@ -17,8 +17,10 @@ import {
   TrendingUp,
   Target,
   Download,
+  Loader2,
 } from 'lucide-react';
 import { ONBOARDING_STEPS, getYouTubeEmbedUrl, OnboardingStep } from '@/data/onboarding-steps';
+import { getOnboardingProgress, toggleOnboardingStep } from '@/app/actions/onboarding';
 
 const iconMap: Record<string, React.ElementType> = {
   'user-plus': UserPlus,
@@ -34,34 +36,79 @@ const iconMap: Record<string, React.ElementType> = {
 export default function OnboardingPage() {
   const [expandedStep, setExpandedStep] = useState<number | null>(1);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isPending, startTransition] = useTransition();
+  const [togglingStep, setTogglingStep] = useState<number | null>(null);
 
   useEffect(() => {
-    // Load completed steps from localStorage
-    const saved = localStorage.getItem('bg-wealth-completed-steps');
-    if (saved) {
-      setCompletedSteps(JSON.parse(saved));
+    // Load completed steps from database
+    async function loadProgress() {
+      try {
+        const result = await getOnboardingProgress();
+        if (result.success && result.completedSteps) {
+          setCompletedSteps(result.completedSteps);
+
+          // Auto-expand first incomplete step
+          const firstIncomplete = ONBOARDING_STEPS.find(
+            step => !result.completedSteps!.includes(step.id)
+          );
+          if (firstIncomplete) {
+            setExpandedStep(firstIncomplete.id);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load onboarding progress:', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
+    loadProgress();
   }, []);
 
   const toggleStep = (stepId: number) => {
     setExpandedStep(expandedStep === stepId ? null : stepId);
   };
 
-  const markAsComplete = (stepId: number) => {
-    const newCompleted = completedSteps.includes(stepId)
-      ? completedSteps.filter(id => id !== stepId)
-      : [...completedSteps, stepId];
+  const markAsComplete = async (stepId: number) => {
+    setTogglingStep(stepId);
 
-    setCompletedSteps(newCompleted);
-    localStorage.setItem('bg-wealth-completed-steps', JSON.stringify(newCompleted));
+    startTransition(async () => {
+      try {
+        const result = await toggleOnboardingStep(stepId);
 
-    // Auto-expand next step
-    if (!completedSteps.includes(stepId) && stepId < ONBOARDING_STEPS.length) {
-      setExpandedStep(stepId + 1);
-    }
+        if (result.success) {
+          // Update local state
+          const newCompleted = completedSteps.includes(stepId)
+            ? completedSteps.filter(id => id !== stepId)
+            : [...completedSteps, stepId];
+
+          setCompletedSteps(newCompleted);
+
+          // Auto-expand next step if completing (not un-completing)
+          if (!completedSteps.includes(stepId) && stepId < ONBOARDING_STEPS.length) {
+            setExpandedStep(stepId + 1);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to update step:', error);
+      } finally {
+        setTogglingStep(null);
+      }
+    });
   };
 
   const progress = Math.round((completedSteps.length / ONBOARDING_STEPS.length) * 100);
+
+  if (isLoading) {
+    return (
+      <div className="max-w-4xl mx-auto flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 text-gold animate-spin mx-auto mb-4" />
+          <p className="text-white/60">Loading your progress...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -112,6 +159,7 @@ export default function OnboardingPage() {
           const isCompleted = completedSteps.includes(step.id);
           const embedUrl = step.videoUrl ? getYouTubeEmbedUrl(step.videoUrl) : null;
           const StepIcon = iconMap[step.icon] || Circle;
+          const isToggling = togglingStep === step.id;
 
           return (
             <motion.div
@@ -233,13 +281,19 @@ export default function OnboardingPage() {
                         {/* Complete Button */}
                         <button
                           onClick={() => markAsComplete(step.id)}
-                          className={`w-full flex items-center justify-center gap-2 py-3 rounded-lg font-semibold transition-all ${
+                          disabled={isToggling || isPending}
+                          className={`w-full flex items-center justify-center gap-2 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                             isCompleted
                               ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                               : 'bg-gold text-navy-dark hover:bg-gold-light'
                           }`}
                         >
-                          {isCompleted ? (
+                          {isToggling ? (
+                            <>
+                              <Loader2 className="w-5 h-5 animate-spin" />
+                              Saving...
+                            </>
+                          ) : isCompleted ? (
                             <>
                               <CheckCircle2 className="w-5 h-5" />
                               Completed - Click to Undo

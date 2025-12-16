@@ -18,10 +18,13 @@ async function requireAdmin() {
   return session;
 }
 
-// Get members with search and pagination
+// Get members with search, filters, and pagination
 export async function getMembers(params?: {
   search?: string;
   status?: 'all' | 'active' | 'inactive';
+  onboarding?: 'all' | 'not_started' | 'in_progress' | 'complete';
+  activity?: 'all' | 'recent' | 'dormant' | 'at_risk';
+  joinDate?: 'all' | 'this_week' | 'this_month' | 'earlier';
   page?: number;
   limit?: number;
 }) {
@@ -30,15 +33,20 @@ export async function getMembers(params?: {
   const validated = memberSearchSchema.parse({
     search: params?.search || '',
     status: params?.status || 'all',
+    onboarding: params?.onboarding || 'all',
+    activity: params?.activity || 'all',
+    joinDate: params?.joinDate || 'all',
     page: params?.page || 1,
     limit: params?.limit || 10,
   });
 
-  const where: {
-    role: 'MEMBER';
-    isActive?: boolean;
-    OR?: Array<{ firstName: { contains: string; mode: 'insensitive' } } | { lastName: { contains: string; mode: 'insensitive' } } | { email: { contains: string; mode: 'insensitive' } }>;
-  } = {
+  const now = new Date();
+  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+  // Build base where clause
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const where: any = {
     role: 'MEMBER',
   };
 
@@ -58,7 +66,29 @@ export async function getMembers(params?: {
     ];
   }
 
-  const [members, total] = await Promise.all([
+  // Activity filter
+  if (validated.activity === 'recent') {
+    where.lastLoginAt = { gte: sevenDaysAgo };
+  } else if (validated.activity === 'dormant') {
+    where.lastLoginAt = { gte: thirtyDaysAgo, lt: sevenDaysAgo };
+  } else if (validated.activity === 'at_risk') {
+    where.OR = [
+      { lastLoginAt: { lt: thirtyDaysAgo } },
+      { lastLoginAt: null },
+    ];
+  }
+
+  // Join date filter
+  if (validated.joinDate === 'this_week') {
+    where.createdAt = { gte: sevenDaysAgo };
+  } else if (validated.joinDate === 'this_month') {
+    where.createdAt = { gte: thirtyDaysAgo, lt: sevenDaysAgo };
+  } else if (validated.joinDate === 'earlier') {
+    where.createdAt = { lt: thirtyDaysAgo };
+  }
+
+  // Get members with onboarding progress
+  const [membersWithProgress, total] = await Promise.all([
     db.user.findMany({
       where,
       orderBy: { createdAt: 'desc' },
@@ -74,17 +104,102 @@ export async function getMembers(params?: {
         isActive: true,
         createdAt: true,
         lastLoginAt: true,
+        onboardingProgress: true,
       },
     }),
     db.user.count({ where }),
   ]);
 
+  // Apply onboarding filter in memory (complex join conditions)
+  let filteredMembers = membersWithProgress;
+
+  if (validated.onboarding !== 'all') {
+    filteredMembers = membersWithProgress.filter(member => {
+      const progress = member.onboardingProgress;
+
+      if (validated.onboarding === 'not_started') {
+        if (!progress) return true;
+        const hasAny = progress.step1 || progress.step2 || progress.step3 ||
+                       progress.step4 || progress.step5 || progress.step6 || progress.step7;
+        return !hasAny;
+      }
+
+      if (validated.onboarding === 'complete') {
+        if (!progress) return false;
+        return progress.step1 && progress.step2 && progress.step3 &&
+               progress.step4 && progress.step5 && progress.step6 && progress.step7;
+      }
+
+      if (validated.onboarding === 'in_progress') {
+        if (!progress) return false;
+        const hasAny = progress.step1 || progress.step2 || progress.step3 ||
+                       progress.step4 || progress.step5 || progress.step6 || progress.step7;
+        const hasAll = progress.step1 && progress.step2 && progress.step3 &&
+                       progress.step4 && progress.step5 && progress.step6 && progress.step7;
+        return hasAny && !hasAll;
+      }
+
+      return true;
+    });
+  }
+
+  // Calculate onboarding status for each member
+  const members = filteredMembers.map(member => {
+    const progress = member.onboardingProgress;
+    let onboardingStatus: 'not_started' | 'in_progress' | 'complete' = 'not_started';
+    let stepsCompleted = 0;
+
+    if (progress) {
+      if (progress.step1) stepsCompleted++;
+      if (progress.step2) stepsCompleted++;
+      if (progress.step3) stepsCompleted++;
+      if (progress.step4) stepsCompleted++;
+      if (progress.step5) stepsCompleted++;
+      if (progress.step6) stepsCompleted++;
+      if (progress.step7) stepsCompleted++;
+
+      if (stepsCompleted === 7) {
+        onboardingStatus = 'complete';
+      } else if (stepsCompleted > 0) {
+        onboardingStatus = 'in_progress';
+      }
+    }
+
+    // Determine activity status
+    let activityStatus: 'recent' | 'dormant' | 'at_risk' = 'at_risk';
+    if (member.lastLoginAt) {
+      if (member.lastLoginAt >= sevenDaysAgo) {
+        activityStatus = 'recent';
+      } else if (member.lastLoginAt >= thirtyDaysAgo) {
+        activityStatus = 'dormant';
+      }
+    }
+
+    return {
+      id: member.id,
+      firstName: member.firstName,
+      lastName: member.lastName,
+      email: member.email,
+      referralCode: member.referralCode,
+      referredBy: member.referredBy,
+      isActive: member.isActive,
+      createdAt: member.createdAt,
+      lastLoginAt: member.lastLoginAt,
+      onboardingStatus,
+      stepsCompleted,
+      activityStatus,
+    };
+  });
+
+  // Adjust total for onboarding filter (approximation since we filter in memory)
+  const adjustedTotal = validated.onboarding !== 'all' ? filteredMembers.length : total;
+
   return {
     members,
-    total,
+    total: adjustedTotal,
     page: validated.page,
     limit: validated.limit,
-    totalPages: Math.ceil(total / validated.limit),
+    totalPages: Math.ceil(adjustedTotal / validated.limit),
   };
 }
 

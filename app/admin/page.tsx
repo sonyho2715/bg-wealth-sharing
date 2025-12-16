@@ -1,5 +1,8 @@
 import { db } from '@/lib/db';
 import { getRecentActivities, getActivityStats } from '@/lib/activity';
+import { getConversionFunnel, getOnboardingFunnel, getMemberSegmentStats } from '@/app/actions/analytics';
+
+export const dynamic = 'force-dynamic';
 import {
   Users,
   UserPlus,
@@ -10,9 +13,14 @@ import {
   LogIn,
   Shield,
   Bell,
-  Calendar
+  Calendar,
+  ClipboardList,
+  AlertTriangle,
+  Zap,
 } from 'lucide-react';
 import Link from 'next/link';
+import ConversionFunnel from '@/components/admin/ConversionFunnel';
+import OnboardingFunnel from '@/components/admin/OnboardingFunnel';
 
 async function getStats() {
   const now = new Date();
@@ -127,6 +135,22 @@ function formatActionName(action: string): string {
 }
 
 export default async function AdminDashboard() {
+  const [
+    basicStats,
+    activityStats,
+    recentActivities,
+    funnelData,
+    onboardingSteps,
+    segmentStats,
+  ] = await Promise.all([
+    getStats(),
+    getActivityStats(7),
+    getRecentActivities(10),
+    getConversionFunnel(),
+    getOnboardingFunnel(),
+    getMemberSegmentStats(),
+  ]);
+
   const {
     totalMembers,
     activeMembers,
@@ -136,12 +160,7 @@ export default async function AdminDashboard() {
     recentLogins,
     activeAnnouncements,
     dailySignups,
-  } = await getStats();
-
-  const [activityStats, recentActivities] = await Promise.all([
-    getActivityStats(7),
-    getRecentActivities(10),
-  ]);
+  } = basicStats;
 
   const maxDailySignups = Math.max(...dailySignups.map(d => d.count), 1);
 
@@ -176,15 +195,39 @@ export default async function AdminDashboard() {
     },
   ];
 
-  const quickStats = [
-    { label: 'New This Month', value: newThisMonth, icon: Calendar },
-    { label: 'Active Announcements', value: activeAnnouncements, icon: Bell },
-    { label: 'Total Logins (7d)', value: activityStats['LOGIN'] || 0, icon: TrendingUp },
-    { label: 'Password Changes (7d)', value: activityStats['PASSWORD_CHANGED'] || 0, icon: Shield },
+  // Segment quick links for members page
+  const segmentLinks = [
+    {
+      label: 'At Risk',
+      value: segmentStats.activeAtRisk,
+      description: 'No login 30+ days',
+      href: '/admin/members?activity=at_risk',
+      color: 'text-red-400',
+      bgColor: 'bg-red-500/10',
+      icon: AlertTriangle,
+    },
+    {
+      label: 'Not Started',
+      value: segmentStats.onboardingNotStarted,
+      description: 'No onboarding progress',
+      href: '/admin/members?onboarding=not_started',
+      color: 'text-orange-400',
+      bgColor: 'bg-orange-500/10',
+      icon: ClipboardList,
+    },
+    {
+      label: 'New This Week',
+      value: segmentStats.joinedThisWeek,
+      description: 'Recent signups',
+      href: '/admin/members?joinDate=this_week',
+      color: 'text-blue-400',
+      bgColor: 'bg-blue-500/10',
+      icon: Zap,
+    },
   ];
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-white mb-2">Admin Dashboard</h1>
@@ -209,6 +252,43 @@ export default async function AdminDashboard() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Conversion Funnel + Onboarding Funnel */}
+      <div className="grid lg:grid-cols-2 gap-6 mb-8">
+        <ConversionFunnel data={funnelData} />
+        <OnboardingFunnel steps={onboardingSteps} totalMembers={totalMembers} />
+      </div>
+
+      {/* Quick Segment Access */}
+      <div className="bg-navy border border-gold/20 rounded-2xl p-6 mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-white">Quick Segments</h2>
+          <Link
+            href="/admin/members"
+            className="text-gold text-sm hover:text-gold-light transition-colors"
+          >
+            View All Members →
+          </Link>
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {segmentLinks.map((segment) => (
+            <Link
+              key={segment.label}
+              href={segment.href}
+              className="p-4 bg-navy-dark rounded-xl border border-gold/10 hover:border-gold/30 transition-colors group"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <div className={`p-2 rounded-lg ${segment.bgColor}`}>
+                  <segment.icon className={`w-4 h-4 ${segment.color}`} />
+                </div>
+                <span className={`text-2xl font-bold ${segment.color}`}>{segment.value}</span>
+              </div>
+              <p className="text-white font-medium">{segment.label}</p>
+              <p className="text-white/50 text-sm">{segment.description}</p>
+            </Link>
+          ))}
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6 mb-8">
@@ -248,18 +328,34 @@ export default async function AdminDashboard() {
             <h2 className="text-xl font-semibold text-white">Quick Stats</h2>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {quickStats.map((stat, index) => (
-              <div
-                key={index}
-                className="p-4 bg-navy-dark rounded-xl border border-gold/10"
-              >
-                <div className="flex items-center gap-2 text-white/60 text-sm mb-2">
-                  <stat.icon className="w-4 h-4" />
-                  <span>{stat.label}</span>
-                </div>
-                <p className="text-2xl font-bold text-white">{stat.value}</p>
+            <div className="p-4 bg-navy-dark rounded-xl border border-gold/10">
+              <div className="flex items-center gap-2 text-white/60 text-sm mb-2">
+                <Calendar className="w-4 h-4" />
+                <span>New This Month</span>
               </div>
-            ))}
+              <p className="text-2xl font-bold text-white">{newThisMonth}</p>
+            </div>
+            <div className="p-4 bg-navy-dark rounded-xl border border-gold/10">
+              <div className="flex items-center gap-2 text-white/60 text-sm mb-2">
+                <Bell className="w-4 h-4" />
+                <span>Active Announcements</span>
+              </div>
+              <p className="text-2xl font-bold text-white">{activeAnnouncements}</p>
+            </div>
+            <div className="p-4 bg-navy-dark rounded-xl border border-gold/10">
+              <div className="flex items-center gap-2 text-white/60 text-sm mb-2">
+                <TrendingUp className="w-4 h-4" />
+                <span>Total Logins (7d)</span>
+              </div>
+              <p className="text-2xl font-bold text-white">{activityStats['LOGIN'] || 0}</p>
+            </div>
+            <div className="p-4 bg-navy-dark rounded-xl border border-gold/10">
+              <div className="flex items-center gap-2 text-white/60 text-sm mb-2">
+                <Shield className="w-4 h-4" />
+                <span>Password Changes (7d)</span>
+              </div>
+              <p className="text-2xl font-bold text-white">{activityStats['PASSWORD_CHANGED'] || 0}</p>
+            </div>
           </div>
         </div>
       </div>

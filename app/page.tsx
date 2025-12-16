@@ -10,6 +10,8 @@ import Footer from '@/components/landing/Footer';
 import LandingAnnouncementPopup from '@/components/landing/LandingAnnouncementPopup';
 import { getActiveAnnouncements } from '@/app/actions/announcements';
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   const announcements = await getActiveAnnouncements();
 

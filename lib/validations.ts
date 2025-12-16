@@ -80,6 +80,9 @@ export const announcementSchema = z.object({
 export const memberSearchSchema = z.object({
   search: z.string().max(100).optional().default(''),
   status: z.enum(['all', 'active', 'inactive']).optional().default('all'),
+  onboarding: z.enum(['all', 'not_started', 'in_progress', 'complete']).optional().default('all'),
+  activity: z.enum(['all', 'recent', 'dormant', 'at_risk']).optional().default('all'),
+  joinDate: z.enum(['all', 'this_week', 'this_month', 'earlier']).optional().default('all'),
   page: z.number().int().min(1).default(1),
   limit: z.number().int().min(1).max(100).default(10),
 });

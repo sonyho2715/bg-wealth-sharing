@@ -13,53 +13,20 @@ model User {
   password      String
   firstName     String
   lastName      String
-  phone         String?
-  referralCode  String?
-  referredBy    String?   // Leader's name or referral code
   role          Role      @default(MEMBER)
   isActive      Boolean   @default(true)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   lastLoginAt   DateTime?
+  referralCode  String?
+  phone         String?
+  referredBy    String?
 
-  // Relations
-  activityLogs       ActivityLog[]
-  passwordResetTokens PasswordResetToken[]
+  activityLogs      ActivityLog[]
   onboardingProgress OnboardingProgress?
+  passwordResetTokens PasswordResetToken[]
 
   @@map("users")
-}
-
-model ActivityLog {
-  id        String   @id @default(cuid())
-  userId    String?
-  action    String
-  details   String?
-  ipAddress String?
-  userAgent String?
-  createdAt DateTime @default(now())
-
-  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
-
-  @@index([userId])
-  @@index([action])
-  @@index([createdAt])
-  @@map("activity_logs")
-}
-
-model PasswordResetToken {
-  id        String   @id @default(cuid())
-  userId    String
-  token     String   @unique
-  expiresAt DateTime
-  usedAt    DateTime?
-  createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([token])
-  @@index([userId])
-  @@map("password_reset_tokens")
 }
 
 model OnboardingProgress {
@@ -79,30 +46,50 @@ model OnboardingProgress {
   @@map("onboarding_progress")
 }
 
-enum Role {
-  MEMBER
-  ADMIN
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  details   String?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("activity_logs")
 }
 
 model Announcement {
-  id          String           @id @default(cuid())
-  title       String
-  message     String
-  type        AnnouncementType @default(GENERAL)
-  isActive    Boolean          @default(true)
-  priority    Int              @default(0)
-  expiresAt   DateTime?
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id        String           @id @default(cuid())
+  title     String
+  message   String
+  type      AnnouncementType @default(GENERAL)
+  isActive  Boolean          @default(true)
+  priority  Int              @default(0)
+  expiresAt DateTime?
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 
   @@map("announcements")
 }
 
-enum AnnouncementType {
-  GENERAL
-  EVENT
-  ZOOM
-  URGENT
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+  @@map("password_reset_tokens")
 }
 
 model ReferralVisit {
@@ -110,11 +97,23 @@ model ReferralVisit {
   referralCode String
   visitorIp    String?
   userAgent    String?
-  source       String?  // utm_source tracking
+  source       String?
   visitedAt    DateTime @default(now())
   converted    Boolean  @default(false)
 
   @@index([referralCode])
   @@index([visitedAt])
   @@map("referral_visits")
+}
+
+enum Role {
+  MEMBER
+  ADMIN
+}
+
+enum AnnouncementType {
+  GENERAL
+  EVENT
+  ZOOM
+  URGENT
 }
