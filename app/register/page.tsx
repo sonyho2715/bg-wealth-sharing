@@ -177,13 +177,13 @@ export default function RegisterPage() {
                   id="dsjInvitationCode"
                   name="dsjInvitationCode"
                   type="text"
-                  required
                   className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm font-mono"
                   placeholder="e.g., apdpva27vg00"
                 />
               </div>
               <p className="text-white/40 text-xs mt-1">
-                Get this from DSJ: Share With Friends → My invitation code
+                Get this from DSJ: Share With Friends → My invitation code.
+                Leave empty if you don&apos;t have one, update in Settings later.
               </p>
             </div>
 
