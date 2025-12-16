@@ -25,6 +25,11 @@ const tutorialVideos = [
     description: 'How to set up your crypto wallet for deposits.',
   },
   {
+    title: 'Coinbase to DSJ Transfer',
+    url: 'https://www.youtube.com/watch?v=y2bbiuRPa2g',
+    description: 'How to transfer funds from Coinbase to DSJ.',
+  },
+  {
     title: 'Bonchat Communication',
     url: 'https://www.youtube.com/watch?v=yuYJIucjvgM',
     description: 'Setting up and using Bonchat for team communication.',
