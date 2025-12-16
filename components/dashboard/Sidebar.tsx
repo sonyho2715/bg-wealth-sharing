@@ -19,6 +19,7 @@ import {
   Check,
   Settings,
   Share2,
+  Calculator,
 } from 'lucide-react';
 import { logout } from '@/app/actions/auth';
 
@@ -26,6 +27,7 @@ const navItems = [
   { href: '/dashboard', icon: Home, label: 'Home' },
   { href: '/dashboard/onboarding', icon: ClipboardList, label: 'Onboarding' },
   { href: '/dashboard/signals', icon: Radio, label: 'Meetings & Signals' },
+  { href: '/dashboard/calculators', icon: Calculator, label: 'Calculators' },
   { href: '/dashboard/referrals', icon: Share2, label: 'Share & Earn' },
   { href: '/dashboard/resources', icon: BookOpen, label: 'Resources' },
   { href: '/dashboard/settings', icon: Settings, label: 'Settings' },
