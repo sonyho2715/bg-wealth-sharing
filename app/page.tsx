@@ -1,6 +1,7 @@
 import Navigation from '@/components/landing/Navigation';
 import HeroSection from '@/components/landing/HeroSection';
 import ProjectOverview from '@/components/landing/ProjectOverview';
+import DSJEXExplainer from '@/components/landing/DSJEXExplainer';
 import TeamSection from '@/components/landing/TeamSection';
 import CertificatesSection from '@/components/landing/CertificatesSection';
 import TestimonialsGrid from '@/components/landing/TestimonialsGrid';
@@ -18,6 +19,7 @@ export default async function HomePage() {
       <Navigation />
       <HeroSection />
       <ProjectOverview />
+      <DSJEXExplainer />
       <TeamSection />
       <CertificatesSection />
       <TestimonialsGrid />
