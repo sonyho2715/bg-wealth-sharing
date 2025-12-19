@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Copy, Check, MessageCircle, Mail, Users, Gift, Clock, Target, Sparkles, UserPlus, Phone, Video, Heart, Lightbulb, TrendingUp, Zap, DollarSign, Coffee, Smartphone, GraduationCap, Briefcase, Home, AlertCircle, HelpCircle, RefreshCw } from 'lucide-react';
+import { Copy, Check, MessageCircle, Mail, Users, Gift, Clock, Target, Sparkles, UserPlus, Phone, Video, Heart, Lightbulb, TrendingUp, Zap, DollarSign, Coffee, Smartphone, GraduationCap, Briefcase, Home, AlertCircle, HelpCircle, RefreshCw, Flame, Crown, Shield, Rocket, Brain, Star, Award, Key } from 'lucide-react';
 
 type Category =
   | 'all'
@@ -12,10 +12,16 @@ type Category =
   | 'audiences'
   | 'calls'
   | 'objections'
-  | 'warm';
+  | 'warm'
+  | 'power'
+  | 'reframe'
+  | 'closing';
 
 const categories: { id: Category; label: string; icon: React.ElementType }[] = [
   { id: 'all', label: 'All Scripts', icon: Zap },
+  { id: 'power', label: 'Power Scripts', icon: Flame },
+  { id: 'reframe', label: 'Reframes', icon: Brain },
+  { id: 'closing', label: 'Closing Scripts', icon: Crown },
   { id: 'quick', label: 'Quick & Simple', icon: MessageCircle },
   { id: 'social', label: 'Social Media', icon: Users },
   { id: 'email', label: 'Email', icon: Mail },
@@ -27,6 +33,538 @@ const categories: { id: Category; label: string; icon: React.ElementType }[] = [
 ];
 
 const messageTemplates = [
+  // Power Scripts - High Impact Openers
+  {
+    id: 'power-future-pace',
+    title: 'Future Vision',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Rocket,
+    message: `Imagine looking back 6 months from now, knowing you started something simple that's been paying you every week. That's exactly where I am right now.
+
+10 minutes a day. Copy and paste. The only question is whether you'll wish you started today.
+
+Want to see how it works?`,
+  },
+  {
+    id: 'power-contrast',
+    title: 'The Real Cost',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Flame,
+    message: `Here's something most people don't think about:
+
+You're already spending way more than 10 minutes a day scrolling, watching TV, or waiting around. The difference? That time costs you nothing... but it also pays you nothing.
+
+What if those same 10 minutes actually put money in your pocket?
+
+That's what I've been doing. Simple copy and paste. Want me to show you?`,
+  },
+  {
+    id: 'power-certainty',
+    title: 'When You Start',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Star,
+    message: `When you start doing this, you'll probably wonder why you didn't do it sooner. That's what happened to me.
+
+10 minutes a day. Copy and paste. Extra income that adds up faster than you'd expect.
+
+The people who try it get it immediately. Want to be one of them?`,
+  },
+  {
+    id: 'power-identity',
+    title: 'Who This Is For',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Crown,
+    message: `This isn't for everyone. It's for people who:
+
+- Actually follow through on things
+- Value their time
+- Want results without the fluff
+
+If that sounds like you, I've got something simple. 10 minutes a day, copy and paste, real income.
+
+Should I share the details?`,
+  },
+  {
+    id: 'power-logic',
+    title: 'Simple Math',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Brain,
+    message: `Let me break this down simply:
+
+10 minutes a day = 70 minutes a week
+That's barely over an hour
+For extra income that keeps growing
+
+You probably spend more time than that deciding what to watch on Netflix.
+
+The difference is this actually pays you. Copy and paste work. Want to know more?`,
+  },
+  {
+    id: 'power-outcome',
+    title: 'What Actually Happens',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Target,
+    message: `Here's what actually happens when you start this:
+
+Day 1: You learn the simple copy paste process
+Week 1: It becomes automatic, takes 10 minutes
+Month 1: You're making extra income consistently
+
+No guessing. No complicated systems. Just results.
+
+Want me to walk you through it?`,
+  },
+  {
+    id: 'power-transformation',
+    title: 'Before & After',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Sparkles,
+    message: `Before: Scrolling social media, wondering how to make extra money
+After: Spending those same 10 minutes on simple copy paste work that actually pays
+
+Same time investment. Completely different outcome.
+
+Which version would you rather be living?`,
+  },
+  {
+    id: 'power-risk-reversal',
+    title: 'Nothing to Lose',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Shield,
+    message: `Worst case: You spend 10 minutes learning something that doesn't click for you.
+
+Best case: You find a simple way to make extra income that works around your schedule.
+
+Either way, you'll know. And knowing beats wondering.
+
+Want me to show you how it works?`,
+  },
+  {
+    id: 'power-pattern-interrupt',
+    title: 'Different Question',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Lightbulb,
+    message: `Everyone asks "Is this legit?" or "Does it actually work?"
+
+Better question: "What would I do with extra income every week?"
+
+Because once you know HOW simple this is, the only thing left is deciding what to do with the money.
+
+10 minutes a day. Copy and paste. Want to see it?`,
+  },
+  {
+    id: 'power-social-proof',
+    title: 'What Others Found',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Users,
+    message: `The people who start this usually say the same thing:
+
+"Why didn't I do this sooner?"
+
+Not because it made them rich overnight. But because it's so simple they can't believe they waited.
+
+10 minutes. Copy and paste. Extra income.
+
+Ready to see what everyone's talking about?`,
+  },
+  {
+    id: 'power-specificity',
+    title: 'Exactly What Happens',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Key,
+    message: `Here's exactly what you'd be doing:
+
+1. Open your phone (2 min)
+2. Copy the message I give you (1 min)
+3. Paste it where I show you (2 min)
+4. Repeat a few times (5 min)
+
+That's it. That's the whole "system."
+
+No courses. No complicated funnels. Just copy, paste, earn.
+
+Want the details?`,
+  },
+  {
+    id: 'power-urgency',
+    title: 'Time Is Moving',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Clock,
+    message: `A year from now, you'll have spent thousands of hours doing... something.
+
+The question isn't whether you have 10 minutes a day. You do.
+
+The question is whether those 10 minutes will be working FOR you or just passing by.
+
+This is simple copy and paste work that pays. Want in?`,
+  },
+
+  // Reframe Scripts - Handling Objections Differently
+  {
+    id: 'reframe-time',
+    title: 'Time Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: Clock,
+    message: `"I don't have time" - I used to say that too.
+
+Then I realized I wasn't saying "I don't have time." I was saying "It's not a priority."
+
+And that was true... until I saw how little time this actually takes.
+
+10 minutes while drinking your morning coffee. That's it.
+
+Is making extra income worth one coffee break?`,
+  },
+  {
+    id: 'reframe-money',
+    title: 'Money Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: DollarSign,
+    message: `"I don't have money to start things"
+
+Interesting. That's exactly WHY this makes sense.
+
+If you had unlimited money, you wouldn't need extra income.
+
+The fact that money is tight is the exact reason to spend 10 minutes a day on something that brings more in.
+
+Make sense?`,
+  },
+  {
+    id: 'reframe-skeptic',
+    title: 'Skepticism Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: Brain,
+    message: `You're skeptical. Good. You should be.
+
+That skepticism has probably saved you from actual scams.
+
+But here's the thing - being skeptical and being closed are different.
+
+Skeptical means you want proof. I can show you that.
+Closed means you won't look. That would cost you.
+
+Which one are you?`,
+  },
+  {
+    id: 'reframe-tried-before',
+    title: 'Past Failure Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: RefreshCw,
+    message: `"I've tried things before that didn't work"
+
+Perfect. That means you've been looking for something.
+
+The things that didn't work taught you what to avoid.
+
+This is different - simpler. Copy and paste. 10 minutes.
+
+Maybe those "failures" were just leading you to something that actually works?`,
+  },
+  {
+    id: 'reframe-too-simple',
+    title: 'Simplicity Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: Lightbulb,
+    message: `"It sounds too simple"
+
+Isn't that what you want though?
+
+We've been trained to think valuable things must be complicated.
+
+But the best things in life ARE simple. This is one of them.
+
+Copy. Paste. Get paid. 10 minutes a day.
+
+Simple doesn't mean it doesn't work. Simple means it actually does.`,
+  },
+  {
+    id: 'reframe-age',
+    title: 'Age Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: Award,
+    message: `"I'm too old for this" or "I'm too young for this"
+
+Here's what's interesting - everyone says one or the other.
+
+The truth? If you can copy and paste on a phone, you can do this.
+
+Age isn't the question. The question is: do you want extra income?
+
+If yes, you're exactly the right age to start.`,
+  },
+  {
+    id: 'reframe-busy',
+    title: 'Busy Life Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: Briefcase,
+    message: `"My life is too busy right now"
+
+I hear you. But let me ask you something...
+
+When will life NOT be busy?
+
+Busy people are actually the best at this because they know how to use small pockets of time.
+
+10 minutes. That's one bathroom break. One commercial break. One waiting-in-line moment.
+
+The busy excuse is actually the best reason TO do it.`,
+  },
+  {
+    id: 'reframe-family',
+    title: 'Family Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: Home,
+    message: `"I need to focus on my family"
+
+That's exactly why this makes sense.
+
+What does extra income mean for your family? Less stress? More options? Better future?
+
+And it only takes 10 minutes away from them. You probably spend more time than that on things that give nothing back.
+
+This gives back. For them.`,
+  },
+  {
+    id: 'reframe-not-salesy',
+    title: 'Sales Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: MessageCircle,
+    message: `"I'm not good at sales"
+
+Good news: this isn't sales.
+
+Copy and paste. That's the whole thing. No pitching. No convincing. No rejection.
+
+If you can send a text message, you can do this.
+
+The "sales" part is already done for you. You just copy it.`,
+  },
+  {
+    id: 'reframe-tech',
+    title: 'Tech Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: Smartphone,
+    message: `"I'm not tech savvy"
+
+Can you copy text?
+Can you paste text?
+
+Congratulations, you have all the tech skills you need.
+
+This isn't coding or complicated software. It's literally the same thing you do when you forward a funny meme to a friend.
+
+10 minutes a day. Extra income. That simple.`,
+  },
+  {
+    id: 'reframe-compare',
+    title: 'Comparison Reframe',
+    category: 'reframe',
+    platform: 'Text/DM',
+    icon: Target,
+    message: `Think about other ways to make extra money:
+
+Second job: 20+ hours/week, boss, schedule
+Uber/delivery: Car costs, wear and tear, unpredictable
+Selling stuff: Inventory, shipping, customer service
+
+This: 10 minutes, copy paste, from your couch
+
+Not saying those are bad. But if you're comparing... this is different.`,
+  },
+
+  // Closing Scripts - Getting to Yes
+  {
+    id: 'close-assumptive',
+    title: 'Easy Next Step',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Crown,
+    message: `So here's what happens next:
+
+I'll send you a quick overview - takes 5 minutes to watch.
+
+After that, you'll know if this is for you. Most people know right away.
+
+Should I send it now or later today?`,
+  },
+  {
+    id: 'close-choice',
+    title: 'Two Options',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Key,
+    message: `At this point, you really have two choices:
+
+1. Keep doing what you're doing (which is fine)
+2. Try something simple that might add extra income
+
+Neither is wrong. But only one has upside.
+
+Want to see the 5-minute overview?`,
+  },
+  {
+    id: 'close-summary',
+    title: 'Quick Recap',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Star,
+    message: `Let me make sure we're on the same page:
+
+- You want extra income (who doesn't)
+- You have 10 minutes a day (everyone does)
+- You can copy and paste (you're doing it right now)
+
+The only thing missing is you saying "show me."
+
+So... should I show you?`,
+  },
+  {
+    id: 'close-urgency-soft',
+    title: 'Gentle Urgency',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Clock,
+    message: `I'm not going to pressure you. This will still be here tomorrow.
+
+But here's what I know: the people who say "let me think about it" usually mean "I'll forget about it."
+
+And then nothing changes.
+
+If you're even a little curious, let me send you the info now while it's fresh. Deal?`,
+  },
+  {
+    id: 'close-fear-address',
+    title: "What's Really Stopping You",
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Shield,
+    message: `Can I be real with you?
+
+Most people who hesitate aren't worried about the 10 minutes. They're worried about being disappointed again.
+
+I get it. But disappointment comes from complicated things that over-promise.
+
+This is simple. Copy, paste, earn. The bar is so low you can't really fail.
+
+What do you say?`,
+  },
+  {
+    id: 'close-future',
+    title: 'Fast Forward',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Rocket,
+    message: `Picture this: 30 days from now, you've been doing this for a month.
+
+10 minutes a day has become automatic. Extra income is coming in. You barely think about it.
+
+That can be your reality. Or you can wonder "what if" for another 30 days.
+
+Ready to start?`,
+  },
+  {
+    id: 'close-simple-ask',
+    title: 'Direct Ask',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Target,
+    message: `I've told you what it is. I've told you how it works. I've answered your questions.
+
+Now I'm just going to ask directly:
+
+Do you want to do this?
+
+Yes or no, I respect your answer. But I need an answer.`,
+  },
+  {
+    id: 'close-partnership',
+    title: 'We Do This Together',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Users,
+    message: `Here's something I haven't mentioned:
+
+When you start, I help you. Personally.
+
+You're not figuring this out alone. I show you exactly what to copy, where to paste, and how to make it work.
+
+10 minutes a day, but with someone in your corner.
+
+Ready to do this together?`,
+  },
+  {
+    id: 'close-value-stack',
+    title: 'What You Get',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Gift,
+    message: `When you start, here's what you're getting:
+
+✓ The exact copy-paste templates that work
+✓ Step-by-step walkthrough (no guessing)
+✓ Direct access to me for questions
+✓ A system that takes 10 minutes a day
+
+All of that for a few minutes of your time to learn it.
+
+Worth a shot?`,
+  },
+  {
+    id: 'close-reverse',
+    title: 'Why NOT You',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Flame,
+    message: `Real talk: Why NOT you?
+
+Other people are doing this. Regular people. Busy people. Skeptical people who gave it a shot.
+
+Why should they get extra income and not you?
+
+There's no good answer to that question.
+
+So let's get you started. Cool?`,
+  },
+  {
+    id: 'close-last-question',
+    title: 'One Final Question',
+    category: 'closing',
+    platform: 'Text/DM',
+    icon: Brain,
+    message: `Last question:
+
+If this works - and it does - what would you do with extra income every week?
+
+Pay off something? Save for something? Just breathe a little easier?
+
+Whatever your answer is... that's why you should try this.
+
+Ready?`,
+  },
+
   // Quick & Simple
   {
     id: 'quick-intro',
