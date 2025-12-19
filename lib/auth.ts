@@ -6,7 +6,6 @@ export interface SessionData {
   email: string;
   firstName: string;
   lastName: string;
-  referralCode: string | null;
   role: 'MEMBER' | 'ADMIN';
   isLoggedIn: boolean;
 }

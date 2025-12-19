@@ -13,7 +13,6 @@ import {
   User,
   Phone,
   UserPlus,
-  Link2,
 } from 'lucide-react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { register } from '@/app/actions/auth';
@@ -164,27 +163,6 @@ export default function RegisterPage() {
                   placeholder="you@example.com"
                 />
               </div>
-            </div>
-
-            {/* DSJ Invitation Code */}
-            <div>
-              <label htmlFor="dsjInvitationCode" className="block text-sm font-medium text-white/80 mb-1.5">
-                Your DSJ Invitation Code
-              </label>
-              <div className="relative">
-                <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-                <input
-                  id="dsjInvitationCode"
-                  name="dsjInvitationCode"
-                  type="text"
-                  className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-3 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-gold/50 transition-colors text-sm font-mono"
-                  placeholder="e.g., apdpva27vg00"
-                />
-              </div>
-              <p className="text-white/40 text-xs mt-1">
-                Get this from DSJ: Share With Friends → My invitation code.
-                Leave empty if you don&apos;t have one, update in Settings later.
-              </p>
             </div>
 
             {/* Who's Your Leader */}

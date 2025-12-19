@@ -69,7 +69,6 @@ export async function login(formData: FormData) {
     session.email = user.email;
     session.firstName = user.firstName;
     session.lastName = user.lastName;
-    session.referralCode = user.referralCode;
     session.role = user.role;
     session.isLoggedIn = true;
     await session.save();
@@ -147,7 +146,6 @@ export async function register(formData: FormData) {
   const phone = formData.get('phone') as string;
   const password = formData.get('password') as string;
   const confirmPassword = formData.get('confirmPassword') as string;
-  const dsjInvitationCode = formData.get('dsjInvitationCode') as string;
   const referredBy = formData.get('referredBy') as string;
   const recaptchaToken = formData.get('recaptchaToken') as string;
 
@@ -166,7 +164,6 @@ export async function register(formData: FormData) {
       phone,
       password,
       confirmPassword,
-      dsjInvitationCode,
       referredBy,
     });
 
@@ -182,7 +179,7 @@ export async function register(formData: FormData) {
     // Hash password
     const hashedPassword = await bcrypt.hash(validated.password, 12);
 
-    // Create user with their DSJ invitation code
+    // Create user
     const user = await db.user.create({
       data: {
         email: validated.email.toLowerCase(),
@@ -190,7 +187,6 @@ export async function register(formData: FormData) {
         firstName: validated.firstName,
         lastName: validated.lastName,
         phone: validated.phone,
-        referralCode: validated.dsjInvitationCode, // Store their DSJ invitation code
         referredBy: validated.referredBy,
         role: 'MEMBER',
       },
@@ -207,7 +203,7 @@ export async function register(formData: FormData) {
     await logActivity({
       userId: user.id,
       action: ActivityAction.USER_CREATED,
-      details: { referredBy: validated.referredBy, dsjInvitationCode: validated.dsjInvitationCode },
+      details: { referredBy: validated.referredBy },
     });
 
     // Auto-login the user
@@ -216,7 +212,6 @@ export async function register(formData: FormData) {
     session.email = user.email;
     session.firstName = user.firstName;
     session.lastName = user.lastName;
-    session.referralCode = user.referralCode;
     session.role = user.role;
     session.isLoggedIn = true;
     await session.save();

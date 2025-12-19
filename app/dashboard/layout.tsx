@@ -41,7 +41,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-navy-dark">
-      <Sidebar user={{ firstName: session.firstName, lastName: session.lastName, email: session.email, referralCode: session.referralCode }} />
+      <Sidebar user={{ firstName: session.firstName, lastName: session.lastName, email: session.email }} />
       <main className="lg:ml-64 min-h-screen p-6 pt-20 lg:pt-6 pb-24 lg:pb-6">
         {children}
       </main>

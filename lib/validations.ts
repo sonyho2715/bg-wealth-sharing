@@ -13,7 +13,6 @@ export const registerSchema = z.object({
   phone: z.string().min(10, 'Phone number must be at least 10 digits').max(20, 'Phone number too long'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   confirmPassword: z.string().min(1, 'Please confirm your password'),
-  dsjInvitationCode: z.string().min(1, 'DSJ invitation code is required').max(50, 'Invitation code too long'),
   referredBy: z.string().min(1, 'Please enter your leader\'s name').max(100, 'Leader name too long'),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",

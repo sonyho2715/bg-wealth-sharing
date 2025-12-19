@@ -14,11 +14,7 @@ import {
   X,
   ChevronRight,
   User,
-  Hash,
-  Copy,
-  Check,
   Settings,
-  Share2,
   Calculator,
 } from 'lucide-react';
 import { logout } from '@/app/actions/auth';
@@ -28,7 +24,6 @@ const navItems = [
   { href: '/dashboard/onboarding', icon: ClipboardList, label: 'Onboarding' },
   { href: '/dashboard/signals', icon: Radio, label: 'Meetings & Signals' },
   { href: '/dashboard/calculators', icon: Calculator, label: 'Calculators' },
-  { href: '/dashboard/referrals', icon: Share2, label: 'Share & Earn' },
   { href: '/dashboard/resources', icon: BookOpen, label: 'Resources' },
   { href: '/dashboard/settings', icon: Settings, label: 'Settings' },
 ];
@@ -38,22 +33,12 @@ interface SidebarProps {
     firstName: string;
     lastName: string;
     email: string;
-    referralCode: string | null;
   };
 }
 
 export default function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const copyReferralCode = () => {
-    if (user.referralCode) {
-      navigator.clipboard.writeText(user.referralCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
 
   return (
     <>
@@ -105,30 +90,6 @@ export default function Sidebar({ user }: SidebarProps) {
               <p className="text-white/50 text-sm truncate">{user.email}</p>
             </div>
           </div>
-
-          {/* Referral Code */}
-          {user.referralCode && (
-            <div className="mt-4 p-3 bg-gold/10 rounded-lg border border-gold/20">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Hash className="w-4 h-4 text-gold" />
-                  <span className="text-white/60 text-xs">Your Referral Code</span>
-                </div>
-                <button
-                  onClick={copyReferralCode}
-                  className="p-1 hover:bg-gold/20 rounded transition-colors"
-                  title="Copy referral code"
-                >
-                  {copied ? (
-                    <Check className="w-4 h-4 text-green-400" />
-                  ) : (
-                    <Copy className="w-4 h-4 text-gold" />
-                  )}
-                </button>
-              </div>
-              <p className="text-gold font-mono font-semibold mt-1">{user.referralCode}</p>
-            </div>
-          )}
         </div>
 
         {/* Navigation */}
