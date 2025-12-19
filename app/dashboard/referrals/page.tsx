@@ -1,67 +1,69 @@
 'use client';
 
 import { useState } from 'react';
-import { Share2, Copy, Check, MessageCircle, Mail, Users, Gift, TrendingUp, Phone, Video, Heart, Lightbulb, Clock, Target, Sparkles, UserPlus } from 'lucide-react';
-
-const shareLink = 'https://bg-wealth-sharing.vercel.app/register';
+import { Copy, Check, MessageCircle, Mail, Users, Gift, TrendingUp, Phone, Video, Heart, Lightbulb, Clock, Target, Sparkles, UserPlus } from 'lucide-react';
 
 const messageTemplates = [
   // Quick & Simple
   {
-    id: 'brief',
-    title: 'Quick Share',
+    id: 'quick-intro',
+    title: 'Quick Intro',
     category: 'Text',
     icon: MessageCircle,
-    message: `Check this out - I've been growing my wealth with AI-powered trading through DSJEX. No experience needed. Here's the link to join: ${shareLink}`,
+    message: `Hey! I started a simple side hustle. Just copy and paste for about 10 minutes a day and make extra income. Interested?`,
   },
   {
     id: 'casual',
-    title: 'Casual Introduction',
+    title: 'Casual Message',
     category: 'Text/DM',
     icon: MessageCircle,
-    message: `Hey! I've been part of this amazing wealth-building community and thought of you. They have a partnership with DSJEX that's been helping people grow their finances through AI-powered trading. Want me to share more info?`,
+    message: `Hey! Quick question - would you be open to making some extra money on the side? I found something super simple. Just 10 minutes a day, copy and paste. Let me know if you want details!`,
   },
   {
     id: 'curiosity',
     title: 'Curiosity Hook',
     category: 'Text/DM',
     icon: Lightbulb,
-    message: `Quick question - are you open to learning about a way to make your money work harder for you? I found something that's been working really well for me and thought you might be interested.`,
+    message: `What if I told you that you could make extra income with just 10 minutes a day? No experience needed. Just copy and paste. Sound too good to be true? Let me explain.`,
   },
 
   // Social Media
   {
-    id: 'social',
+    id: 'social-post',
     title: 'Social Media Post',
     category: 'Facebook/Instagram',
     icon: Users,
-    message: `Looking for a way to grow your wealth? I joined Abundant Blessing AI Trade and it's been a game-changer!
+    message: `Looking for a simple way to make extra money?
 
-Their partnership with DSJEX uses AI-powered trading that works 24/7. Best part? You don't need trading experience.
+I spend about 10 minutes a day doing simple copy and paste tasks and earn extra income on the side.
 
-DM me if you want to learn more! Or visit: ${shareLink}`,
+No special skills needed. No selling. No inventory.
+
+DM me "INFO" if you want to know more!`,
   },
   {
     id: 'story-post',
     title: 'Story-Based Post',
     category: 'Facebook/Instagram',
     icon: Sparkles,
-    message: `6 months ago, I was skeptical about passive income opportunities. Then I discovered Abundant Blessing AI Trade.
+    message: `I used to think side hustles had to be complicated or time-consuming.
 
-What makes it different? Real AI-powered forex trading through DSJEX with transparent results. No recruiting required. No products to sell.
+Then I found something that takes just 10 minutes a day. Simple copy and paste work that actually pays.
 
-If you're tired of "opportunities" that don't deliver, this might be worth a look: ${shareLink}`,
+If you're looking for extra income without the hassle, drop a comment or DM me!`,
   },
   {
     id: 'lifestyle',
     title: 'Lifestyle Post',
     category: 'Facebook/Instagram',
     icon: Heart,
-    message: `Financial freedom isn't just about money. It's about time with family, peace of mind, and choices.
+    message: `What would an extra income stream mean for you?
 
-I'm building that future with Abundant Blessing AI Trade. Our team is growing and the results speak for themselves.
+For me, it's peace of mind. And the best part? It only takes 10 minutes a day.
 
-Ready to start your journey? ${shareLink}`,
+Simple copy and paste. No complicated stuff.
+
+Message me if you want to learn how!`,
   },
 
   // Professional/Email
@@ -72,13 +74,13 @@ Ready to start your journey? ${shareLink}`,
     icon: Mail,
     message: `Hi,
 
-I wanted to reach out about an opportunity I've been involved with. It's a wealth-sharing program through Abundant Blessing AI Trade in partnership with DSJEX.
+I wanted to reach out about a simple side income opportunity I've been doing.
 
-The program focuses on AI-powered forex trading with a proven track record. I've seen great results and thought you might be interested in learning more.
+It's straightforward copy and paste work that takes about 10 minutes a day. Nothing complicated, no special skills required.
 
-Here's where you can sign up: ${shareLink}
+I've been seeing good results and thought you might be interested in learning more.
 
-Let me know if you'd like to discuss further!`,
+Let me know if you'd like details!`,
   },
   {
     id: 'detailed-email',
@@ -87,20 +89,19 @@ Let me know if you'd like to discuss further!`,
     icon: Mail,
     message: `Hi,
 
-I hope this message finds you well. I wanted to share something that's been making a real difference in my financial journey.
+I hope you're doing well! I wanted to share something that's been working great for me.
 
-I recently joined Abundant Blessing AI Trade, a wealth-sharing community that partners with DSJEX for AI-powered forex trading. Here's what stood out to me:
+I started doing this simple side hustle a few months ago. Here's what I love about it:
 
-- No trading experience required (the AI handles everything)
-- Transparent results and weekly updates
-- Supportive community with regular training calls
-- Start with any amount you're comfortable with
+- Only takes about 10 minutes a day
+- Simple copy and paste tasks
+- No experience or special skills needed
+- Work from your phone or computer
+- Earn extra income on the side
 
-I know there are a lot of "opportunities" out there, but this one has actually delivered results. I'd love to answer any questions you might have.
+If you're looking for a way to make some extra money without a huge time commitment, I think this could be perfect for you.
 
-Learn more here: ${shareLink}
-
-Best regards`,
+Would you like me to explain how it works?`,
   },
 
   // Follow-ups
@@ -109,49 +110,62 @@ Best regards`,
     title: 'Follow-Up Message',
     category: 'Text/DM',
     icon: Clock,
-    message: `Hey! Just following up on that wealth-building opportunity I mentioned. Have you had a chance to check it out? Our team has a call coming up this week if you'd like to learn more. No pressure, just thought I'd check in!`,
+    message: `Hey! Just checking in. Did you have a chance to think about that side income opportunity I mentioned? It's really just 10 minutes a day of copy and paste. Happy to answer any questions!`,
   },
   {
     id: 'second-followup',
     title: 'Second Follow-Up',
     category: 'Text/DM',
     icon: Clock,
-    message: `Hi again! I know you're busy, but I wanted to give you one more nudge about Abundant Blessing AI Trade. We just had some great results this week and I immediately thought of you. Would you be open to a quick 10-minute call to explain how it works?`,
+    message: `Hi again! I know you're busy, but I wanted to follow up one more time. The copy and paste side hustle has been going really well for me. Just 10 minutes a day. Would you be open to a quick call so I can explain?`,
   },
 
   // Specific Audiences
   {
-    id: 'retirement',
-    title: 'Retirement Focused',
+    id: 'busy-professional',
+    title: 'For Busy Professionals',
     category: 'Text/Email',
     icon: Target,
-    message: `Are you thinking about retirement and worried if you'll have enough? I was too.
+    message: `I know you're super busy with work, so I'll keep this short.
 
-I found Abundant Blessing AI Trade, and it's become a key part of my retirement strategy. The AI-powered trading through DSJEX generates consistent returns without me having to watch the markets.
+I found a way to make extra income with just 10 minutes a day. Simple copy and paste. You can do it on your lunch break or before bed.
 
-Worth looking into: ${shareLink}`,
+Want me to share more?`,
   },
   {
     id: 'sidehustle',
-    title: 'Side Hustle Angle',
+    title: 'Side Hustle Seeker',
     category: 'Text/DM',
     icon: TrendingUp,
-    message: `Looking for a side hustle that doesn't require trading your time for money?
+    message: `Still looking for a good side hustle?
 
-I've been using Abundant Blessing AI Trade - their AI does the work 24/7 while I focus on my regular job and family. It's not a get-rich-quick scheme, but the steady growth has been impressive.
+I've been doing one that's actually legit. Just copy and paste for about 10 minutes a day. No selling, no recruiting pressure, no inventory.
 
-Check it out: ${shareLink}`,
+Let me know if you want the details!`,
   },
   {
     id: 'busy-parent',
     title: 'For Busy Parents',
     category: 'Text/DM',
     icon: Heart,
-    message: `As a parent, I know how hard it is to find time for anything extra. That's why I love Abundant Blessing AI Trade.
+    message: `As a busy parent, I know time is precious. That's why I love this.
 
-No daily tasks, no products to sell, no recruiting required. The AI trading runs automatically. I just check my account and watch it grow.
+10 minutes a day. Copy and paste. Extra income.
 
-Perfect for busy families: ${shareLink}`,
+I do it while the kids are doing homework or after they go to bed. Simple as that.
+
+Interested?`,
+  },
+  {
+    id: 'student',
+    title: 'For Students',
+    category: 'Text/DM',
+    icon: Lightbulb,
+    message: `Hey! Looking for a way to make some extra cash without it taking over your life?
+
+I've been doing this simple copy and paste thing. Takes like 10 minutes a day and you can do it from your phone.
+
+Perfect for students. Want to know more?`,
   },
 
   // Video/Call Invites
@@ -160,14 +174,14 @@ Perfect for busy families: ${shareLink}`,
     title: 'Video Call Invite',
     category: 'Text/DM',
     icon: Video,
-    message: `Hey! Would you be open to jumping on a quick Zoom call? I want to show you something that's been working really well for me financially. It's easier to explain than type out. Just 15-20 minutes - what do you say?`,
+    message: `Hey! Would you have 10 minutes for a quick call? I want to show you this simple side income I've been doing. It's easier to explain than type out. Just copy and paste work, nothing complicated.`,
   },
   {
     id: 'team-call',
     title: 'Team Call Invite',
     category: 'Text/DM',
     icon: Phone,
-    message: `We have a team call this week where our leaders explain how Abundant Blessing AI Trade works. It's a great way to get your questions answered without any pressure. Want me to send you the link?`,
+    message: `We have a quick info call this week where they explain how the copy and paste system works. Only takes about 15 minutes. Want me to send you the details?`,
   },
 
   // Objection Handlers
@@ -176,20 +190,31 @@ Perfect for busy families: ${shareLink}`,
     title: 'For the Skeptic',
     category: 'Text/Email',
     icon: Lightbulb,
-    message: `I get it - I was skeptical too. There are so many scams out there.
+    message: `I get it, there are a lot of scams out there. I was skeptical too.
 
-What convinced me about Abundant Blessing AI Trade was the transparency. We can see the actual trades happening through DSJEX. Real results, not just promises.
+But this is literally just copy and paste work. 10 minutes a day. Nothing weird, no pyramid stuff.
 
-I'm not asking you to believe me. I'm asking you to look at the facts: ${shareLink}`,
+I can show you exactly what I do if you want to see for yourself.`,
   },
   {
     id: 'no-time',
     title: 'No Time Response',
     category: 'Text/DM',
     icon: Clock,
-    message: `I totally understand being busy! That's actually why this works for me. Once you set it up, the AI handles everything. I spend maybe 10 minutes a week checking my account. It's truly passive income.
+    message: `I totally get it, everyone's busy! That's exactly why I love this. It's literally just 10 minutes a day. You can do it while waiting in line, on your lunch break, wherever.
 
-When you have a moment: ${shareLink}`,
+Simple copy and paste. That's it.`,
+  },
+  {
+    id: 'too-good',
+    title: 'Sounds Too Good Response',
+    category: 'Text/DM',
+    icon: Lightbulb,
+    message: `I know it sounds almost too simple, right? But that's what I love about it.
+
+It's not going to make you a millionaire overnight. But for 10 minutes of copy and paste a day, the extra income adds up.
+
+Want me to walk you through it?`,
   },
 
   // Warm Market
@@ -198,9 +223,9 @@ When you have a moment: ${shareLink}`,
     title: 'Close Friend/Family',
     category: 'Text/Call',
     icon: Heart,
-    message: `Hey, I want to share something with you because I care about you. I've been doing really well with this wealth-building program and I genuinely think it could help you too.
+    message: `Hey! I've been doing this simple side thing and thought of you. It's just copy and paste, takes about 10 minutes a day, and actually pays.
 
-Can we grab coffee this week so I can explain it properly? I promise it's not one of those pyramid things. This is different.`,
+Can we chat this week? I think you'd really like it.`,
   },
   {
     id: 'reconnect',
@@ -209,26 +234,20 @@ Can we grab coffee this week so I can explain it properly? I promise it's not on
     icon: UserPlus,
     message: `Hey! It's been a while. Hope you're doing well!
 
-I've been involved with something exciting lately and thought of you. It's a wealth-building community called Abundant Blessing AI Trade. The results have been great and I think you'd really appreciate it.
+I've been doing this simple side hustle lately. Just 10 minutes a day of copy and paste work for extra income. Thought of you because I know you're always looking for smart ways to earn.
 
-Would love to catch up and share more: ${shareLink}`,
+Want to hear about it?`,
   },
 ];
 
 export default function ReferralsPage() {
-  const [copiedLink, setCopiedLink] = useState(false);
   const [copiedTemplate, setCopiedTemplate] = useState<string | null>(null);
 
-  const copyToClipboard = async (text: string, type: 'link' | 'template', templateId?: string) => {
+  const copyToClipboard = async (text: string, templateId: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      if (type === 'link') {
-        setCopiedLink(true);
-        setTimeout(() => setCopiedLink(false), 2000);
-      } else {
-        setCopiedTemplate(templateId || null);
-        setTimeout(() => setCopiedTemplate(null), 2000);
-      }
+      setCopiedTemplate(templateId);
+      setTimeout(() => setCopiedTemplate(null), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
@@ -240,47 +259,20 @@ export default function ReferralsPage() {
       <div>
         <h1 className="text-3xl font-bold text-white mb-2">Share & Earn</h1>
         <p className="text-white/60">
-          Invite friends and family to join our wealth-building community
+          Copy and paste these scripts to share the opportunity with others
         </p>
       </div>
 
-      {/* Share Link Card */}
+      {/* Key Message Card */}
       <div className="bg-gradient-to-br from-gold/20 to-gold/5 rounded-2xl p-6 border border-gold/30">
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center">
-            <Share2 className="w-6 h-6 text-gold" />
-          </div>
-          <div className="flex-1">
-            <h2 className="text-xl font-bold text-white mb-2">Your Share Link</h2>
-            <p className="text-white/60 text-sm mb-4">
-              Share this link with anyone interested in joining our community
-            </p>
-            <div className="flex items-center gap-3">
-              <div className="flex-1 bg-navy-dark/50 rounded-lg px-4 py-3 border border-white/10">
-                <p className="text-white/80 font-mono text-sm truncate">{shareLink}</p>
-              </div>
-              <button
-                onClick={() => copyToClipboard(shareLink, 'link')}
-                className={`px-4 py-3 rounded-lg font-medium transition-all flex items-center gap-2 ${
-                  copiedLink
-                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                    : 'bg-gold text-navy-dark hover:bg-gold-light'
-                }`}
-              >
-                {copiedLink ? (
-                  <>
-                    <Check className="w-4 h-4" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" />
-                    Copy
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white mb-3">The Simple Message</h2>
+          <p className="text-xl text-gold font-medium mb-2">
+            "Copy and paste, 10 minutes a day, extra income on the side"
+          </p>
+          <p className="text-white/60 text-sm">
+            Keep it simple. That's all they need to know to get interested.
+          </p>
         </div>
       </div>
 
@@ -288,38 +280,38 @@ export default function ReferralsPage() {
       <div className="grid md:grid-cols-3 gap-4">
         <div className="bg-navy border border-gold/20 rounded-xl p-5">
           <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center mb-3">
+            <Clock className="w-5 h-5 text-gold" />
+          </div>
+          <h3 className="text-white font-semibold mb-1">Just 10 Minutes</h3>
+          <p className="text-white/50 text-sm">
+            Simple copy and paste tasks that fit into anyone's schedule
+          </p>
+        </div>
+        <div className="bg-navy border border-gold/20 rounded-xl p-5">
+          <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center mb-3">
             <Gift className="w-5 h-5 text-gold" />
           </div>
-          <h3 className="text-white font-semibold mb-1">Help Others Prosper</h3>
+          <h3 className="text-white font-semibold mb-1">Extra Income</h3>
           <p className="text-white/50 text-sm">
-            Share the opportunity with friends and family who want financial growth
+            Help others earn on the side with minimal effort
           </p>
         </div>
         <div className="bg-navy border border-gold/20 rounded-xl p-5">
           <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center mb-3">
             <Users className="w-5 h-5 text-gold" />
           </div>
-          <h3 className="text-white font-semibold mb-1">Build Community</h3>
+          <h3 className="text-white font-semibold mb-1">Grow Together</h3>
           <p className="text-white/50 text-sm">
-            Grow our team and create a network of like-minded wealth builders
-          </p>
-        </div>
-        <div className="bg-navy border border-gold/20 rounded-xl p-5">
-          <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center mb-3">
-            <TrendingUp className="w-5 h-5 text-gold" />
-          </div>
-          <h3 className="text-white font-semibold mb-1">Win Together</h3>
-          <p className="text-white/50 text-sm">
-            Everyone benefits when we grow together as a team
+            Build your team and help others achieve their goals
           </p>
         </div>
       </div>
 
       {/* Message Templates */}
       <div>
-        <h2 className="text-xl font-bold text-white mb-4">Message Templates</h2>
+        <h2 className="text-xl font-bold text-white mb-4">Message Scripts</h2>
         <p className="text-white/60 text-sm mb-6">
-          Use these pre-written messages to share the opportunity. Click to copy.
+          Click any script to copy it. Customize as needed for your style.
         </p>
         <div className="grid gap-4">
           {messageTemplates.map((template) => (
@@ -338,7 +330,7 @@ export default function ReferralsPage() {
                   </div>
                 </div>
                 <button
-                  onClick={() => copyToClipboard(template.message, 'template', template.id)}
+                  onClick={() => copyToClipboard(template.message, template.id)}
                   className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
                     copiedTemplate === template.id
                       ? 'bg-green-500/20 text-green-400 border border-green-500/30'
@@ -372,23 +364,23 @@ export default function ReferralsPage() {
         <ul className="space-y-3 text-white/70 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-gold mt-0.5">1.</span>
-            <span>Start with people who have shown interest in financial growth</span>
+            <span>Keep it simple. "Copy and paste, 10 minutes a day, extra income."</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-gold mt-0.5">2.</span>
-            <span>Share your personal experience and results</span>
+            <span>Don't over-explain. Let them ask questions.</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-gold mt-0.5">3.</span>
-            <span>Be genuine and answer questions honestly</span>
+            <span>Share your own experience and results.</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-gold mt-0.5">4.</span>
-            <span>Follow up with those who express interest</span>
+            <span>Follow up with interested people within 24-48 hours.</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-gold mt-0.5">5.</span>
-            <span>Invite them to team calls and meetings</span>
+            <span>Invite them to a call or meeting to learn more.</span>
           </li>
         </ul>
       </div>
