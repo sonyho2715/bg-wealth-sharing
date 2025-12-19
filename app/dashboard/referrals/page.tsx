@@ -210,6 +210,202 @@ The question is whether those 10 minutes will be working FOR you or just passing
 
 This is simple copy and paste work that pays. Want in?`,
   },
+  {
+    id: 'power-story',
+    title: 'The Story',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Lightbulb,
+    message: `Quick story:
+
+6 months ago I was exactly where you are. Scrolling, seeing people talk about side income, thinking "yeah right."
+
+Then someone showed me this. Copy and paste. 10 minutes a day. I almost didn't try it because it seemed too simple.
+
+Now I get paid every week for those 10 minutes.
+
+Want me to show you what I wish someone showed me 6 months ago?`,
+  },
+  {
+    id: 'power-permission',
+    title: 'Permission to Win',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Key,
+    message: `Here's something nobody tells you:
+
+You're allowed to make money easily. It doesn't have to be hard. It doesn't have to take all your time. It doesn't have to stress you out.
+
+10 minutes a day. Copy and paste. That's allowed.
+
+Ready to give yourself permission to try something simple?`,
+  },
+  {
+    id: 'power-curiosity',
+    title: 'The Curiosity Loop',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: HelpCircle,
+    message: `Can I ask you something weird?
+
+What would you do with an extra few hundred dollars a month if it only took 10 minutes a day to earn?
+
+I'm asking because I've been doing exactly that. And the answer to that question is why I keep doing it.
+
+What would YOUR answer be?`,
+  },
+  {
+    id: 'power-challenge',
+    title: 'The Challenge',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Award,
+    message: `I have a challenge for you:
+
+Try this for 7 days. 10 minutes a day. Simple copy and paste.
+
+If after 7 days you think it's not worth it, no hard feelings.
+
+But I'm willing to bet you'll wonder why you didn't start sooner.
+
+Up for it?`,
+  },
+  {
+    id: 'power-bridge',
+    title: 'The Bridge',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: TrendingUp,
+    message: `Where you are: wanting extra income but not wanting another complicated thing.
+
+Where you could be: making extra money with 10 minutes of copy and paste daily.
+
+The bridge between those two? One conversation with me.
+
+Want to cross it?`,
+  },
+  {
+    id: 'power-loss',
+    title: 'What You Are Missing',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: AlertCircle,
+    message: `Every day you wait is a day of extra income you didn't collect.
+
+Not trying to pressure you. Just stating a fact.
+
+10 minutes of copy and paste. That's what's sitting on the table.
+
+How many more days do you want to leave it there?`,
+  },
+  {
+    id: 'power-micro-yes',
+    title: 'Small First Step',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Sparkles,
+    message: `I'm not asking you to commit to anything big.
+
+Just this: watch a 5-minute video that explains what I've been doing.
+
+If it's not for you, cool. If it is, you'll know right away.
+
+Fair enough?`,
+  },
+  {
+    id: 'power-identity-shift',
+    title: 'Who You Become',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Star,
+    message: `Here's what changes when you start:
+
+You become someone who makes money while others scroll.
+You become someone with an extra income stream.
+You become someone who took action instead of just thinking about it.
+
+All from 10 minutes of copy and paste daily.
+
+Ready to become that person?`,
+  },
+  {
+    id: 'power-analogy',
+    title: 'The Coffee Analogy',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Coffee,
+    message: `You know how people say "that's less than a cup of coffee"?
+
+Well, this takes less TIME than drinking a cup of coffee. And instead of costing money, it makes you money.
+
+10 minutes. Copy and paste. Extra income.
+
+When you think about it that way, why wouldn't you try it?`,
+  },
+  {
+    id: 'power-specific-result',
+    title: 'Exact Process',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Target,
+    message: `Let me be specific about what this looks like:
+
+Wake up. Grab your phone. Open the app. Copy the message. Paste it. Done.
+
+That's your 10 minutes. That's what earns you extra income.
+
+No calls. No selling. No inventory. No complicated anything.
+
+Want me to show you exactly how?`,
+  },
+  {
+    id: 'power-compound',
+    title: 'The Compound Effect',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: TrendingUp,
+    message: `10 minutes a day doesn't sound like much.
+
+But that's 70 minutes a week. 5 hours a month. 60 hours a year.
+
+Now imagine all those hours are earning you extra income instead of just passing by.
+
+That's the compound effect of simple daily action.
+
+Ready to start compounding?`,
+  },
+  {
+    id: 'power-contrast-lives',
+    title: 'Two Versions of You',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Users,
+    message: `There are two versions of you 90 days from now:
+
+Version A: Still wondering if this works, still in the same spot.
+
+Version B: Has been doing 10 minutes of copy and paste daily, collecting extra income every week.
+
+Same amount of time will pass either way.
+
+Which version do you want to be?`,
+  },
+  {
+    id: 'power-secret',
+    title: 'The Real Secret',
+    category: 'power',
+    platform: 'Text/DM',
+    icon: Key,
+    message: `Want to know the real secret to making extra income?
+
+It's not working harder. It's not being smarter. It's not having special skills.
+
+It's doing something simple, consistently.
+
+10 minutes a day. Copy and paste. That's the whole secret.
+
+Ready to know it firsthand?`,
+  },
 
   // Reframe Scripts - Handling Objections Differently
   {
