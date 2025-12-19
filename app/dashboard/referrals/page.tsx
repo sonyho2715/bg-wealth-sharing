@@ -1,11 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import { Share2, Copy, Check, MessageCircle, Mail, Users, Gift, TrendingUp } from 'lucide-react';
+import { Share2, Copy, Check, MessageCircle, Mail, Users, Gift, TrendingUp, Phone, Video, Heart, Lightbulb, Clock, Target, Sparkles, UserPlus } from 'lucide-react';
 
 const shareLink = 'https://bg-wealth-sharing.vercel.app/register';
 
 const messageTemplates = [
+  // Quick & Simple
+  {
+    id: 'brief',
+    title: 'Quick Share',
+    category: 'Text',
+    icon: MessageCircle,
+    message: `Check this out - I've been growing my wealth with AI-powered trading through DSJEX. No experience needed. Here's the link to join: ${shareLink}`,
+  },
   {
     id: 'casual',
     title: 'Casual Introduction',
@@ -14,8 +22,52 @@ const messageTemplates = [
     message: `Hey! I've been part of this amazing wealth-building community and thought of you. They have a partnership with DSJEX that's been helping people grow their finances through AI-powered trading. Want me to share more info?`,
   },
   {
+    id: 'curiosity',
+    title: 'Curiosity Hook',
+    category: 'Text/DM',
+    icon: Lightbulb,
+    message: `Quick question - are you open to learning about a way to make your money work harder for you? I found something that's been working really well for me and thought you might be interested.`,
+  },
+
+  // Social Media
+  {
+    id: 'social',
+    title: 'Social Media Post',
+    category: 'Facebook/Instagram',
+    icon: Users,
+    message: `Looking for a way to grow your wealth? I joined Abundant Blessing AI Trade and it's been a game-changer!
+
+Their partnership with DSJEX uses AI-powered trading that works 24/7. Best part? You don't need trading experience.
+
+DM me if you want to learn more! Or visit: ${shareLink}`,
+  },
+  {
+    id: 'story-post',
+    title: 'Story-Based Post',
+    category: 'Facebook/Instagram',
+    icon: Sparkles,
+    message: `6 months ago, I was skeptical about passive income opportunities. Then I discovered Abundant Blessing AI Trade.
+
+What makes it different? Real AI-powered forex trading through DSJEX with transparent results. No recruiting required. No products to sell.
+
+If you're tired of "opportunities" that don't deliver, this might be worth a look: ${shareLink}`,
+  },
+  {
+    id: 'lifestyle',
+    title: 'Lifestyle Post',
+    category: 'Facebook/Instagram',
+    icon: Heart,
+    message: `Financial freedom isn't just about money. It's about time with family, peace of mind, and choices.
+
+I'm building that future with Abundant Blessing AI Trade. Our team is growing and the results speak for themselves.
+
+Ready to start your journey? ${shareLink}`,
+  },
+
+  // Professional/Email
+  {
     id: 'professional',
-    title: 'Professional Approach',
+    title: 'Professional Email',
     category: 'Email',
     icon: Mail,
     message: `Hi,
@@ -29,22 +81,137 @@ Here's where you can sign up: ${shareLink}
 Let me know if you'd like to discuss further!`,
   },
   {
-    id: 'social',
-    title: 'Social Media Post',
-    category: 'Facebook/Instagram',
-    icon: Users,
-    message: `Looking for a way to grow your wealth? I joined Abundant Blessing AI Trade and it's been a game-changer!
+    id: 'detailed-email',
+    title: 'Detailed Introduction',
+    category: 'Email',
+    icon: Mail,
+    message: `Hi,
 
-Their partnership with DSJEX uses AI-powered trading that works 24/7. Best part? You don't need trading experience.
+I hope this message finds you well. I wanted to share something that's been making a real difference in my financial journey.
 
-DM me if you want to learn more! Or visit: ${shareLink}`,
+I recently joined Abundant Blessing AI Trade, a wealth-sharing community that partners with DSJEX for AI-powered forex trading. Here's what stood out to me:
+
+- No trading experience required (the AI handles everything)
+- Transparent results and weekly updates
+- Supportive community with regular training calls
+- Start with any amount you're comfortable with
+
+I know there are a lot of "opportunities" out there, but this one has actually delivered results. I'd love to answer any questions you might have.
+
+Learn more here: ${shareLink}
+
+Best regards`,
+  },
+
+  // Follow-ups
+  {
+    id: 'followup',
+    title: 'Follow-Up Message',
+    category: 'Text/DM',
+    icon: Clock,
+    message: `Hey! Just following up on that wealth-building opportunity I mentioned. Have you had a chance to check it out? Our team has a call coming up this week if you'd like to learn more. No pressure, just thought I'd check in!`,
   },
   {
-    id: 'brief',
-    title: 'Quick Share',
-    category: 'Text',
-    icon: MessageCircle,
-    message: `Check this out - I've been growing my wealth with AI-powered trading through DSJEX. No experience needed. Here's the link to join: ${shareLink}`,
+    id: 'second-followup',
+    title: 'Second Follow-Up',
+    category: 'Text/DM',
+    icon: Clock,
+    message: `Hi again! I know you're busy, but I wanted to give you one more nudge about Abundant Blessing AI Trade. We just had some great results this week and I immediately thought of you. Would you be open to a quick 10-minute call to explain how it works?`,
+  },
+
+  // Specific Audiences
+  {
+    id: 'retirement',
+    title: 'Retirement Focused',
+    category: 'Text/Email',
+    icon: Target,
+    message: `Are you thinking about retirement and worried if you'll have enough? I was too.
+
+I found Abundant Blessing AI Trade, and it's become a key part of my retirement strategy. The AI-powered trading through DSJEX generates consistent returns without me having to watch the markets.
+
+Worth looking into: ${shareLink}`,
+  },
+  {
+    id: 'sidehustle',
+    title: 'Side Hustle Angle',
+    category: 'Text/DM',
+    icon: TrendingUp,
+    message: `Looking for a side hustle that doesn't require trading your time for money?
+
+I've been using Abundant Blessing AI Trade - their AI does the work 24/7 while I focus on my regular job and family. It's not a get-rich-quick scheme, but the steady growth has been impressive.
+
+Check it out: ${shareLink}`,
+  },
+  {
+    id: 'busy-parent',
+    title: 'For Busy Parents',
+    category: 'Text/DM',
+    icon: Heart,
+    message: `As a parent, I know how hard it is to find time for anything extra. That's why I love Abundant Blessing AI Trade.
+
+No daily tasks, no products to sell, no recruiting required. The AI trading runs automatically. I just check my account and watch it grow.
+
+Perfect for busy families: ${shareLink}`,
+  },
+
+  // Video/Call Invites
+  {
+    id: 'video-invite',
+    title: 'Video Call Invite',
+    category: 'Text/DM',
+    icon: Video,
+    message: `Hey! Would you be open to jumping on a quick Zoom call? I want to show you something that's been working really well for me financially. It's easier to explain than type out. Just 15-20 minutes - what do you say?`,
+  },
+  {
+    id: 'team-call',
+    title: 'Team Call Invite',
+    category: 'Text/DM',
+    icon: Phone,
+    message: `We have a team call this week where our leaders explain how Abundant Blessing AI Trade works. It's a great way to get your questions answered without any pressure. Want me to send you the link?`,
+  },
+
+  // Objection Handlers
+  {
+    id: 'skeptic',
+    title: 'For the Skeptic',
+    category: 'Text/Email',
+    icon: Lightbulb,
+    message: `I get it - I was skeptical too. There are so many scams out there.
+
+What convinced me about Abundant Blessing AI Trade was the transparency. We can see the actual trades happening through DSJEX. Real results, not just promises.
+
+I'm not asking you to believe me. I'm asking you to look at the facts: ${shareLink}`,
+  },
+  {
+    id: 'no-time',
+    title: 'No Time Response',
+    category: 'Text/DM',
+    icon: Clock,
+    message: `I totally understand being busy! That's actually why this works for me. Once you set it up, the AI handles everything. I spend maybe 10 minutes a week checking my account. It's truly passive income.
+
+When you have a moment: ${shareLink}`,
+  },
+
+  // Warm Market
+  {
+    id: 'close-friend',
+    title: 'Close Friend/Family',
+    category: 'Text/Call',
+    icon: Heart,
+    message: `Hey, I want to share something with you because I care about you. I've been doing really well with this wealth-building program and I genuinely think it could help you too.
+
+Can we grab coffee this week so I can explain it properly? I promise it's not one of those pyramid things. This is different.`,
+  },
+  {
+    id: 'reconnect',
+    title: 'Reconnecting',
+    category: 'Text/DM',
+    icon: UserPlus,
+    message: `Hey! It's been a while. Hope you're doing well!
+
+I've been involved with something exciting lately and thought of you. It's a wealth-building community called Abundant Blessing AI Trade. The results have been great and I think you'd really appreciate it.
+
+Would love to catch up and share more: ${shareLink}`,
   },
 ];
 
