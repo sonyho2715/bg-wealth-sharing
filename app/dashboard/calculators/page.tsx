@@ -1,568 +1,543 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Calculator,
-  TrendingUp,
-  PieChart,
-  DollarSign,
-  Percent,
-  Calendar,
-  ArrowRight,
-  Info,
-} from 'lucide-react';
+import { Calculator, Info, Calendar as CalendarIcon } from 'lucide-react';
 
-// Investment Return Calculator
-function InvestmentReturnCalculator() {
-  const [investment, setInvestment] = useState<string>('1000');
-  const [dailyReturn, setDailyReturn] = useState<string>('0.5');
-  const [days, setDays] = useState<string>('30');
+type CalculatorType = 'compound' | 'simple' | 'daily' | 'forex';
+type Currency = '$' | '€' | '£' | '₹' | '¥';
+type ContributionType = 'none' | 'deposits' | 'withdrawals';
 
-  const investmentNum = parseFloat(investment) || 0;
-  const dailyReturnNum = parseFloat(dailyReturn) || 0;
-  const daysNum = parseInt(days) || 0;
+const CURRENCIES: Currency[] = ['$', '€', '£', '₹', '¥'];
+const DAYS_OF_WEEK = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
-  const dailyProfit = investmentNum * (dailyReturnNum / 100);
-  const totalProfit = dailyProfit * daysNum;
-  const totalValue = investmentNum + totalProfit;
-  const percentageGain = investmentNum > 0 ? (totalProfit / investmentNum) * 100 : 0;
-
-  return (
-    <div className="bg-navy border border-gold/20 rounded-xl p-6">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center">
-          <TrendingUp className="w-5 h-5 text-gold" />
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold text-white">Investment Return Calculator</h3>
-          <p className="text-white/50 text-sm">Estimate your potential returns</p>
-        </div>
-      </div>
-
-      <div className="space-y-4 mb-6">
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Investment Amount (USDT)</label>
-          <div className="relative">
-            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={investment}
-              onChange={(e) => setInvestment(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="1000"
-              min="300"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Daily Return Rate (%)</label>
-          <div className="relative">
-            <Percent className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={dailyReturn}
-              onChange={(e) => setDailyReturn(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="0.5"
-              step="0.1"
-              min="0"
-              max="5"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Time Period (Days)</label>
-          <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={days}
-              onChange={(e) => setDays(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="30"
-              min="1"
-              max="365"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-navy-dark/50 rounded-lg p-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">Daily Profit</span>
-          <span className="text-gold font-semibold">${dailyProfit.toFixed(2)}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">Total Profit ({daysNum} days)</span>
-          <span className="text-green-400 font-semibold">${totalProfit.toFixed(2)}</span>
-        </div>
-        <div className="flex items-center justify-between border-t border-gold/10 pt-3">
-          <span className="text-white/60">Total Value</span>
-          <span className="text-white font-bold text-lg">${totalValue.toFixed(2)}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">Percentage Gain</span>
-          <span className="text-green-400 font-semibold">+{percentageGain.toFixed(1)}%</span>
-        </div>
-      </div>
-
-      <div className="mt-4 flex items-start gap-2 text-xs text-white/40">
-        <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
-        <p>This is an estimate only. Actual returns may vary based on market conditions and trading performance.</p>
-      </div>
-    </div>
-  );
+function formatCurrency(amount: number, currency: Currency): string {
+  return `${currency}${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
-// Compound Growth Calculator
-function CompoundGrowthCalculator() {
-  const [principal, setPrincipal] = useState<string>('1000');
-  const [monthlyReturn, setMonthlyReturn] = useState<string>('10');
-  const [months, setMonths] = useState<string>('12');
-  const [reinvest, setReinvest] = useState<boolean>(true);
-
-  const principalNum = parseFloat(principal) || 0;
-  const monthlyReturnNum = parseFloat(monthlyReturn) || 0;
-  const monthsNum = parseInt(months) || 0;
-
-  // Calculate compound growth
-  const projections = [];
-  let currentValue = principalNum;
-  let totalContributed = principalNum;
-
-  for (let i = 1; i <= monthsNum; i++) {
-    const monthlyProfit = currentValue * (monthlyReturnNum / 100);
-    if (reinvest) {
-      currentValue += monthlyProfit;
-    }
-    projections.push({
-      month: i,
-      value: reinvest ? currentValue : principalNum + (monthlyProfit * i),
-      profit: reinvest ? currentValue - principalNum : monthlyProfit * i,
-    });
-  }
-
-  const finalValue = projections.length > 0 ? projections[projections.length - 1].value : principalNum;
-  const totalProfit = finalValue - principalNum;
-
-  return (
-    <div className="bg-navy border border-gold/20 rounded-xl p-6">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center">
-          <TrendingUp className="w-5 h-5 text-green-400" />
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold text-white">Compound Growth Calculator</h3>
-          <p className="text-white/50 text-sm">See the power of compounding</p>
-        </div>
-      </div>
-
-      <div className="space-y-4 mb-6">
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Starting Investment (USDT)</label>
-          <div className="relative">
-            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={principal}
-              onChange={(e) => setPrincipal(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="1000"
-              min="300"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Monthly Return Rate (%)</label>
-          <div className="relative">
-            <Percent className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={monthlyReturn}
-              onChange={(e) => setMonthlyReturn(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="10"
-              step="1"
-              min="0"
-              max="50"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Time Period (Months)</label>
-          <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={months}
-              onChange={(e) => setMonths(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="12"
-              min="1"
-              max="60"
-            />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setReinvest(!reinvest)}
-            className={`relative w-12 h-6 rounded-full transition-colors ${
-              reinvest ? 'bg-gold' : 'bg-navy-dark border border-gold/20'
-            }`}
-          >
-            <div
-              className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
-                reinvest ? 'left-7' : 'left-1'
-              }`}
-            />
-          </button>
-          <span className="text-white/70 text-sm">Reinvest profits (compound)</span>
-        </div>
-      </div>
-
-      <div className="bg-navy-dark/50 rounded-lg p-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">Initial Investment</span>
-          <span className="text-white font-semibold">${principalNum.toLocaleString()}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">Total Profit ({monthsNum} months)</span>
-          <span className="text-green-400 font-semibold">${totalProfit.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
-        </div>
-        <div className="flex items-center justify-between border-t border-gold/10 pt-3">
-          <span className="text-white/60">Final Value</span>
-          <span className="text-gold font-bold text-lg">${finalValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">Total Return</span>
-          <span className="text-green-400 font-semibold">+{((totalProfit / principalNum) * 100).toFixed(1)}%</span>
-        </div>
-      </div>
-
-      {/* Mini Chart */}
-      {projections.length > 0 && (
-        <div className="mt-4">
-          <p className="text-xs text-white/50 mb-2">Growth Projection</p>
-          <div className="flex items-end gap-1 h-20">
-            {projections.slice(0, 12).map((p, i) => (
-              <div
-                key={i}
-                className="flex-1 bg-gold/60 rounded-t"
-                style={{
-                  height: `${(p.value / finalValue) * 100}%`,
-                }}
-                title={`Month ${p.month}: $${p.value.toFixed(0)}`}
-              />
-            ))}
-          </div>
-          <div className="flex justify-between text-xs text-white/40 mt-1">
-            <span>Month 1</span>
-            <span>Month {Math.min(monthsNum, 12)}</span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// Profit Distribution Calculator
-function ProfitDistributionCalculator() {
-  const [fundSize, setFundSize] = useState<string>('1000000');
-  const [monthlyProfit, setMonthlyProfit] = useState<string>('50000');
-  const [yourInvestment, setYourInvestment] = useState<string>('1000');
-
-  const fundSizeNum = parseFloat(fundSize) || 0;
-  const monthlyProfitNum = parseFloat(monthlyProfit) || 0;
-  const yourInvestmentNum = parseFloat(yourInvestment) || 0;
-
-  // Distribution percentages
-  const investorShare = 0.60; // 60%
-  const bgShare = 0.30; // 30%
-  const dsjexShare = 0.10; // 10%
-
-  const totalToInvestors = monthlyProfitNum * investorShare;
-  const toBG = monthlyProfitNum * bgShare;
-  const toDSJEX = monthlyProfitNum * dsjexShare;
-
-  // Your share based on your investment proportion
-  const yourShareOfFund = fundSizeNum > 0 ? yourInvestmentNum / fundSizeNum : 0;
-  const yourProfit = totalToInvestors * yourShareOfFund;
-  const yourROI = yourInvestmentNum > 0 ? (yourProfit / yourInvestmentNum) * 100 : 0;
-
-  return (
-    <div className="bg-navy border border-gold/20 rounded-xl p-6">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center">
-          <PieChart className="w-5 h-5 text-purple-400" />
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold text-white">Profit Distribution Calculator</h3>
-          <p className="text-white/50 text-sm">See how profits are shared</p>
-        </div>
-      </div>
-
-      <div className="space-y-4 mb-6">
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Total Fund Size (USDT)</label>
-          <div className="relative">
-            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={fundSize}
-              onChange={(e) => setFundSize(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="1000000"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Monthly Net Profit (USDT)</label>
-          <div className="relative">
-            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={monthlyProfit}
-              onChange={(e) => setMonthlyProfit(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="50000"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Your Investment (USDT)</label>
-          <div className="relative">
-            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={yourInvestment}
-              onChange={(e) => setYourInvestment(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="1000"
-              min="300"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Distribution Visualization */}
-      <div className="mb-4">
-        <p className="text-xs text-white/50 mb-2">Profit Distribution</p>
-        <div className="h-4 rounded-full overflow-hidden flex">
-          <div className="bg-green-500 h-full" style={{ width: '60%' }} />
-          <div className="bg-blue-500 h-full" style={{ width: '30%' }} />
-          <div className="bg-purple-500 h-full" style={{ width: '10%' }} />
-        </div>
-        <div className="flex justify-between text-xs mt-2">
-          <span className="text-green-400">Investors 60%</span>
-          <span className="text-blue-400">BG 30%</span>
-          <span className="text-purple-400">DSJEX 10%</span>
-        </div>
-      </div>
-
-      <div className="bg-navy-dark/50 rounded-lg p-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">Total to Investors (60%)</span>
-          <span className="text-green-400 font-semibold">${totalToInvestors.toLocaleString()}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">To BG (30%)</span>
-          <span className="text-blue-400 font-semibold">${toBG.toLocaleString()}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">To DSJEX (10%)</span>
-          <span className="text-purple-400 font-semibold">${toDSJEX.toLocaleString()}</span>
-        </div>
-        <div className="border-t border-gold/10 pt-3">
-          <div className="flex items-center justify-between">
-            <span className="text-white/60">Your Share of Fund</span>
-            <span className="text-white font-semibold">{(yourShareOfFund * 100).toFixed(4)}%</span>
-          </div>
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-white/60">Your Monthly Profit</span>
-            <span className="text-gold font-bold text-lg">${yourProfit.toFixed(2)}</span>
-          </div>
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-white/60">Your Monthly ROI</span>
-            <span className="text-green-400 font-semibold">{yourROI.toFixed(2)}%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Referral Bonus Calculator
-function ReferralBonusCalculator() {
-  const [referrals, setReferrals] = useState<string>('5');
-  const [avgInvestment, setAvgInvestment] = useState<string>('1000');
-  const [bonusRate, setBonusRate] = useState<string>('5');
-
-  const referralsNum = parseInt(referrals) || 0;
-  const avgInvestmentNum = parseFloat(avgInvestment) || 0;
-  const bonusRateNum = parseFloat(bonusRate) || 0;
-
-  const totalReferredVolume = referralsNum * avgInvestmentNum;
-  const totalBonus = totalReferredVolume * (bonusRateNum / 100);
-  const bonusPerReferral = referralsNum > 0 ? totalBonus / referralsNum : 0;
-
-  return (
-    <div className="bg-navy border border-gold/20 rounded-xl p-6">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center">
-          <DollarSign className="w-5 h-5 text-blue-400" />
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold text-white">Referral Bonus Calculator</h3>
-          <p className="text-white/50 text-sm">Estimate your referral earnings</p>
-        </div>
-      </div>
-
-      <div className="space-y-4 mb-6">
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Number of Referrals</label>
-          <input
-            type="number"
-            value={referrals}
-            onChange={(e) => setReferrals(e.target.value)}
-            className="w-full bg-navy-dark border border-gold/20 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-            placeholder="5"
-            min="1"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Avg Investment per Referral (USDT)</label>
-          <div className="relative">
-            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={avgInvestment}
-              onChange={(e) => setAvgInvestment(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="1000"
-              min="300"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm text-white/70 mb-1">Referral Bonus Rate (%)</label>
-          <div className="relative">
-            <Percent className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="number"
-              value={bonusRate}
-              onChange={(e) => setBonusRate(e.target.value)}
-              className="w-full bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
-              placeholder="5"
-              step="0.5"
-              min="0"
-              max="20"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-navy-dark/50 rounded-lg p-4 space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">Total Referred Volume</span>
-          <span className="text-white font-semibold">${totalReferredVolume.toLocaleString()}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-white/60">Bonus per Referral</span>
-          <span className="text-blue-400 font-semibold">${bonusPerReferral.toFixed(2)}</span>
-        </div>
-        <div className="flex items-center justify-between border-t border-gold/10 pt-3">
-          <span className="text-white/60">Total Referral Bonus</span>
-          <span className="text-gold font-bold text-lg">${totalBonus.toLocaleString()}</span>
-        </div>
-      </div>
-
-      <div className="mt-4 flex items-start gap-2 text-xs text-white/40">
-        <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
-        <p>Referral bonuses are typically paid when your referred members make their first investment.</p>
-      </div>
-    </div>
-  );
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
 export default function CalculatorsPage() {
+  const [activeTab, setActiveTab] = useState<CalculatorType>('daily');
+  const [currency, setCurrency] = useState<Currency>('$');
+  const [principal, setPrincipal] = useState<string>('3000');
+  const [interestRate, setInterestRate] = useState<string>('1.3');
+  const [years, setYears] = useState<string>('0');
+  const [months, setMonths] = useState<string>('0');
+  const [days, setDays] = useState<string>('60');
+  const [includeAllDays, setIncludeAllDays] = useState<boolean>(false);
+  const [reinvestRate, setReinvestRate] = useState<string>('100');
+  const [selectedDays, setSelectedDays] = useState<boolean[]>([true, true, true, true, true, false, false]);
+  const [contributionType, setContributionType] = useState<ContributionType>('none');
+  const [contributionAmount, setContributionAmount] = useState<string>('0');
+  const [contributionFrequency, setContributionFrequency] = useState<string>('monthly');
+  const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
+
+  const tabs: { id: CalculatorType; label: string }[] = [
+    { id: 'compound', label: 'Compound Interest' },
+    { id: 'simple', label: 'Simple Interest' },
+    { id: 'daily', label: 'Daily Compound' },
+    { id: 'forex', label: 'Forex Compound' },
+  ];
+
+  const toggleDay = (index: number) => {
+    const newDays = [...selectedDays];
+    newDays[index] = !newDays[index];
+    setSelectedDays(newDays);
+  };
+
+  const results = useMemo(() => {
+    const principalNum = parseFloat(principal) || 0;
+    const rateNum = parseFloat(interestRate) || 0;
+    const yearsNum = parseInt(years) || 0;
+    const monthsNum = parseInt(months) || 0;
+    const daysNum = parseInt(days) || 0;
+    const reinvestNum = parseFloat(reinvestRate) || 100;
+    const contribAmount = parseFloat(contributionAmount) || 0;
+
+    const totalDays = yearsNum * 365 + monthsNum * 30 + daysNum;
+
+    // Calculate business days based on selected days
+    const tradingDaysPerWeek = includeAllDays ? 7 : selectedDays.filter(Boolean).length;
+    const businessDays = Math.floor(totalDays * (tradingDaysPerWeek / 7));
+
+    let investmentValue = principalNum;
+    let totalInterest = 0;
+
+    const startDateObj = new Date(startDate);
+    const endDate = new Date(startDateObj);
+    endDate.setDate(endDate.getDate() + totalDays);
+
+    switch (activeTab) {
+      case 'simple': {
+        // Simple Interest: I = P * r * t
+        const dailyRate = rateNum / 100;
+        totalInterest = principalNum * dailyRate * businessDays;
+        investmentValue = principalNum + totalInterest;
+        break;
+      }
+      case 'compound': {
+        // Annual Compound Interest
+        const annualRate = rateNum / 100;
+        const timeInYears = totalDays / 365;
+        investmentValue = principalNum * Math.pow(1 + annualRate, timeInYears);
+        totalInterest = investmentValue - principalNum;
+        break;
+      }
+      case 'daily': {
+        // Daily Compound Interest
+        const dailyRate = rateNum / 100;
+        const reinvestFactor = reinvestNum / 100;
+
+        let currentValue = principalNum;
+        for (let i = 0; i < businessDays; i++) {
+          const dayInterest = currentValue * dailyRate;
+          const reinvestedAmount = dayInterest * reinvestFactor;
+          currentValue += reinvestedAmount;
+          totalInterest += dayInterest;
+
+          // Add contributions
+          if (contributionType === 'deposits' && contribAmount > 0) {
+            if (contributionFrequency === 'daily') {
+              currentValue += contribAmount;
+            } else if (contributionFrequency === 'weekly' && i % 5 === 0) {
+              currentValue += contribAmount;
+            } else if (contributionFrequency === 'monthly' && i % 22 === 0) {
+              currentValue += contribAmount;
+            }
+          } else if (contributionType === 'withdrawals' && contribAmount > 0) {
+            if (contributionFrequency === 'daily') {
+              currentValue = Math.max(0, currentValue - contribAmount);
+            } else if (contributionFrequency === 'weekly' && i % 5 === 0) {
+              currentValue = Math.max(0, currentValue - contribAmount);
+            } else if (contributionFrequency === 'monthly' && i % 22 === 0) {
+              currentValue = Math.max(0, currentValue - contribAmount);
+            }
+          }
+        }
+        investmentValue = currentValue;
+        break;
+      }
+      case 'forex': {
+        // Forex Compound (similar to daily but with pips calculation)
+        const dailyRate = rateNum / 100;
+        const reinvestFactor = reinvestNum / 100;
+
+        let currentValue = principalNum;
+        for (let i = 0; i < businessDays; i++) {
+          const dayInterest = currentValue * dailyRate;
+          const reinvestedAmount = dayInterest * reinvestFactor;
+          currentValue += reinvestedAmount;
+          totalInterest += dayInterest;
+        }
+        investmentValue = currentValue;
+        break;
+      }
+    }
+
+    const percentageProfit = principalNum > 0 ? ((investmentValue - principalNum) / principalNum) * 100 : 0;
+
+    return {
+      investmentValue,
+      totalInterest,
+      percentageProfit,
+      totalDays,
+      businessDays,
+      dailyRate: rateNum,
+      endDate,
+      startDateObj,
+      principal: principalNum,
+    };
+  }, [principal, interestRate, years, months, days, includeAllDays, selectedDays, reinvestRate, activeTab, startDate, contributionType, contributionAmount, contributionFrequency]);
+
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-4xl mx-auto">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mb-8"
+        className="text-center mb-8"
       >
-        <div className="flex items-center gap-3 mb-2">
-          <Calculator className="w-8 h-8 text-gold" />
-          <h1 className="text-3xl font-bold text-white">Financial Calculators</h1>
-        </div>
-        <p className="text-white/60">
-          Use these tools to estimate your potential returns and plan your investment strategy.
-        </p>
+        <h1 className="text-3xl md:text-4xl font-bold text-gold mb-2">
+          {results.dailyRate}% Daily Return
+        </h1>
+        <p className="text-white/60">Calculate your potential investment returns</p>
       </motion.div>
 
-      {/* Calculators Grid */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <InvestmentReturnCalculator />
-        </motion.div>
+      {/* Tabs */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="flex flex-wrap justify-center gap-2 mb-6"
+      >
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              activeTab === tab.id
+                ? 'bg-gold text-navy'
+                : 'bg-navy border border-gold/20 text-white/70 hover:text-white hover:border-gold/40'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <CompoundGrowthCalculator />
-        </motion.div>
+      {/* Calculator */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="bg-navy border border-gold/20 rounded-2xl p-6 mb-6"
+      >
+        {/* Currency Selector */}
+        <div className="mb-6">
+          <label className="block text-sm text-white/70 mb-2">Currency:</label>
+          <div className="flex gap-2">
+            {CURRENCIES.map((c) => (
+              <button
+                key={c}
+                onClick={() => setCurrency(c)}
+                className={`w-10 h-10 rounded-lg font-bold transition-all ${
+                  currency === c
+                    ? 'bg-gold text-navy'
+                    : 'bg-navy-dark border border-gold/20 text-white/70 hover:border-gold/40'
+                }`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <ProfitDistributionCalculator />
-        </motion.div>
+        {/* Principal Amount */}
+        <div className="mb-4">
+          <label className="block text-sm text-white/70 mb-2">Principal amount:</label>
+          <div className="flex">
+            <span className="bg-navy-dark border border-r-0 border-gold/20 rounded-l-lg px-3 flex items-center text-white/50">
+              {currency}
+            </span>
+            <input
+              type="number"
+              value={principal}
+              onChange={(e) => setPrincipal(e.target.value)}
+              className="flex-1 bg-navy-dark border border-gold/20 rounded-r-lg px-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
+              placeholder="3000"
+              min="0"
+            />
+          </div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          <ReferralBonusCalculator />
-        </motion.div>
-      </div>
+        {/* Interest Rate */}
+        <div className="mb-4">
+          <label className="block text-sm text-white/70 mb-2">Interest rate:</label>
+          <div className="flex gap-2">
+            <div className="flex flex-1">
+              <input
+                type="number"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                className="flex-1 bg-navy-dark border border-gold/20 rounded-l-lg px-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
+                placeholder="1.3"
+                step="0.1"
+                min="0"
+              />
+              <span className="bg-navy-dark border border-l-0 border-gold/20 rounded-r-lg px-3 flex items-center text-white/50">
+                %
+              </span>
+            </div>
+            <span className="bg-gold/20 border border-gold/30 rounded-lg px-4 flex items-center text-gold text-sm font-medium">
+              daily
+            </span>
+          </div>
+        </div>
+
+        {/* Time Period */}
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <div>
+            <label className="block text-sm text-white/70 mb-2">Years:</label>
+            <input
+              type="number"
+              value={years}
+              onChange={(e) => setYears(e.target.value)}
+              className="w-full bg-navy-dark border border-gold/20 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
+              placeholder="0"
+              min="0"
+            />
+          </div>
+          <div>
+            <label className="block text-sm text-white/70 mb-2">Months:</label>
+            <input
+              type="number"
+              value={months}
+              onChange={(e) => setMonths(e.target.value)}
+              className="w-full bg-navy-dark border border-gold/20 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
+              placeholder="0"
+              min="0"
+            />
+          </div>
+          <div>
+            <label className="block text-sm text-white/70 mb-2">Days:</label>
+            <input
+              type="number"
+              value={days}
+              onChange={(e) => setDays(e.target.value)}
+              className="w-full bg-navy-dark border border-gold/20 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-gold/50"
+              placeholder="60"
+              min="0"
+            />
+          </div>
+        </div>
+
+        {/* Include All Days Toggle */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-white/70">Include all days of week?</span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setIncludeAllDays(true);
+                  setSelectedDays([true, true, true, true, true, true, true]);
+                }}
+                className={`px-4 py-1.5 rounded text-sm font-medium transition-all ${
+                  includeAllDays
+                    ? 'bg-gold text-navy'
+                    : 'bg-navy-dark border border-gold/20 text-white/70'
+                }`}
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => {
+                  setIncludeAllDays(false);
+                  setSelectedDays([true, true, true, true, true, false, false]);
+                }}
+                className={`px-4 py-1.5 rounded text-sm font-medium transition-all ${
+                  !includeAllDays
+                    ? 'bg-gold text-navy'
+                    : 'bg-navy-dark border border-gold/20 text-white/70'
+                }`}
+              >
+                No
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-white/70">Daily reinvest rate:</span>
+            <div className="flex">
+              <input
+                type="number"
+                value={reinvestRate}
+                onChange={(e) => setReinvestRate(e.target.value)}
+                className="w-16 bg-navy-dark border border-gold/20 rounded-l-lg px-2 py-1.5 text-white text-sm focus:outline-none focus:border-gold/50"
+                placeholder="100"
+                min="0"
+                max="100"
+              />
+              <span className="bg-gold/20 border border-l-0 border-gold/30 rounded-r-lg px-2 flex items-center text-gold text-sm">
+                %
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Days to Include */}
+        {!includeAllDays && (
+          <div className="mb-4">
+            <label className="block text-sm text-white/70 mb-2">Days to include:</label>
+            <div className="flex gap-2">
+              {DAYS_OF_WEEK.map((day, index) => (
+                <button
+                  key={index}
+                  onClick={() => toggleDay(index)}
+                  className={`w-10 h-10 rounded-lg font-medium transition-all ${
+                    selectedDays[index]
+                      ? 'bg-gold text-navy'
+                      : 'bg-navy-dark border border-gold/20 text-white/50'
+                  }`}
+                >
+                  {day}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Additional Contributions */}
+        <div className="mb-4">
+          <label className="block text-sm text-white/70 mb-2">Additional contributions: <span className="text-white/40">(optional)</span></label>
+          <div className="flex gap-2 mb-3">
+            <button
+              onClick={() => setContributionType('none')}
+              className={`px-4 py-1.5 rounded text-sm font-medium transition-all ${
+                contributionType === 'none'
+                  ? 'bg-gold text-navy'
+                  : 'bg-navy-dark border border-gold/20 text-white/70'
+              }`}
+            >
+              None
+            </button>
+            <button
+              onClick={() => setContributionType('deposits')}
+              className={`px-4 py-1.5 rounded text-sm font-medium transition-all ${
+                contributionType === 'deposits'
+                  ? 'bg-green-500 text-white'
+                  : 'bg-navy-dark border border-gold/20 text-white/70'
+              }`}
+            >
+              Deposits
+            </button>
+            <button
+              onClick={() => setContributionType('withdrawals')}
+              className={`px-4 py-1.5 rounded text-sm font-medium transition-all ${
+                contributionType === 'withdrawals'
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-navy-dark border border-gold/20 text-white/70'
+              }`}
+            >
+              Withdrawals
+            </button>
+          </div>
+          {contributionType !== 'none' && (
+            <div className="flex gap-3">
+              <div className="flex-1">
+                <input
+                  type="number"
+                  value={contributionAmount}
+                  onChange={(e) => setContributionAmount(e.target.value)}
+                  className="w-full bg-navy-dark border border-gold/20 rounded-lg px-4 py-2 text-white text-sm focus:outline-none focus:border-gold/50"
+                  placeholder="Amount"
+                  min="0"
+                />
+              </div>
+              <select
+                value={contributionFrequency}
+                onChange={(e) => setContributionFrequency(e.target.value)}
+                className="bg-navy-dark border border-gold/20 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-gold/50"
+              >
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+          )}
+        </div>
+
+        {/* Start Date */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-white/70">Start date?</span>
+            <button className="text-gold text-sm hover:underline">today</button>
+          </div>
+          <div className="flex gap-2">
+            <div className="relative">
+              <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="bg-navy-dark border border-gold/20 rounded-lg pl-10 pr-4 py-2 text-white text-sm focus:outline-none focus:border-gold/50"
+              />
+            </div>
+            <button className="bg-gold text-navy font-semibold px-6 py-2 rounded-lg hover:bg-gold-light transition-colors">
+              Calculate
+            </button>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Results */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="bg-navy border border-gold/20 rounded-2xl p-6"
+      >
+        <h2 className="text-xl font-semibold text-white mb-6">
+          Projection for {results.totalDays} days
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Left Column */}
+          <div className="space-y-4">
+            <div>
+              <p className="text-white/50 text-sm mb-1">Investment value</p>
+              <p className="text-3xl font-bold text-gold">
+                {formatCurrency(results.investmentValue, currency)}
+              </p>
+            </div>
+            <div>
+              <p className="text-white/50 text-sm mb-1">Total interest / earnings</p>
+              <p className="text-2xl font-bold text-green-400">
+                {formatCurrency(results.totalInterest, currency)}
+              </p>
+            </div>
+            <div>
+              <p className="text-white/50 text-sm mb-1">Percentage profit</p>
+              <p className="text-2xl font-bold text-green-400">
+                {results.percentageProfit.toFixed(1)}%
+              </p>
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-4">
+            <div>
+              <p className="text-white/50 text-sm mb-1">Total days / Business days</p>
+              <p className="text-xl font-semibold text-white">
+                {results.totalDays} / {results.businessDays}
+              </p>
+            </div>
+            <div>
+              <p className="text-white/50 text-sm mb-1">Daily interest rate</p>
+              <p className="text-xl font-semibold text-white">
+                {results.dailyRate}%
+              </p>
+            </div>
+            <div>
+              <p className="text-white/50 text-sm mb-1">End date</p>
+              <p className="text-xl font-semibold text-white">
+                {formatDate(results.endDate)}
+              </p>
+            </div>
+            <div>
+              <p className="text-white/50 text-sm mb-1">Initial balance on {formatDate(results.startDateObj)}</p>
+              <p className="text-xl font-semibold text-white">
+                {formatCurrency(results.principal, currency)}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Calculator Badge */}
+        <div className="flex items-center justify-center mt-6 pt-6 border-t border-gold/10">
+          <div className="flex items-center gap-2 text-white/40">
+            <Calculator className="w-4 h-4" />
+            <span className="text-sm">Calculator</span>
+          </div>
+        </div>
+      </motion.div>
 
       {/* Disclaimer */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-        className="mt-8 bg-amber-500/10 border border-amber-500/30 rounded-xl p-4"
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="mt-6 p-4 bg-navy-dark/50 border border-gold/10 rounded-xl"
       >
         <div className="flex items-start gap-3">
-          <Info className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-          <div>
-            <h4 className="font-semibold text-amber-300 mb-1">Disclaimer</h4>
-            <p className="text-amber-200/70 text-sm">
-              These calculators provide estimates only and are for educational purposes. Actual returns may vary significantly based on market conditions, trading performance, and other factors. Past performance does not guarantee future results. Only invest funds you can afford to lose.
-            </p>
-          </div>
+          <Info className="w-4 h-4 text-white/40 flex-shrink-0 mt-0.5" />
+          <p className="text-xs text-white/40 leading-relaxed">
+            Note: This calculator is for illustrative purposes only and does not constitute financial advice. We do not offer investment opportunities, promise returns, or endorse any financial products.{' '}
+            <a href="/terms-of-service" className="text-gold hover:underline">Terms & Conditions</a>
+          </p>
         </div>
       </motion.div>
     </div>
