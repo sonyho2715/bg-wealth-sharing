@@ -56,7 +56,7 @@ export default function CalendlyPage() {
         <div className="bg-navy rounded-2xl border border-gold/20 overflow-hidden shadow-2xl shadow-gold/5">
           <div
             className="calendly-inline-widget"
-            data-url="https://calendly.com/blessingsandfreedom/60min"
+            data-url="https://calendly.com/blessingsandfreedom/zoom-60-minutes-meeting-clone-1"
             style={{ minWidth: '320px', height: '700px' }}
           />
         </div>
