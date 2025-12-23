@@ -5,6 +5,7 @@ import DSJEXExplainer from '@/components/landing/DSJEXExplainer';
 import TeamSection from '@/components/landing/TeamSection';
 import CertificatesSection from '@/components/landing/CertificatesSection';
 import TestimonialsGrid from '@/components/landing/TestimonialsGrid';
+import CalendlySection from '@/components/landing/CalendlySection';
 import CTASection from '@/components/landing/CTASection';
 import Footer from '@/components/landing/Footer';
 import LandingAnnouncementPopup from '@/components/landing/LandingAnnouncementPopup';
@@ -25,6 +26,7 @@ export default async function HomePage() {
       <TeamSection />
       <CertificatesSection />
       <TestimonialsGrid />
+      <CalendlySection />
       <CTASection />
       <Footer />
     </main>

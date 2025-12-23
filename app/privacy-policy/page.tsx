@@ -1,24 +1,9 @@
-'use client';
-
-import { useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Shield, Calendar } from 'lucide-react';
+import { ArrowLeft, Shield } from 'lucide-react';
 import { CONFIG } from '@/lib/config';
 
 export default function PrivacyPolicyPage() {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://assets.calendly.com/assets/external/widget.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      const existingScript = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]');
-      if (existingScript) {
-        existingScript.remove();
-      }
-    };
-  }, []);
+  const lastUpdated = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
   return (
     <div className="min-h-screen bg-navy-dark">
@@ -45,7 +30,7 @@ export default function PrivacyPolicyPage() {
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="bg-navy rounded-2xl border border-gold/20 p-8 md:p-12">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Privacy Policy</h1>
-          <p className="text-white/50 mb-8">Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+          <p className="text-white/50 mb-8">Last updated: {lastUpdated}</p>
 
           <div className="prose prose-invert max-w-none space-y-8">
             <section>
@@ -134,30 +119,6 @@ export default function PrivacyPolicyPage() {
                 </a>
               </p>
             </section>
-          </div>
-        </div>
-
-        {/* Calendly Section */}
-        <div className="mt-12">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              Have Questions? <span className="text-gold">Book a Call</span>
-            </h2>
-            <p className="text-white/70 max-w-2xl mx-auto">
-              Schedule a free consultation to learn more about how we protect your information and our commitment to your privacy.
-            </p>
-          </div>
-
-          <div className="bg-navy rounded-2xl border border-gold/20 overflow-hidden shadow-2xl shadow-gold/5">
-            <div className="flex items-center gap-2 px-6 py-4 border-b border-gold/20 bg-navy-dark/50">
-              <Calendar className="w-5 h-5 text-gold" />
-              <span className="font-medium text-white">Schedule a Meeting</span>
-            </div>
-            <div
-              className="calendly-inline-widget"
-              data-url="https://calendly.com/blessingsandfreedom/45minutesmeeting"
-              style={{ minWidth: '320px', height: '700px' }}
-            />
           </div>
         </div>
       </div>
