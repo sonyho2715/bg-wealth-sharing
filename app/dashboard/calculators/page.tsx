@@ -1077,38 +1077,6 @@ export default function CalculatorsPage() {
         </div>
       </motion.div>
 
-      {/* Formula Reference */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.35 }}
-        className="bg-navy border border-gold/20 rounded-2xl p-6 mb-6"
-      >
-        <h3 className="text-lg font-semibold text-white mb-4">Formula Reference</h3>
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className={`p-4 rounded-xl border ${activeTab === 'compound' ? 'bg-gold/10 border-gold/30' : 'bg-navy-dark border-gold/10'}`}>
-            <h4 className="font-semibold text-gold mb-2">Compound Interest</h4>
-            <p className="text-white/70 text-sm font-mono">A = P(1 + r/n)^(nt)</p>
-            <p className="text-white/50 text-xs mt-2">P=principal, r=annual rate, n=compounds/year, t=years</p>
-          </div>
-          <div className={`p-4 rounded-xl border ${activeTab === 'simple' ? 'bg-gold/10 border-gold/30' : 'bg-navy-dark border-gold/10'}`}>
-            <h4 className="font-semibold text-gold mb-2">Simple Interest</h4>
-            <p className="text-white/70 text-sm font-mono">A = P(1 + rt)</p>
-            <p className="text-white/50 text-xs mt-2">Interest calculated only on principal</p>
-          </div>
-          <div className={`p-4 rounded-xl border ${activeTab === 'daily' ? 'bg-gold/10 border-gold/30' : 'bg-navy-dark border-gold/10'}`}>
-            <h4 className="font-semibold text-gold mb-2">Daily Compound</h4>
-            <p className="text-white/70 text-sm font-mono">A = P(1 + i)^d</p>
-            <p className="text-white/50 text-xs mt-2">i=daily rate, d=trading days, supports partial reinvestment</p>
-          </div>
-          <div className={`p-4 rounded-xl border ${activeTab === 'forex' ? 'bg-gold/10 border-gold/30' : 'bg-navy-dark border-gold/10'}`}>
-            <h4 className="font-semibold text-gold mb-2">Forex Compound</h4>
-            <p className="text-white/70 text-sm font-mono">Balance × (1 + gain%)^trades</p>
-            <p className="text-white/50 text-xs mt-2">Weekday trading, configurable reinvestment rate</p>
-          </div>
-        </div>
-      </motion.div>
-
       {/* Disclaimer */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
