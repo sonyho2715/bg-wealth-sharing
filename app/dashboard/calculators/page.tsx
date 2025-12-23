@@ -109,11 +109,11 @@ export default function CalculatorsPage() {
   const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [compoundFrequency, setCompoundFrequency] = useState<CompoundFrequency>('monthly');
 
-  const tabs: { id: CalculatorType; label: string; description: string }[] = [
-    { id: 'compound', label: 'Compound Interest', description: 'A = P(1 + r/n)^(nt)' },
-    { id: 'simple', label: 'Simple Interest', description: 'I = P × r × t' },
-    { id: 'daily', label: 'Daily Compound', description: 'A = P(1 + i)^d' },
-    { id: 'forex', label: 'Forex Compound', description: 'Trading days only' },
+  const tabs: { id: CalculatorType; label: string }[] = [
+    { id: 'compound', label: 'Compound Interest' },
+    { id: 'simple', label: 'Simple Interest' },
+    { id: 'daily', label: 'Daily Compound' },
+    { id: 'forex', label: 'Forex Compound' },
   ];
 
   const toggleDay = (index: number) => {
@@ -559,10 +559,7 @@ export default function CalculatorsPage() {
                 : 'bg-navy border border-gold/20 text-white/70 hover:text-white hover:border-gold/40'
             }`}
           >
-            <span>{tab.label}</span>
-            {activeTab === tab.id && (
-              <span className="block text-xs opacity-70 mt-0.5">{tab.description}</span>
-            )}
+            {tab.label}
           </button>
         ))}
       </motion.div>
