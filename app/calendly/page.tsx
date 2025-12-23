@@ -49,14 +49,14 @@ export default function CalendlyPage() {
             Book Your <span className="text-gold">Free Consultation</span>
           </h2>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Schedule a 60-minute call to learn more about the BG Wealth Sharing opportunity and how you can start your journey to financial freedom.
+            Schedule a 45-minute call to learn more about the BG Wealth Sharing opportunity and how you can start your journey to financial freedom.
           </p>
         </div>
 
         <div className="bg-navy rounded-2xl border border-gold/20 overflow-hidden shadow-2xl shadow-gold/5">
           <div
             className="calendly-inline-widget"
-            data-url="https://calendly.com/blessingsandfreedom/zoom-60-minutes-meeting-clone-1"
+            data-url="https://calendly.com/blessingsandfreedom/45minutesmeeting"
             style={{ minWidth: '320px', height: '700px' }}
           />
         </div>
