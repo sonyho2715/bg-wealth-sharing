@@ -109,15 +109,15 @@ export default function Footer() {
             {CONFIG.legal.copyright}
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-sm text-white/40 hover:text-gold transition-colors">
+            <Link href="/privacy-policy" className="text-sm text-white/40 hover:text-gold transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="text-sm text-white/40 hover:text-gold transition-colors">
+            </Link>
+            <Link href="/terms-of-service" className="text-sm text-white/40 hover:text-gold transition-colors">
               Terms of Service
-            </a>
-            <a href="#" className="text-sm text-white/40 hover:text-gold transition-colors">
+            </Link>
+            <Link href="/disclaimer" className="text-sm text-white/40 hover:text-gold transition-colors">
               Disclaimer
-            </a>
+            </Link>
           </div>
         </div>
       </div>
