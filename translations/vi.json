@@ -3,108 +3,108 @@
     "overview": "Tổng Quan",
     "team": "Đội Ngũ",
     "successStories": "Câu Chuyện Thành Công",
-    "freeTraining": "Học Miễn Phí",
+    "freeTraining": "Đào Tạo Miễn Phí",
     "login": "Đăng Nhập",
     "language": "Ngôn ngữ"
   },
   "hero": {
-    "badge": "Chúng tôi muốn chia sẻ với bạn điều này",
-    "title": "Chào bạn,",
-    "titleHighlight": "Xem Video Này Trước Nhé",
-    "description": "Chúng tôi muốn chia sẻ với bạn một cơ hội đã thay đổi cuộc sống của nhiều gia đình. Bạn dành vài phút xem video này nhé, nó sẽ giải thích rõ hơn những gì chúng tôi muốn nói.",
-    "cta": "Tôi Quan Tâm, Cho Biết Thêm",
+    "badge": "Chúng tôi muốn chia sẻ với bạn",
+    "title": "Xin chào,",
+    "titleHighlight": "Mời Bạn Xem Video Này",
+    "description": "Chúng tôi muốn giới thiệu đến bạn một cơ hội đã mang lại thay đổi tích cực cho nhiều gia đình. Xin mời bạn dành vài phút xem video để hiểu rõ hơn về những gì chúng tôi muốn chia sẻ.",
+    "cta": "Tôi Quan Tâm, Xin Cho Biết Thêm",
     "secondaryCta": "Tìm Hiểu Cách Hoạt Động",
     "stat1Value": "5 phút",
     "stat1Label": "Video ngắn gọn",
-    "stat2Value": "Thật",
+    "stat2Value": "Thực tế",
     "stat2Label": "Người thật, kết quả thật",
     "stat3Value": "Không",
-    "stat3Label": "Áp lực, chỉ là thông tin"
+    "stat3Label": "Áp lực, chỉ cung cấp thông tin"
   },
   "compounding": {
-    "badge": "Đây là điều khiến chúng tôi háo hức",
+    "badge": "Điều thu hút sự quan tâm của chúng tôi",
     "title": "Sức Mạnh Của",
     "titleHighlight": "Lãi Kép",
-    "description": "Einstein từng gọi lãi kép là kỳ quan thứ tám của thế giới. Và đây chính là lý do cơ hội này thu hút chúng tôi ngay từ đầu.",
-    "disclaimer": "*Các ví dụ minh họa dựa trên lãi kép 1.3%/ngày. Kết quả thực tế sẽ thay đổi tùy điều kiện thị trường.",
-    "legalTitle": "Giấy Tờ Pháp Lý",
-    "legalDescription": "Chúng tôi luôn khuyên bạn nên tự tìm hiểu kỹ. Đây là các đăng ký chính thức bạn có thể kiểm tra:",
+    "description": "Einstein từng gọi lãi kép là kỳ quan thứ tám của thế giới. Đây chính là lý do cơ hội này đã thu hút sự chú ý của chúng tôi ngay từ đầu.",
+    "disclaimer": "*Các ví dụ minh họa dựa trên lãi kép 1.3%/ngày. Kết quả thực tế sẽ thay đổi tùy theo điều kiện thị trường.",
+    "legalTitle": "Xác Minh Pháp Lý",
+    "legalDescription": "Chúng tôi khuyến khích bạn tự tìm hiểu kỹ trước khi quyết định. Dưới đây là các đăng ký chính thức để bạn tham khảo:",
     "secTitle": "Hồ Sơ SEC Hoa Kỳ",
-    "secSubtitle": "Ủy ban Chứng khoán Mỹ",
+    "secSubtitle": "Ủy ban Chứng khoán và Giao dịch Hoa Kỳ",
     "asicTitle": "Đăng Ký ASIC Úc",
-    "asicSubtitle": "Ủy ban Chứng khoán Úc"
+    "asicSubtitle": "Ủy ban Chứng khoán và Đầu tư Úc"
   },
   "benefits": {
-    "startSmall": "Bắt Đầu Nhỏ",
-    "startSmallDesc": "Không cần vốn lớn để bắt đầu. Số tiền nhỏ cũng có thể tăng trưởng đáng kể theo thời gian.",
-    "consistentGrowth": "Tăng Trưởng Đều",
-    "consistentGrowthDesc": "Lợi nhuận hàng ngày tự cộng dồn, tạo hiệu ứng cầu tuyết lăn cho khoản đầu tư của bạn.",
-    "timeIsFriend": "Thời Gian Là Bạn",
-    "timeIsFriendDesc": "Ở lại càng lâu, lãi kép càng mạnh. Kiên nhẫn sẽ được đền đáp xứng đáng."
+    "startSmall": "Bắt Đầu Với Số Vốn Nhỏ",
+    "startSmallDesc": "Không cần số vốn lớn để bắt đầu. Ngay cả những khoản đầu tư khiêm tốn cũng có thể tăng trưởng đáng kể theo thời gian.",
+    "consistentGrowth": "Tăng Trưởng Ổn Định",
+    "consistentGrowthDesc": "Lợi nhuận hàng ngày được tái đầu tư tự động, tạo hiệu ứng tích lũy cho khoản đầu tư của bạn.",
+    "timeIsFriend": "Thời Gian Là Yếu Tố Quan Trọng",
+    "timeIsFriendDesc": "Thời gian đầu tư càng dài, hiệu quả lãi kép càng rõ rệt. Sự kiên nhẫn sẽ được đền đáp."
   },
   "videos": {
-    "title": "Muốn Tìm Hiểu Thêm?",
-    "description": "Những video này giải thích chi tiết hơn. Chúng tôi thấy chúng rất hữu ích.",
-    "video1Title": "Cách Hoạt Động",
-    "video1Desc": "Giải thích đơn giản về cơ hội và tại sao nó hiệu quả.",
+    "title": "Tìm Hiểu Thêm",
+    "description": "Các video dưới đây cung cấp thông tin chi tiết hơn về chương trình.",
+    "video1Title": "Cách Thức Hoạt Động",
+    "video1Desc": "Giải thích rõ ràng về cơ hội và cơ chế vận hành.",
     "video2Title": "Hướng Dẫn Bắt Đầu",
-    "video2Desc": "Hướng dẫn từng bước nếu bạn quyết định tham gia."
+    "video2Desc": "Hướng dẫn từng bước dành cho người mới tham gia."
   },
   "team": {
-    "badge": "Gặp Gỡ Đội Ngũ",
-    "title": "Dẫn Dắt Bởi",
-    "titleHighlight": "Những Người Có Kinh Nghiệm",
-    "description": "Đội ngũ luôn sẵn sàng hỗ trợ bạn trên hành trình xây dựng tài chính."
+    "badge": "Đội Ngũ Lãnh Đạo",
+    "title": "Được Dẫn Dắt Bởi",
+    "titleHighlight": "Những Chuyên Gia Giàu Kinh Nghiệm",
+    "description": "Đội ngũ của chúng tôi cam kết hỗ trợ bạn trong suốt hành trình xây dựng tài chính."
   },
   "teamSection": {
-    "title": "Kiếm Thêm Bằng Cách",
-    "titleHighlight": "Giúp Đỡ Người Khác",
-    "description": "Mở rộng đội ngũ đại lý để nhận thưởng quản lý và phần thưởng thăng cấp. Thăng tiến từ Cấp 1 đến Cấp 12.",
-    "whyHelp": "Tại Sao Nên Giúp Người Khác Thành Công?",
-    "whyHelpDesc": "Khi bạn giúp ai đó trong đội đạt được mục tiêu tài chính, bạn không chỉ cảm thấy vui. Bạn còn kiếm thêm thu nhập từ thành công của họ. Đây là mô hình cùng thắng thực sự.",
-    "benefit1Title": "Giúp Người Khác, Kiếm Thêm",
-    "benefit1Desc": "Khi bạn giúp ai đó trong đội thành công, bạn kiếm thêm thu nhập từ thành công của họ",
-    "benefit2Title": "Tăng Trưởng Không Giới Hạn",
-    "benefit2Desc": "Không giới hạn thu nhập. Càng giúp nhiều người thành công, bạn càng kiếm được nhiều",
+    "title": "Tăng Thu Nhập Bằng Cách",
+    "titleHighlight": "Hỗ Trợ Người Khác",
+    "description": "Mở rộng đội ngũ để nhận thưởng quản lý và phần thưởng thăng cấp. Thăng tiến từ Cấp 1 đến Cấp 12.",
+    "whyHelp": "Tại Sao Nên Hỗ Trợ Người Khác Thành Công?",
+    "whyHelpDesc": "Khi bạn giúp thành viên trong đội đạt được mục tiêu tài chính, bạn không chỉ tạo ra giá trị cho họ mà còn nhận được thu nhập từ sự thành công đó. Đây là mô hình cùng có lợi.",
+    "benefit1Title": "Hỗ Trợ Người Khác, Tăng Thu Nhập",
+    "benefit1Desc": "Khi thành viên trong đội thành công, bạn nhận được thu nhập từ thành tích của họ",
+    "benefit2Title": "Không Giới Hạn Tăng Trưởng",
+    "benefit2Desc": "Không có giới hạn thu nhập. Càng hỗ trợ nhiều người thành công, thu nhập của bạn càng cao",
     "benefit3Title": "Thu Nhập Thụ Động",
-    "benefit3Desc": "Xây dựng đội ngũ tạo thu nhập liên tục ngay cả khi bạn không làm việc",
-    "trainingProvided": "Được Đào Tạo",
-    "trainingDesc": "Học cách xây dựng và hỗ trợ đội ngũ của bạn",
-    "teamSupport": "Hỗ Trợ Đội Nhóm",
-    "teamSupportDesc": "Không bao giờ làm việc một mình, luôn có người hỗ trợ",
-    "dailySignals": "Tín Hiệu Hàng Ngày",
-    "dailySignalsDesc": "Tín hiệu giao dịch lúc 1 PM & 7 PM EST",
-    "multipleIncome": "Nhiều Nguồn Thu Nhập",
-    "multipleIncomeDesc": "Hoa hồng, thưởng quản lý và các khoản thưởng khác"
+    "benefit3Desc": "Xây dựng đội ngũ tạo thu nhập liên tục ngay cả khi bạn không trực tiếp làm việc",
+    "trainingProvided": "Đào Tạo Chuyên Nghiệp",
+    "trainingDesc": "Được hướng dẫn cách xây dựng và quản lý đội ngũ",
+    "teamSupport": "Hỗ Trợ Từ Đội Ngũ",
+    "teamSupportDesc": "Luôn có sự hỗ trợ từ cộng đồng và đội ngũ lãnh đạo",
+    "dailySignals": "Tín Hiệu Giao Dịch Hàng Ngày",
+    "dailySignalsDesc": "Tín hiệu được cung cấp lúc 1 PM và 7 PM (giờ EST)",
+    "multipleIncome": "Đa Dạng Nguồn Thu Nhập",
+    "multipleIncomeDesc": "Hoa hồng trực tiếp, thưởng quản lý và các khoản thưởng khác"
   },
   "certificates": {
-    "badge": "Đã Xác Minh",
+    "badge": "Đã Được Xác Minh",
     "title": "Chứng Nhận",
     "titleHighlight": "Chuyên Môn",
-    "description": "Các chứng chỉ thể hiện cam kết về chất lượng và sự chuyên nghiệp."
+    "description": "Các chứng chỉ thể hiện cam kết về chất lượng và tiêu chuẩn chuyên nghiệp."
   },
   "testimonials": {
-    "badge": "Kết Quả Thật",
+    "badge": "Kết Quả Thực Tế",
     "title": "Câu Chuyện",
     "titleHighlight": "Thành Công",
-    "description": "Nghe chia sẻ từ những thành viên đã và đang trải nghiệm lợi ích của chương trình.",
-    "showing": "Đang xem",
-    "of": "trong",
+    "description": "Lắng nghe chia sẻ từ các thành viên đã trải nghiệm lợi ích của chương trình.",
+    "showing": "Hiển thị",
+    "of": "trong tổng số",
     "stories": "câu chuyện",
     "loadMore": "Xem Thêm"
   },
   "calendly": {
-    "title": "Sẵn Sàng Tìm Hiểu Thêm?",
-    "description": "Đặt lịch gọi miễn phí để được giải đáp mọi thắc mắc.",
-    "cta": "Đặt Cuộc Gọi Miễn Phí"
+    "title": "Bạn Muốn Tìm Hiểu Thêm?",
+    "description": "Đặt lịch tư vấn miễn phí để được giải đáp mọi thắc mắc.",
+    "cta": "Đặt Lịch Tư Vấn Miễn Phí"
   },
   "cta": {
     "title": "Sẵn Sàng Bắt Đầu?",
-    "description": "Tham gia cộng đồng và bắt đầu hành trình tài chính ngay hôm nay.",
-    "primaryCta": "Đăng Ký Học Miễn Phí",
-    "secondaryCta": "Đặt Lịch Gọi",
+    "description": "Tham gia cộng đồng và bắt đầu hành trình xây dựng tài chính ngay hôm nay.",
+    "primaryCta": "Đăng Ký Đào Tạo Miễn Phí",
+    "secondaryCta": "Đặt Lịch Tư Vấn",
     "alreadyMember": "Đã là thành viên?",
-    "login": "Đăng nhập"
+    "login": "Đăng nhập tại đây"
   },
   "footer": {
     "description": "Cùng nhau xây dựng tài chính thông qua đầu tư thông minh và hỗ trợ cộng đồng.",
@@ -116,63 +116,63 @@
     "privacyPolicy": "Chính Sách Bảo Mật",
     "termsOfService": "Điều Khoản Sử Dụng",
     "disclaimer": "Miễn Trừ Trách Nhiệm",
-    "riskDisclosure": "Lưu Ý Rủi Ro",
-    "riskText": "Đầu tư luôn có rủi ro. Kết quả trong quá khứ không đảm bảo lợi nhuận trong tương lai.",
-    "copyright": "Bản quyền đã đăng ký."
+    "riskDisclosure": "Cảnh Báo Rủi Ro",
+    "riskText": "Đầu tư luôn tiềm ẩn rủi ro. Kết quả trong quá khứ không đảm bảo lợi nhuận trong tương lai.",
+    "copyright": "Bản quyền đã được bảo hộ."
   },
   "dashboard": {
     "sidebar": {
       "dashboard": "Tổng Quan",
       "onboarding": "Bắt Đầu",
       "signals": "Tín Hiệu",
-      "calculators": "Máy Tính",
+      "calculators": "Công Cụ Tính",
       "referrals": "Giới Thiệu",
       "resources": "Tài Liệu",
       "settings": "Cài Đặt",
       "logout": "Đăng Xuất"
     },
     "home": {
-      "welcome": "Chào mừng trở lại",
+      "welcome": "Chào mừng bạn trở lại",
       "overview": "Tổng Quan",
       "quickActions": "Thao Tác Nhanh",
-      "continueOnboarding": "Tiếp Tục Học",
+      "continueOnboarding": "Tiếp Tục Đào Tạo",
       "viewSignals": "Xem Tín Hiệu",
       "inviteFriends": "Mời Bạn Bè"
     },
     "onboarding": {
       "title": "Bắt Đầu",
-      "description": "Hoàn thành các bước này để thiết lập tài khoản và bắt đầu.",
+      "description": "Hoàn thành các bước sau để thiết lập tài khoản và bắt đầu.",
       "progress": "Tiến Độ",
       "completed": "Hoàn Thành",
-      "markComplete": "Đánh Dấu Xong",
+      "markComplete": "Đánh Dấu Hoàn Thành",
       "watchVideo": "Xem Video"
     },
     "signals": {
       "title": "Tín Hiệu Giao Dịch",
-      "description": "Tín hiệu hàng ngày giúp bạn đưa ra quyết định đúng đắn.",
-      "schedule": "Lịch Tín Hiệu",
-      "morning": "Tín Hiệu Sáng",
-      "evening": "Tín Hiệu Tối",
-      "timezone": "Theo giờ EST"
+      "description": "Tín hiệu hàng ngày hỗ trợ bạn đưa ra quyết định giao dịch.",
+      "schedule": "Lịch Phát Tín Hiệu",
+      "morning": "Tín Hiệu Buổi Sáng",
+      "evening": "Tín Hiệu Buổi Tối",
+      "timezone": "Múi giờ: EST"
     },
     "calculators": {
-      "title": "Máy Tính Đầu Tư",
-      "description": "Tính toán lợi nhuận và lập kế hoạch đầu tư.",
+      "title": "Công Cụ Tính Toán",
+      "description": "Tính toán lợi nhuận tiềm năng và lập kế hoạch đầu tư.",
       "compoundCalc": "Tính Lãi Kép",
-      "roiCalc": "Tính ROI"
+      "roiCalc": "Tính Tỷ Suất Lợi Nhuận"
     },
     "referrals": {
-      "title": "Mời Bạn Bè",
+      "title": "Giới Thiệu Thành Viên",
       "description": "Chia sẻ cơ hội với bạn bè và người thân.",
-      "yourLink": "Link Giới Thiệu",
+      "yourLink": "Liên Kết Giới Thiệu",
       "copyLink": "Sao Chép",
-      "copied": "Đã Sao Chép!",
-      "totalReferrals": "Tổng Giới Thiệu",
+      "copied": "Đã Sao Chép",
+      "totalReferrals": "Tổng Số Giới Thiệu",
       "activeReferrals": "Đang Hoạt Động"
     },
     "resources": {
-      "title": "Tài Liệu",
-      "description": "Tài liệu hữu ích hỗ trợ bạn trên hành trình.",
+      "title": "Tài Liệu Tham Khảo",
+      "description": "Tài liệu hỗ trợ bạn trong suốt quá trình tham gia.",
       "faqs": "Câu Hỏi Thường Gặp",
       "guides": "Hướng Dẫn",
       "support": "Hỗ Trợ"
@@ -180,22 +180,22 @@
     "settings": {
       "title": "Cài Đặt",
       "description": "Quản lý tài khoản và tùy chọn cá nhân.",
-      "profile": "Hồ Sơ",
+      "profile": "Hồ Sơ Cá Nhân",
       "security": "Bảo Mật",
       "notifications": "Thông Báo",
       "language": "Ngôn Ngữ",
-      "save": "Lưu"
+      "save": "Lưu Thay Đổi"
     }
   },
   "common": {
     "loading": "Đang tải...",
-    "error": "Có lỗi xảy ra",
+    "error": "Đã xảy ra lỗi",
     "retry": "Thử Lại",
     "save": "Lưu",
     "cancel": "Hủy",
     "confirm": "Xác Nhận",
     "back": "Quay Lại",
-    "next": "Tiếp",
+    "next": "Tiếp Theo",
     "submit": "Gửi"
   }
 }
