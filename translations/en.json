@@ -56,6 +56,27 @@
     "titleHighlight": "Experienced Leaders",
     "description": "Our team is dedicated to helping you succeed in your wealth-building journey."
   },
+  "teamSection": {
+    "title": "Earn More By",
+    "titleHighlight": "Helping Others",
+    "description": "Expand your agent team to earn manager bonuses and promotion rewards. Move up from Level 1 to Level 12.",
+    "whyHelp": "Why Help Others Succeed?",
+    "whyHelpDesc": "When you help someone on your team achieve their financial goals, you do not just feel good about it. You also earn additional income from their success. It is a true win-win model.",
+    "benefit1Title": "Help Others, Earn More",
+    "benefit1Desc": "When you help someone on your team succeed, you earn additional income from their success",
+    "benefit2Title": "Unlimited Growth",
+    "benefit2Desc": "No cap on how much you can earn. The more people you help succeed, the more you earn",
+    "benefit3Title": "Residual Income",
+    "benefit3Desc": "Build a team that generates ongoing income even when you are not actively working",
+    "trainingProvided": "Training Provided",
+    "trainingDesc": "Learn how to build and support your team",
+    "teamSupport": "Team Support",
+    "teamSupportDesc": "Never work alone, always have backup",
+    "dailySignals": "Daily Signals",
+    "dailySignalsDesc": "1 PM & 7 PM EST trading signals",
+    "multipleIncome": "Multiple Income Streams",
+    "multipleIncomeDesc": "Commissions, overrides, and bonuses"
+  },
   "certificates": {
     "badge": "Verified & Certified",
     "title": "Professional",

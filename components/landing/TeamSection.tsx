@@ -3,26 +3,29 @@
 import { motion } from 'framer-motion';
 import { Users, DollarSign, TrendingUp, Target, Sparkles, Gift, Award } from 'lucide-react';
 import Image from 'next/image';
-
-const benefits = [
-  {
-    icon: Gift,
-    title: 'Help Others, Earn More',
-    description: 'When you help someone on your team succeed, you earn additional income from their success',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Unlimited Growth',
-    description: 'No cap on how much you can earn. The more people you help succeed, the more you earn',
-  },
-  {
-    icon: Sparkles,
-    title: 'Residual Income',
-    description: 'Build a team that generates ongoing income even when you are not actively working',
-  },
-];
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export default function TeamSection() {
+  const { t } = useLanguage();
+
+  const benefits = [
+    {
+      icon: Gift,
+      title: t.teamSection.benefit1Title,
+      description: t.teamSection.benefit1Desc,
+    },
+    {
+      icon: TrendingUp,
+      title: t.teamSection.benefit2Title,
+      description: t.teamSection.benefit2Desc,
+    },
+    {
+      icon: Sparkles,
+      title: t.teamSection.benefit3Title,
+      description: t.teamSection.benefit3Desc,
+    },
+  ];
+
   return (
     <section id="team" className="py-20 bg-navy">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,10 +37,10 @@ export default function TeamSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Earn More By <span className="text-gold">Helping Others</span>
+            {t.teamSection.title} <span className="text-gold">{t.teamSection.titleHighlight}</span>
           </h2>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Expand your agent team to earn manager bonuses and promotion rewards. Move up from Level 1 to Level 12.
+            {t.teamSection.description}
           </p>
         </motion.div>
 
@@ -72,11 +75,10 @@ export default function TeamSection() {
             className="space-y-6"
           >
             <h3 className="text-2xl md:text-3xl font-bold text-white">
-              Why Help Others Succeed?
+              {t.teamSection.whyHelp}
             </h3>
             <p className="text-white/70 leading-relaxed">
-              When you help someone on your team achieve their financial goals, you do not just feel good about it.
-              You also earn additional income from their success. It is a true win-win model.
+              {t.teamSection.whyHelpDesc}
             </p>
 
             <div className="space-y-4 pt-4">
@@ -108,36 +110,36 @@ export default function TeamSection() {
                   <div className="p-2 bg-gold/10 rounded-lg">
                     <Award className="w-5 h-5 text-gold" />
                   </div>
-                  <span className="text-white font-semibold">Training Provided</span>
+                  <span className="text-white font-semibold">{t.teamSection.trainingProvided}</span>
                 </div>
-                <p className="text-white/60 text-sm">Learn how to build and support your team</p>
+                <p className="text-white/60 text-sm">{t.teamSection.trainingDesc}</p>
               </div>
               <div className="bg-navy-dark border border-gold/20 rounded-xl p-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-gold/10 rounded-lg">
                     <Users className="w-5 h-5 text-gold" />
                   </div>
-                  <span className="text-white font-semibold">Team Support</span>
+                  <span className="text-white font-semibold">{t.teamSection.teamSupport}</span>
                 </div>
-                <p className="text-white/60 text-sm">Never work alone, always have backup</p>
+                <p className="text-white/60 text-sm">{t.teamSection.teamSupportDesc}</p>
               </div>
               <div className="bg-navy-dark border border-gold/20 rounded-xl p-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-gold/10 rounded-lg">
                     <Target className="w-5 h-5 text-gold" />
                   </div>
-                  <span className="text-white font-semibold">Daily Signals</span>
+                  <span className="text-white font-semibold">{t.teamSection.dailySignals}</span>
                 </div>
-                <p className="text-white/60 text-sm">1 PM & 7 PM EST trading signals</p>
+                <p className="text-white/60 text-sm">{t.teamSection.dailySignalsDesc}</p>
               </div>
               <div className="bg-navy-dark border border-gold/20 rounded-xl p-4">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-gold/10 rounded-lg">
                     <DollarSign className="w-5 h-5 text-gold" />
                   </div>
-                  <span className="text-white font-semibold">Multiple Income Streams</span>
+                  <span className="text-white font-semibold">{t.teamSection.multipleIncome}</span>
                 </div>
-                <p className="text-white/60 text-sm">Commissions, overrides, and bonuses</p>
+                <p className="text-white/60 text-sm">{t.teamSection.multipleIncomeDesc}</p>
               </div>
             </div>
           </motion.div>
