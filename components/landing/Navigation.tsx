@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, TrendingUp } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+import LanguageToggle from '@/components/ui/LanguageToggle';
 
 interface NavigationProps {
   referralCode?: string;
@@ -10,19 +12,19 @@ interface NavigationProps {
 
 export default function Navigation({ referralCode }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   const navLinks = [
-    { href: '#overview', label: 'Overview' },
-    { href: '#dsjex-explained', label: 'How DSJEX Works' },
-    { href: '#team', label: 'Team' },
-    { href: '#testimonials', label: 'Success Stories' },
+    { href: '#overview', label: t.nav.overview },
+    { href: '#team', label: t.nav.team },
+    { href: '#testimonials', label: t.nav.successStories },
   ];
 
   const registerHref = referralCode ? `/register?ref=${referralCode}` : '/register';
 
   const ctaLinks = [
-    { href: registerHref, label: 'Free Training', primary: true },
-    { href: '/login', label: 'Login', primary: false },
+    { href: registerHref, label: t.nav.freeTraining, primary: true },
+    { href: '/login', label: t.nav.login, primary: false },
   ];
 
   return (
@@ -51,6 +53,10 @@ export default function Navigation({ referralCode }: NavigationProps) {
                 {link.label}
               </Link>
             ))}
+
+            {/* Language Toggle */}
+            <LanguageToggle />
+
             <div className="flex items-center gap-2 ml-2">
               {ctaLinks.map((link) => (
                 <Link
@@ -92,6 +98,12 @@ export default function Navigation({ referralCode }: NavigationProps) {
                   {link.label}
                 </Link>
               ))}
+
+              {/* Language Toggle for Mobile */}
+              <div className="py-2">
+                <LanguageToggle />
+              </div>
+
               <div className="flex flex-col gap-2 pt-2 border-t border-gold/20">
                 {ctaLinks.map((link) => (
                   <Link

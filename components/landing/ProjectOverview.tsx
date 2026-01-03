@@ -3,29 +3,32 @@
 import { motion } from 'framer-motion';
 import { TrendingUp, Calendar, DollarSign, Sparkles, FileCheck, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
-
-const compoundingBenefits = [
-  {
-    icon: DollarSign,
-    title: 'Start Small',
-    description: 'You don\'t need a fortune to begin. Even modest amounts can grow significantly over time.',
-    color: 'from-blue-500 to-blue-600',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Consistent Growth',
-    description: 'Daily profits that compound on themselves, creating a snowball effect for your investment.',
-    color: 'from-gold to-gold-dark',
-  },
-  {
-    icon: Calendar,
-    title: 'Time is Your Friend',
-    description: 'The longer you stay, the more powerful compounding becomes. Patience pays off.',
-    color: 'from-emerald-500 to-emerald-600',
-  },
-];
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export default function ProjectOverview() {
+  const { t } = useLanguage();
+
+  const compoundingBenefits = [
+    {
+      icon: DollarSign,
+      title: t.benefits.startSmall,
+      description: t.benefits.startSmallDesc,
+      color: 'from-blue-500 to-blue-600',
+    },
+    {
+      icon: TrendingUp,
+      title: t.benefits.consistentGrowth,
+      description: t.benefits.consistentGrowthDesc,
+      color: 'from-gold to-gold-dark',
+    },
+    {
+      icon: Calendar,
+      title: t.benefits.timeIsFriend,
+      description: t.benefits.timeIsFriendDesc,
+      color: 'from-emerald-500 to-emerald-600',
+    },
+  ];
+
   return (
     <section id="overview" className="py-20 bg-navy-dark relative overflow-hidden">
       {/* Background decorations */}
@@ -45,14 +48,13 @@ export default function ProjectOverview() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 mb-6">
             <Sparkles className="w-4 h-4 text-gold" />
-            <span className="text-sm text-gold">This is what excited me</span>
+            <span className="text-sm text-gold">{t.compounding.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            The Power of <span className="gold-gradient">Compounding</span>
+            {t.compounding.title} <span className="gold-gradient">{t.compounding.titleHighlight}</span>
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            Einstein called compound interest the eighth wonder of the world.
-            Here&apos;s why this opportunity caught my attention.
+            {t.compounding.description}
           </p>
         </motion.div>
 
@@ -75,7 +77,7 @@ export default function ProjectOverview() {
               />
             </div>
             <p className="text-center text-white/60 text-sm mt-4">
-              *Illustrative scenarios based on 1.3% daily compounding. Actual results vary based on market conditions.
+              {t.compounding.disclaimer}
             </p>
           </div>
         </motion.div>
@@ -94,11 +96,11 @@ export default function ProjectOverview() {
                 <FileCheck className="w-5 h-5 text-emerald-400" />
               </div>
               <h3 className="text-lg font-semibold text-white">
-                Verify the Legal Documentation
+                {t.compounding.legalTitle}
               </h3>
             </div>
             <p className="text-white/60 text-sm mb-4">
-              I always recommend doing your own research. Here are the official registrations you can check:
+              {t.compounding.legalDescription}
             </p>
             <div className="space-y-3">
               <a
@@ -109,8 +111,8 @@ export default function ProjectOverview() {
               >
                 <ExternalLink className="w-4 h-4 text-gold group-hover:text-gold-light" />
                 <div>
-                  <p className="text-white font-medium text-sm">U.S. SEC Filing</p>
-                  <p className="text-white/50 text-xs">Securities and Exchange Commission</p>
+                  <p className="text-white font-medium text-sm">{t.compounding.secTitle}</p>
+                  <p className="text-white/50 text-xs">{t.compounding.secSubtitle}</p>
                 </div>
               </a>
               <a
@@ -121,8 +123,8 @@ export default function ProjectOverview() {
               >
                 <ExternalLink className="w-4 h-4 text-gold group-hover:text-gold-light" />
                 <div>
-                  <p className="text-white font-medium text-sm">Australian ASIC Registry</p>
-                  <p className="text-white/50 text-xs">Australian Securities & Investments Commission</p>
+                  <p className="text-white font-medium text-sm">{t.compounding.asicTitle}</p>
+                  <p className="text-white/50 text-xs">{t.compounding.asicSubtitle}</p>
                 </div>
               </a>
             </div>
@@ -161,10 +163,10 @@ export default function ProjectOverview() {
           className="mb-8"
         >
           <h3 className="text-2xl font-bold text-white text-center mb-2">
-            Want to Learn More?
+            {t.videos.title}
           </h3>
           <p className="text-white/60 text-center mb-8">
-            These videos explain everything in detail. I found them really helpful.
+            {t.videos.description}
           </p>
         </motion.div>
 
@@ -190,9 +192,9 @@ export default function ProjectOverview() {
                 Your browser does not support the video tag.
               </video>
               <div className="p-4">
-                <h4 className="font-semibold text-white">How It All Works</h4>
+                <h4 className="font-semibold text-white">{t.videos.video1Title}</h4>
                 <p className="text-sm text-white/60 mt-1">
-                  A simple breakdown of the opportunity and why it works.
+                  {t.videos.video1Desc}
                 </p>
               </div>
             </div>
@@ -219,9 +221,9 @@ export default function ProjectOverview() {
                 Your browser does not support the video tag.
               </video>
               <div className="p-4">
-                <h4 className="font-semibold text-white">Getting Started Guide</h4>
+                <h4 className="font-semibold text-white">{t.videos.video2Title}</h4>
                 <p className="text-sm text-white/60 mt-1">
-                  Step-by-step walkthrough if you decide to join.
+                  {t.videos.video2Desc}
                 </p>
               </div>
             </div>

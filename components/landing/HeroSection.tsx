@@ -3,13 +3,16 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Heart, Clock, CheckCircle, Play } from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface HeroSectionProps {
   referralCode?: string;
 }
 
 export default function HeroSection({ referralCode }: HeroSectionProps) {
+  const { t } = useLanguage();
   const registerHref = referralCode ? `/register?ref=${referralCode}` : '/register';
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Background with gradient overlay */}
@@ -32,17 +35,16 @@ export default function HeroSection({ referralCode }: HeroSectionProps) {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 mb-6">
               <Heart className="w-4 h-4 text-gold" />
-              <span className="text-sm text-gold">Sharing something special with you</span>
+              <span className="text-sm text-gold">{t.hero.badge}</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Hey Friend,{' '}
-              <span className="gold-gradient">Watch This First</span>
+              {t.hero.title}{' '}
+              <span className="gold-gradient">{t.hero.titleHighlight}</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-white/70 mb-8 max-w-xl">
-              I wanted to share something that&apos;s been a real blessing for my family.
-              Take a few minutes to watch this video. It explains everything better than I can.
+              {t.hero.description}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -50,7 +52,7 @@ export default function HeroSection({ referralCode }: HeroSectionProps) {
                 href="/calendly"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold text-navy-dark font-semibold rounded-lg hover:bg-gold-light transition-all animate-pulse-gold"
               >
-                I&apos;m Interested, Tell Me More
+                {t.hero.cta}
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
@@ -58,7 +60,7 @@ export default function HeroSection({ referralCode }: HeroSectionProps) {
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gold/50 text-gold font-semibold rounded-lg hover:bg-gold/10 transition-colors"
               >
                 <Play className="w-5 h-5" />
-                Learn How It Works
+                {t.hero.secondaryCta}
               </a>
             </div>
 
@@ -67,23 +69,23 @@ export default function HeroSection({ referralCode }: HeroSectionProps) {
               <div className="text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
                   <Clock className="w-5 h-5 text-gold" />
-                  <span className="text-2xl font-bold text-white">5 min</span>
+                  <span className="text-2xl font-bold text-white">{t.hero.stat1Value}</span>
                 </div>
-                <p className="text-sm text-white/60">Quick video</p>
+                <p className="text-sm text-white/60">{t.hero.stat1Label}</p>
               </div>
               <div className="text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
                   <Heart className="w-5 h-5 text-gold" />
-                  <span className="text-2xl font-bold text-white">Real</span>
+                  <span className="text-2xl font-bold text-white">{t.hero.stat2Value}</span>
                 </div>
-                <p className="text-sm text-white/60">People, real results</p>
+                <p className="text-sm text-white/60">{t.hero.stat2Label}</p>
               </div>
               <div className="text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
                   <CheckCircle className="w-5 h-5 text-gold" />
-                  <span className="text-2xl font-bold text-white">No</span>
+                  <span className="text-2xl font-bold text-white">{t.hero.stat3Value}</span>
                 </div>
-                <p className="text-sm text-white/60">Pressure, just info</p>
+                <p className="text-sm text-white/60">{t.hero.stat3Label}</p>
               </div>
             </div>
           </motion.div>

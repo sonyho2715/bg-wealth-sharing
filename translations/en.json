@@ -1,0 +1,180 @@
+{
+  "nav": {
+    "overview": "Overview",
+    "team": "Team",
+    "successStories": "Success Stories",
+    "freeTraining": "Free Training",
+    "login": "Login",
+    "language": "Language"
+  },
+  "hero": {
+    "badge": "Sharing something special with you",
+    "title": "Hey Friend,",
+    "titleHighlight": "Watch This First",
+    "description": "I wanted to share something that's been a real blessing for my family. Take a few minutes to watch this video. It explains everything better than I can.",
+    "cta": "I'm Interested, Tell Me More",
+    "secondaryCta": "Learn How It Works",
+    "stat1Value": "5 min",
+    "stat1Label": "Quick video",
+    "stat2Value": "Real",
+    "stat2Label": "People, real results",
+    "stat3Value": "No",
+    "stat3Label": "Pressure, just info"
+  },
+  "compounding": {
+    "badge": "This is what excited me",
+    "title": "The Power of",
+    "titleHighlight": "Compounding",
+    "description": "Einstein called compound interest the eighth wonder of the world. Here's why this opportunity caught my attention.",
+    "disclaimer": "*Illustrative scenarios based on 1.3% daily compounding. Actual results vary based on market conditions.",
+    "legalTitle": "Verify the Legal Documentation",
+    "legalDescription": "I always recommend doing your own research. Here are the official registrations you can check:",
+    "secTitle": "U.S. SEC Filing",
+    "secSubtitle": "Securities and Exchange Commission",
+    "asicTitle": "Australian ASIC Registry",
+    "asicSubtitle": "Australian Securities & Investments Commission"
+  },
+  "benefits": {
+    "startSmall": "Start Small",
+    "startSmallDesc": "You don't need a fortune to begin. Even modest amounts can grow significantly over time.",
+    "consistentGrowth": "Consistent Growth",
+    "consistentGrowthDesc": "Daily profits that compound on themselves, creating a snowball effect for your investment.",
+    "timeIsFriend": "Time is Your Friend",
+    "timeIsFriendDesc": "The longer you stay, the more powerful compounding becomes. Patience pays off."
+  },
+  "videos": {
+    "title": "Want to Learn More?",
+    "description": "These videos explain everything in detail. I found them really helpful.",
+    "video1Title": "How It All Works",
+    "video1Desc": "A simple breakdown of the opportunity and why it works.",
+    "video2Title": "Getting Started Guide",
+    "video2Desc": "Step-by-step walkthrough if you decide to join."
+  },
+  "team": {
+    "badge": "Meet Our Team",
+    "title": "Led by",
+    "titleHighlight": "Experienced Leaders",
+    "description": "Our team is dedicated to helping you succeed in your wealth-building journey."
+  },
+  "certificates": {
+    "badge": "Verified & Certified",
+    "title": "Professional",
+    "titleHighlight": "Certifications",
+    "description": "Our credentials and certifications that demonstrate our commitment to excellence."
+  },
+  "testimonials": {
+    "badge": "Real Results",
+    "title": "Success",
+    "titleHighlight": "Stories",
+    "description": "Hear from real members who have experienced the benefits of our program.",
+    "showing": "Showing",
+    "of": "of",
+    "stories": "stories",
+    "loadMore": "Load More Stories"
+  },
+  "calendly": {
+    "title": "Ready to Learn More?",
+    "description": "Schedule a free consultation to get your questions answered.",
+    "cta": "Book a Free Call"
+  },
+  "cta": {
+    "title": "Ready to Get Started?",
+    "description": "Join our community and start your wealth-building journey today.",
+    "primaryCta": "Register for Free Training",
+    "secondaryCta": "Schedule a Call",
+    "alreadyMember": "Already a member?",
+    "login": "Login here"
+  },
+  "footer": {
+    "description": "Building wealth together through smart investing and community support.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "disclaimer": "Disclaimer",
+    "riskDisclosure": "Risk Disclosure",
+    "riskText": "Investment involves risk. Past performance does not guarantee future results.",
+    "copyright": "All rights reserved."
+  },
+  "dashboard": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "onboarding": "Onboarding",
+      "signals": "Trading Signals",
+      "calculators": "Calculators",
+      "referrals": "Referrals",
+      "resources": "Resources",
+      "settings": "Settings",
+      "logout": "Logout"
+    },
+    "home": {
+      "welcome": "Welcome back",
+      "overview": "Your Overview",
+      "quickActions": "Quick Actions",
+      "continueOnboarding": "Continue Onboarding",
+      "viewSignals": "View Signals",
+      "inviteFriends": "Invite Friends"
+    },
+    "onboarding": {
+      "title": "Getting Started",
+      "description": "Complete these steps to set up your account and start earning.",
+      "progress": "Progress",
+      "completed": "Completed",
+      "markComplete": "Mark as Complete",
+      "watchVideo": "Watch Video"
+    },
+    "signals": {
+      "title": "Trading Signals",
+      "description": "Daily trading signals to help you make informed decisions.",
+      "schedule": "Signal Schedule",
+      "morning": "Morning Signal",
+      "evening": "Evening Signal",
+      "timezone": "All times in EST"
+    },
+    "calculators": {
+      "title": "Investment Calculators",
+      "description": "Calculate your potential returns and plan your investment strategy.",
+      "compoundCalc": "Compound Calculator",
+      "roiCalc": "ROI Calculator"
+    },
+    "referrals": {
+      "title": "Invite Friends",
+      "description": "Share the opportunity with friends and family.",
+      "yourLink": "Your Referral Link",
+      "copyLink": "Copy Link",
+      "copied": "Copied!",
+      "totalReferrals": "Total Referrals",
+      "activeReferrals": "Active Referrals"
+    },
+    "resources": {
+      "title": "Resources",
+      "description": "Helpful materials to support your journey.",
+      "faqs": "FAQs",
+      "guides": "Guides",
+      "support": "Support"
+    },
+    "settings": {
+      "title": "Settings",
+      "description": "Manage your account settings and preferences.",
+      "profile": "Profile",
+      "security": "Security",
+      "notifications": "Notifications",
+      "language": "Language",
+      "save": "Save Changes"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit"
+  }
+}

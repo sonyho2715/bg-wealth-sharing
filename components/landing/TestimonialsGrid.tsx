@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { TESTIMONIAL_VIDEOS } from '@/data/testimonials';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface VideoCardProps {
   src: string;
@@ -114,6 +115,7 @@ function VideoCard({ src, index }: VideoCardProps) {
 }
 
 export default function TestimonialsGrid() {
+  const { t } = useLanguage();
   const [currentPage, setCurrentPage] = useState(0);
   const videosPerPage = 12;
   const totalPages = Math.ceil(TESTIMONIAL_VIDEOS.length / videosPerPage);
@@ -146,15 +148,19 @@ export default function TestimonialsGrid() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 mb-6">
+            <Sparkles className="w-4 h-4 text-gold" />
+            <span className="text-sm text-gold">{t.testimonials.badge}</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Wall of <span className="gold-gradient">Success Stories</span>
+            {t.testimonials.title} <span className="gold-gradient">{t.testimonials.titleHighlight}</span>
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto mb-4">
-            Hear from real members who have transformed their financial future with Abundant Blessing AI Trade.
+            {t.testimonials.description}
           </p>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30">
             <span className="text-gold font-semibold">{TESTIMONIAL_VIDEOS.length}+</span>
-            <span className="text-white/70">Success Stories</span>
+            <span className="text-white/70">{t.testimonials.stories}</span>
           </div>
         </motion.div>
 
@@ -198,7 +204,7 @@ export default function TestimonialsGrid() {
         </div>
 
         <p className="text-center text-white/50 text-sm mt-4">
-          Showing {startIndex + 1}-{Math.min(startIndex + videosPerPage, TESTIMONIAL_VIDEOS.length)} of {TESTIMONIAL_VIDEOS.length} testimonials
+          {t.testimonials.showing} {startIndex + 1}-{Math.min(startIndex + videosPerPage, TESTIMONIAL_VIDEOS.length)} {t.testimonials.of} {TESTIMONIAL_VIDEOS.length} {t.testimonials.stories}
         </p>
       </div>
     </section>

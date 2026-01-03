@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import { TrendingUp, Mail, MessageCircle, Shield, AlertTriangle } from 'lucide-react';
 import { CONFIG } from '@/lib/config';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-navy border-t border-gold/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -21,8 +24,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-white/60 max-w-md mb-4">
-              Join Abundant Blessing AI Trade and start your journey to financial growth.
-              Our proven Win-Win-Win model has helped members build sustainable income streams.
+              {t.footer.description}
             </p>
             <div className="flex items-center gap-2 text-sm text-gold">
               <Shield className="w-4 h-4" />
@@ -32,36 +34,31 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Quick Links</h3>
+            <h3 className="font-semibold text-white mb-4">{t.footer.quickLinks}</h3>
             <ul className="space-y-2">
               <li>
                 <a href="#overview" className="text-white/60 hover:text-gold transition-colors">
-                  How It Works
-                </a>
-              </li>
-              <li>
-                <a href="#dsjex-explained" className="text-white/60 hover:text-gold transition-colors">
-                  How DSJEX Works
+                  {t.nav.overview}
                 </a>
               </li>
               <li>
                 <a href="#team" className="text-white/60 hover:text-gold transition-colors">
-                  Our Team
+                  {t.nav.team}
                 </a>
               </li>
               <li>
                 <a href="#testimonials" className="text-white/60 hover:text-gold transition-colors">
-                  Success Stories
+                  {t.nav.successStories}
                 </a>
               </li>
               <li>
                 <Link href="/register" className="text-gold hover:text-gold-light transition-colors font-medium">
-                  Free Live Training
+                  {t.nav.freeTraining}
                 </Link>
               </li>
               <li>
                 <Link href="/login" className="text-white/60 hover:text-gold transition-colors">
-                  Member Login
+                  {t.nav.login}
                 </Link>
               </li>
             </ul>
@@ -69,7 +66,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Contact</h3>
+            <h3 className="font-semibold text-white mb-4">{t.footer.contact}</h3>
             <ul className="space-y-3">
               <li>
                 <a
@@ -98,7 +95,7 @@ export default function Footer() {
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-gold/60 flex-shrink-0 mt-0.5" />
             <p className="text-xs text-white/50 leading-relaxed">
-              <span className="text-gold/70 font-medium">Risk Disclosure:</span> {CONFIG.legal.riskDisclosure}
+              <span className="text-gold/70 font-medium">{t.footer.riskDisclosure}:</span> {t.footer.riskText}
             </p>
           </div>
         </div>
@@ -110,13 +107,13 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy-policy" className="text-sm text-white/40 hover:text-gold transition-colors">
-              Privacy Policy
+              {t.footer.privacyPolicy}
             </Link>
             <Link href="/terms-of-service" className="text-sm text-white/40 hover:text-gold transition-colors">
-              Terms of Service
+              {t.footer.termsOfService}
             </Link>
             <Link href="/disclaimer" className="text-sm text-white/40 hover:text-gold transition-colors">
-              Disclaimer
+              {t.footer.disclaimer}
             </Link>
           </div>
         </div>

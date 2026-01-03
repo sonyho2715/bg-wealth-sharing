@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Award } from 'lucide-react';
 import Image from 'next/image';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 const certificates = [
   { src: '/images/bg/screenshot-1.png', alt: 'Certificate 1' },
@@ -14,6 +15,8 @@ const certificates = [
 ];
 
 export default function CertificatesSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="certificates" className="py-20 bg-navy-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,14 +27,15 @@ export default function CertificatesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Award className="w-8 h-8 text-gold" />
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Our <span className="text-gold">Certifications</span>
-            </h2>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 mb-6">
+            <Award className="w-4 h-4 text-gold" />
+            <span className="text-sm text-gold">{t.certificates.badge}</span>
           </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            {t.certificates.title} <span className="text-gold">{t.certificates.titleHighlight}</span>
+          </h2>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Professional credentials and achievements from our dedicated team
+            {t.certificates.description}
           </p>
         </motion.div>
 

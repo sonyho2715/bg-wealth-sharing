@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import RecaptchaProvider from "@/components/RecaptchaProvider";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,7 +29,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} antialiased bg-background text-foreground`}>
         <RecaptchaProvider>
-          {children}
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
         </RecaptchaProvider>
       </body>
     </html>

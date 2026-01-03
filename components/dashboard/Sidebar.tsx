@@ -19,16 +19,8 @@ import {
   Share2,
 } from 'lucide-react';
 import { logout } from '@/app/actions/auth';
-
-const navItems = [
-  { href: '/dashboard', icon: Home, label: 'Home' },
-  { href: '/dashboard/onboarding', icon: ClipboardList, label: 'Onboarding' },
-  { href: '/dashboard/signals', icon: Radio, label: 'Meetings & Signals' },
-  { href: '/dashboard/calculators', icon: Calculator, label: 'Calculators' },
-  { href: '/dashboard/resources', icon: BookOpen, label: 'Resources' },
-  { href: '/dashboard/referrals', icon: Share2, label: 'Share & Earn' },
-  { href: '/dashboard/settings', icon: Settings, label: 'Settings' },
-];
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+import LanguageToggle from '@/components/ui/LanguageToggle';
 
 interface SidebarProps {
   user: {
@@ -41,6 +33,17 @@ interface SidebarProps {
 export default function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navItems = [
+    { href: '/dashboard', icon: Home, label: t.dashboard.sidebar.dashboard },
+    { href: '/dashboard/onboarding', icon: ClipboardList, label: t.dashboard.sidebar.onboarding },
+    { href: '/dashboard/signals', icon: Radio, label: t.dashboard.sidebar.signals },
+    { href: '/dashboard/calculators', icon: Calculator, label: t.dashboard.sidebar.calculators },
+    { href: '/dashboard/resources', icon: BookOpen, label: t.dashboard.sidebar.resources },
+    { href: '/dashboard/referrals', icon: Share2, label: t.dashboard.sidebar.referrals },
+    { href: '/dashboard/settings', icon: Settings, label: t.dashboard.sidebar.settings },
+  ];
 
   return (
     <>
@@ -94,6 +97,14 @@ export default function Sidebar({ user }: SidebarProps) {
           </div>
         </div>
 
+        {/* Language Toggle */}
+        <div className="p-4 border-b border-gold/20">
+          <div className="flex items-center justify-between">
+            <span className="text-white/60 text-sm">{t.dashboard.settings.language}</span>
+            <LanguageToggle />
+          </div>
+        </div>
+
         {/* Navigation */}
         <nav className="p-4 space-y-2">
           {navItems.map((item) => {
@@ -125,7 +136,7 @@ export default function Sidebar({ user }: SidebarProps) {
               className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-white/70 hover:text-red-400 hover:bg-red-500/10 transition-colors"
             >
               <LogOut className="w-5 h-5" />
-              <span className="font-medium">Logout</span>
+              <span className="font-medium">{t.dashboard.sidebar.logout}</span>
             </button>
           </form>
         </div>
