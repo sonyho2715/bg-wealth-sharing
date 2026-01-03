@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Play, ArrowRight, Shield, TrendingUp, Users } from 'lucide-react';
+import { Play, ArrowRight, Heart, Clock, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 
 interface HeroSectionProps {
@@ -31,18 +31,18 @@ export default function HeroSection({ referralCode }: HeroSectionProps) {
             className="text-center lg:text-left"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 mb-6">
-              <Shield className="w-4 h-4 text-gold" />
-              <span className="text-sm text-gold">Trusted by 500,000+ Investors</span>
+              <Heart className="w-4 h-4 text-gold" />
+              <span className="text-sm text-gold">Sharing something special with you</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Invest Once,{' '}
-              <span className="gold-gradient">Benefit for Life</span>
+              Hey Friend,{' '}
+              <span className="gold-gradient">Watch This First</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-white/70 mb-8 max-w-xl">
-              Join Abundant Blessing AI Trade in the BG Wealth Sharing Project.
-              Experience the power of the Win-Win-Win model with DSJEX partnership.
+              I wanted to share something that&apos;s been a real blessing for my family.
+              Take a few minutes to watch this video. It explains everything better than I can.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -50,7 +50,7 @@ export default function HeroSection({ referralCode }: HeroSectionProps) {
                 href={registerHref}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold text-navy-dark font-semibold rounded-lg hover:bg-gold-light transition-all animate-pulse-gold"
               >
-                Get Started Today
+                I&apos;m Interested, Tell Me More
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
@@ -58,37 +58,37 @@ export default function HeroSection({ referralCode }: HeroSectionProps) {
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gold/50 text-gold font-semibold rounded-lg hover:bg-gold/10 transition-colors"
               >
                 <Play className="w-5 h-5" />
-                Watch How It Works
+                Learn How It Works
               </a>
             </div>
 
-            {/* Stats */}
+            {/* Friendly info points instead of stats */}
             <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10">
               <div className="text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
-                  <TrendingUp className="w-5 h-5 text-gold" />
-                  <span className="text-2xl font-bold text-white">$100M+</span>
+                  <Clock className="w-5 h-5 text-gold" />
+                  <span className="text-2xl font-bold text-white">5 min</span>
                 </div>
-                <p className="text-sm text-white/60">Total Volume</p>
+                <p className="text-sm text-white/60">Quick video</p>
               </div>
               <div className="text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
-                  <Users className="w-5 h-5 text-gold" />
-                  <span className="text-2xl font-bold text-white">500,000+</span>
+                  <Heart className="w-5 h-5 text-gold" />
+                  <span className="text-2xl font-bold text-white">Real</span>
                 </div>
-                <p className="text-sm text-white/60">Active Members</p>
+                <p className="text-sm text-white/60">People, real results</p>
               </div>
               <div className="text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-1">
-                  <Shield className="w-5 h-5 text-gold" />
-                  <span className="text-2xl font-bold text-white">100%</span>
+                  <CheckCircle className="w-5 h-5 text-gold" />
+                  <span className="text-2xl font-bold text-white">No</span>
                 </div>
-                <p className="text-sm text-white/60">Secure</p>
+                <p className="text-sm text-white/60">Pressure, just info</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Video */}
+          {/* YouTube Video */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -96,21 +96,13 @@ export default function HeroSection({ referralCode }: HeroSectionProps) {
             className="relative"
           >
             <div className="relative rounded-2xl overflow-hidden border-2 border-gold/30 shadow-2xl shadow-gold/10">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                className="w-full aspect-video object-cover"
-                poster="/video-poster.jpg"
-              >
-                <source
-                  src="https://bg662.com/wp-content/uploads/2025/BG%20Video%20720hd.mp4"
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
+              <iframe
+                src="https://www.youtube.com/embed/khLQv7BnvmY?rel=0"
+                title="BG Wealth Sharing Introduction"
+                className="w-full aspect-video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
 
             {/* Decorative frame */}
