@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { TrendingUp, Calendar, DollarSign, Sparkles } from 'lucide-react';
+import { TrendingUp, Calendar, DollarSign, Sparkles, FileCheck, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 
 const compoundingBenefits = [
   {
@@ -55,7 +56,7 @@ export default function ProjectOverview() {
           </p>
         </motion.div>
 
-        {/* Compounding Visualization */}
+        {/* Compounding Scenarios Image */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -63,33 +64,68 @@ export default function ProjectOverview() {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <div className="bg-navy border border-gold/20 rounded-2xl p-8 max-w-3xl mx-auto">
-            <h3 className="text-xl font-semibold text-white text-center mb-6">
-              See How Small Daily Gains Add Up
-            </h3>
-
-            {/* Simple visual example */}
-            <div className="grid grid-cols-3 gap-4 text-center mb-6">
-              <div className="bg-navy-dark rounded-xl p-4 border border-gold/10">
-                <p className="text-sm text-white/60 mb-1">Month 1</p>
-                <p className="text-2xl font-bold text-white">$1,000</p>
-                <p className="text-xs text-gold mt-1">Starting point</p>
-              </div>
-              <div className="bg-navy-dark rounded-xl p-4 border border-gold/10">
-                <p className="text-sm text-white/60 mb-1">Month 6</p>
-                <p className="text-2xl font-bold text-gold">$1,340</p>
-                <p className="text-xs text-emerald-400 mt-1">+34% growth</p>
-              </div>
-              <div className="bg-navy-dark rounded-xl p-4 border border-gold/10">
-                <p className="text-sm text-white/60 mb-1">Month 12</p>
-                <p className="text-2xl font-bold text-gold">$1,800</p>
-                <p className="text-xs text-emerald-400 mt-1">+80% growth</p>
-              </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="rounded-2xl overflow-hidden border border-gold/20 shadow-2xl">
+              <Image
+                src="/images/bg/screenshot-5.png"
+                alt="1.3% Daily Compounding Scenarios - showing growth from $300 to $5,000 starting amounts over 18 months"
+                width={1200}
+                height={800}
+                className="w-full h-auto"
+              />
             </div>
-
-            <p className="text-center text-white/60 text-sm">
-              *Illustrative example. Actual results vary based on market conditions and trading performance.
+            <p className="text-center text-white/60 text-sm mt-4">
+              *Illustrative scenarios based on 1.3% daily compounding. Actual results vary based on market conditions.
             </p>
+          </div>
+        </motion.div>
+
+        {/* Legal Documentation Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-16"
+        >
+          <div className="bg-navy border border-gold/20 rounded-2xl p-6 max-w-2xl mx-auto">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 rounded-lg bg-emerald-500/20">
+                <FileCheck className="w-5 h-5 text-emerald-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">
+                Verify the Legal Documentation
+              </h3>
+            </div>
+            <p className="text-white/60 text-sm mb-4">
+              I always recommend doing your own research. Here are the official registrations you can check:
+            </p>
+            <div className="space-y-3">
+              <a
+                href="https://www.sec.gov/Archives/edgar/data/2076856/000207685625000001/xslFormDX01/primary_doc.xml"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-3 rounded-lg bg-navy-dark border border-gold/10 hover:border-gold/30 transition-colors group"
+              >
+                <ExternalLink className="w-4 h-4 text-gold group-hover:text-gold-light" />
+                <div>
+                  <p className="text-white font-medium text-sm">U.S. SEC Filing</p>
+                  <p className="text-white/50 text-xs">Securities and Exchange Commission</p>
+                </div>
+              </a>
+              <a
+                href="https://connectonline.asic.gov.au"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-3 rounded-lg bg-navy-dark border border-gold/10 hover:border-gold/30 transition-colors group"
+              >
+                <ExternalLink className="w-4 h-4 text-gold group-hover:text-gold-light" />
+                <div>
+                  <p className="text-white font-medium text-sm">Australian ASIC Registry</p>
+                  <p className="text-white/50 text-xs">Australian Securities & Investments Commission</p>
+                </div>
+              </a>
+            </div>
           </div>
         </motion.div>
 
