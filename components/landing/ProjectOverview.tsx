@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { TrendingUp, Calendar, DollarSign, Sparkles, FileCheck, ExternalLink } from 'lucide-react';
-import Image from 'next/image';
 
 const compoundingBenefits = [
   {
@@ -56,7 +55,7 @@ export default function ProjectOverview() {
           </p>
         </motion.div>
 
-        {/* Compounding Scenarios Image */}
+        {/* Compounding Scenarios Video */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -66,13 +65,17 @@ export default function ProjectOverview() {
         >
           <div className="max-w-4xl mx-auto">
             <div className="rounded-2xl overflow-hidden border border-gold/20 shadow-2xl">
-              <Image
-                src="/images/bg/screenshot-5.png"
-                alt="1.3% Daily Compounding Scenarios - showing growth from $300 to $5,000 starting amounts over 18 months"
-                width={1200}
-                height={800}
-                className="w-full h-auto"
-              />
+              <video
+                controls
+                playsInline
+                className="w-full aspect-video object-cover"
+              >
+                <source
+                  src="https://video.wixstatic.com/video/16897f_43ccb7a4ae584a01a419ccd960bc8853/1080p/mp4/file.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
             </div>
             <p className="text-center text-white/60 text-sm mt-4">
               *Illustrative scenarios based on 1.3% daily compounding. Actual results vary based on market conditions.
