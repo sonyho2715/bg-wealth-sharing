@@ -278,9 +278,7 @@ export default function SignalsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-2">
               <span className="text-white/60 text-sm">Your Bonchat Server:</span>
-              <span className="text-gold font-semibold text-sm">Existing Members: S333666</span>
-              <span className="text-white/40 hidden sm:inline">|</span>
-              <span className="text-blue-400 font-semibold text-sm">New Members (Dec 9+): BG2022</span>
+              <span className="text-gold font-semibold text-sm">BG2022</span>
             </div>
           </div>
         </div>

@@ -100,7 +100,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
       {
         title: 'Download BonChat',
         items: [
-          'Click: https://www.bonchat.live/?id=d333666',
+          'Click: https://www.bonchat.live/?id=bg2022',
           "OR search 'BonChat' in App Store (iPhone) or Google Play (Android)",
           'Download and open the app',
         ],
@@ -110,8 +110,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
         items: [
           'Open BonChat app',
           "You'll see 'Server ID/Domain' field",
-          'For USA: Enter D333666',
-          'For Vietnam/Europe/Africa/Asia: Enter S333666',
+          'New Server: Enter BG2022',
           'Click Join',
         ],
       },
@@ -147,7 +146,7 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
         ],
       },
     ],
-    videoUrl: 'https://www.youtube.com/watch?v=yuYJIucjvgM',
+    videoUrl: 'https://www.youtube.com/watch?v=kwk05axcJSI',
     videoType: 'youtube',
   },
   {

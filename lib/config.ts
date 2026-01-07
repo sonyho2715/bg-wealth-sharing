@@ -11,16 +11,9 @@ export const CONFIG = {
 
   // Bonchat Communication
   bonchat: {
-    existingMembers: {
-      server: 'S333666',
-      description: 'For existing members',
-    },
-    newMembers: {
-      server: 'BG2022',
-      admins: ['Elena03', 'Stephen03'],
-      effectiveDate: '2025-12-09',
-      description: 'For new members joining after Dec 9, 2025',
-    },
+    server: 'BG2022',
+    admins: ['Elena03', 'Stephen03'],
+    downloadUrl: 'https://www.bonchat.live/?id=bg2022',
   },
 
   // Contact Information
@@ -112,8 +105,8 @@ export const CONFIG = {
 } as const;
 
 // Helper function to get Bonchat server info
-export function getBonchatServer(isNewMember: boolean = false) {
-  return isNewMember ? CONFIG.bonchat.newMembers : CONFIG.bonchat.existingMembers;
+export function getBonchatServer() {
+  return CONFIG.bonchat;
 }
 
 // Helper to format signal times

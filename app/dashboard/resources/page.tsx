@@ -31,7 +31,7 @@ const tutorialVideos = [
   },
   {
     title: 'Bonchat Communication',
-    url: 'https://www.youtube.com/watch?v=yuYJIucjvgM',
+    url: 'https://www.youtube.com/watch?v=kwk05axcJSI',
     description: 'Setting up and using Bonchat for team communication.',
   },
   {
@@ -46,7 +46,7 @@ const quickLinks = [
     icon: MessageCircle,
     title: 'Bonchat',
     description: 'Team communication app',
-    info: 'Existing: S333666 | New (Dec 9+): BG2022',
+    info: 'New Server: BG2022',
     link: '#',
   },
   {
@@ -76,7 +76,7 @@ const faqs = [
   },
   {
     question: 'How do I contact support?',
-    answer: 'Contact your team admin via Bonchat. Existing members use S333666, new members (Dec 9, 2025+) use BG2022 with admins Elena03 or Stephen03.',
+    answer: 'Contact your team admin via Bonchat using server BG2022 with admins Elena03 or Stephen03.',
   },
   {
     question: 'What wallet types are accepted?',
@@ -242,7 +242,7 @@ export default function ResourcesPage() {
         </div>
       </motion.div>
 
-      {/* Bonchat Server Update Notice */}
+      {/* Bonchat Server Notice */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -252,17 +252,14 @@ export default function ResourcesPage() {
         <div className="flex items-start gap-4">
           <AlertCircle className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
           <div>
-            <h3 className="font-semibold text-white mb-2">Bonchat Server Update (Dec 9, 2025)</h3>
+            <h3 className="font-semibold text-white mb-2">Bonchat Server</h3>
             <p className="text-white/70 mb-3">
-              Starting December 9, 2025, all <strong className="text-white">NEW MEMBERS</strong> will log into Bonchat using:
+              All members use the following server to connect on Bonchat:
             </p>
             <div className="bg-navy rounded-lg p-4 border border-blue-500/20">
               <p className="text-blue-400 font-semibold mb-2">Server ID: BG2022</p>
               <p className="text-white/60 text-sm">Admins: Elena03, Stephen03</p>
             </div>
-            <p className="text-green-400 text-sm mt-3 font-medium">
-              ✓ Existing members DO NOT need to change
-            </p>
           </div>
         </div>
       </motion.div>
@@ -279,15 +276,9 @@ export default function ResourcesPage() {
         <p className="text-white/70 max-w-md mx-auto mb-4">
           Connect with your team leader or admin through Bonchat for personalized assistance.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <div className="px-4 py-2 bg-navy rounded-lg border border-gold/30">
-            <span className="text-white/60 text-sm">Existing Members:</span>
-            <span className="text-gold font-semibold ml-2">S333666</span>
-          </div>
-          <div className="px-4 py-2 bg-navy rounded-lg border border-blue-500/30">
-            <span className="text-white/60 text-sm">New Members:</span>
-            <span className="text-blue-400 font-semibold ml-2">BG2022</span>
-          </div>
+        <div className="px-4 py-2 bg-navy rounded-lg border border-gold/30 inline-block">
+          <span className="text-white/60 text-sm">Server:</span>
+          <span className="text-gold font-semibold ml-2">BG2022</span>
         </div>
       </motion.div>
     </div>
